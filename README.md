@@ -223,15 +223,27 @@ Pay attention to the following properties:
 - Location: `warehouse/tablespace/external/hive/`
 
 
-The following labs will take you through various CDP 7.1.9 PvC Base Services to enable you on what will be available to support Data Lakehouse use cases.  CDP 7.1.9 PvC Base now includes support for Apache Iceberg in the following services: Impala, Flink, SSB, Spark 3, NiFi, and Replication (BDR).   This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment.  Users can develop an Iceberg application once and deploy anywhere.
+The following labs will take you through various CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
+CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Flink, SSB, Spark 3, NiFi, and Replication (BDR). 
+This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment. 
+Users can develop an Iceberg application once and deploy anywhere.
 Handy Iceberg Links
-![Apache Iceberg Documentation (be careful not everything may be supported yet in CDP)](https://iceberg.apache.org/docs/latest/)
-![Impala Iceberg Cheatsheet](https://docs.google.com/document/d/1cusHyLBA7hS5zLV0vVctymoEbUviJi4aT8SfKyIe_Ao/edit?usp=drive_link)
+[Apache Iceberg Documentation (be careful not everything may be supported yet in CDP)](https://iceberg.apache.org/docs/latest/)  
+[Impala Iceberg Cheatsheet](https://docs.google.com/document/d/1cusHyLBA7hS5zLV0vVctymoEbUviJi4aT8SfKyIe_Ao/edit?usp=drive_link)  
 
-# 1. Introduction to Iceberg with NiFi and Sql Stream Builder
+# 1. Introduction to Iceberg with NiFi  
 
 NiFi/Flink/SSB (Ingest Data ,Stream Data, SQL Stream Builder Queries)
-In this lab we are going to use Nifi, Flink, and Sql Stream Builder to complete sample integrations with Iceberg.  First we will use NiFi to ingest an airport route data set (JSON) and send that data to Kafka and Iceberg. Next we will use NiFi to ingest a countries data set (JSON) and send to Kafka and Iceberg.  Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.  Once we are complete with NiFi we will shift into Sql Streams Builder to show its capability to query Kafka with SQL, Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
+In this lab we are going to use Nifi, Flink, and Sql Stream Builder to complete sample integrations with Iceberg.
+First, we will use NiFi to ingest an airport route data set (JSON) and send that data to Kafka and Iceberg. 
+Next we will use NiFi to ingest a countries data set (JSON) and send to Kafka and Iceberg.  
+Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.  
+
+
+# 2. Introduction to Iceberg with Sql Stream Builder
+Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
+Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
+Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
 
 
 
