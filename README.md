@@ -21,8 +21,6 @@ Dataset airlines schema:
 1. [Introduction to Iceberg with NiFi and Sql Stream Builder](#1-Introduction-to-Iceberg-with NiFi-and-SQL-Stream-Builder)  
 
 
-
-
 Check that the airlines data was ingested for you: 
 Execute the following in HUE Impala Editor to test that data has loaded correctly and 
 that you have the appropriate access
@@ -222,14 +220,12 @@ Pay attention to the following properties:
 - SerDe Library: `org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe`
 - Location: `warehouse/tablespace/external/hive/`
 
-
-
-
 The following labs will take you through various CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
 CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Flink, SSB, Spark 3, NiFi, and Replication (BDR). 
 This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment. 
-Users can develop an Iceberg application once and deploy anywhere.
-**Handy Iceberg Links**:  
+Users can develop an Iceberg application once and deploy anywhere.  
+
+**Handy Iceberg Links**  
 [Apache Iceberg Documentation (be careful not everything may be supported yet in CDP)](https://iceberg.apache.org/docs/latest/)  
 [Impala Iceberg Cheatsheet](https://docs.google.com/document/d/1cusHyLBA7hS5zLV0vVctymoEbUviJi4aT8SfKyIe_Ao/edit?usp=drive_link)  
 
@@ -241,6 +237,14 @@ First, we will use NiFi to ingest an airport route data set (JSON) and send that
 Next we will use NiFi to ingest a countries data set (JSON) and send to Kafka and Iceberg.  
 Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.  
 
+**Execute the following in NiFi**  
+
+Let's deploy our NiFi flows. Download flow definition file here:  
+
+https://github.com/cldr-steven-matison/NiFi-Templates/blob/main/SSBDemo.json
+
+Save it as a JSON file locally and access CDF to deploy it:
+
 
 # 2. Introduction to Iceberg with Sql Stream Builder
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
@@ -248,7 +252,27 @@ Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg 
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
 
 
+**Download you Kerberos Keytab**  
+On the left hand menu, click on your username and access the Profile menu. On the right, under Actions, click Get keytab.  
+![Get Keytab](./images/Iceberg_GetKeytab.png)  
 
 
+**Copy/Paste the Kafka Endpoints**
+In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously setup by the lab admin, 
+The Endpoints are available on the overview page of the Datahub indicated by the admin, on the bottom menu,
+under "endpoints".
+
+**Access CDF**  
+Access the CDF Catalog and deploy flow  in the environment indicated by your admin.
 
 
+|Parameter|Value|
+|----------|----------|
+|CDP Workload User|<enter your user id>|
+|CDP Workload User Password|<enter your login password> and set sensitive to ‘Yes’|
+|Hadoop Configuration Resources|/etc/hive/conf/hive-site.xml,/etc/hadoop/conf/core-site.xml,/etc/hive/conf/hdfs-site.xml|
+|Kerberos Keytab|/tmp/<user-id>_nifi.keytab|
+|Hive Metastore URI|thrift://base1-01.lab##.pvc-ds-bc.athens.cloudera.com:9083,thrift://base2-01.lab##.pvc-ds-bc.athens.cloudera.com:9083|
+|Kafka Broker Endpoint|`Kafka Endpoints`|
+
+Kafka Endpoints in Datahub
