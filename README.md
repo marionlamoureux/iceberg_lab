@@ -223,6 +223,7 @@ Pay attention to the following properties:
 - Location: `warehouse/tablespace/external/hive/`
 
 
+
 The following labs will take you through various CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
 CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Flink, SSB, Spark 3, NiFi, and Replication (BDR). 
 This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment. 
@@ -244,7 +245,6 @@ Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
-
 
 
 
