@@ -257,12 +257,20 @@ On the left hand menu, click on your username and access the Profile menu. On th
 ![Get Keytab](./images/Iceberg_GetKeytab.png)  
 
 
-**Copy/Paste the Kafka Endpoints**
+**Copy/Paste the Kafka Endpoints**  
 In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously setup by the lab admin, 
 The Endpoints are available on the overview page of the Datahub indicated by the admin, on the bottom menu,
 under "endpoints".  
 Kafka Endpoints in Datahub overview
 ![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.pnd)
+
+**Copy/paste the thrift Hive URI**  
+In you virtual warehouse, copy the JDBC url and keep only the node name in the string:  
+hs2-asdf.dw-go01-demo-aws.ylcu-atmi.cloudera.site
+
+**Download the configuration files**
+In your environment, access the Cloudera manager page under "data lake"
+
 
 **Access CDF**  
 Access the CDF Catalog and deploy flow  in the environment indicated by your admin.
