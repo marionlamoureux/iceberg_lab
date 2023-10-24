@@ -260,7 +260,9 @@ On the left hand menu, click on your username and access the Profile menu. On th
 **Copy/Paste the Kafka Endpoints**
 In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously setup by the lab admin, 
 The Endpoints are available on the overview page of the Datahub indicated by the admin, on the bottom menu,
-under "endpoints".
+under "endpoints".  
+Kafka Endpoints in Datahub overview
+![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.pnd)
 
 **Access CDF**  
 Access the CDF Catalog and deploy flow  in the environment indicated by your admin.
@@ -275,4 +277,4 @@ Access the CDF Catalog and deploy flow  in the environment indicated by your adm
 |Hive Metastore URI|thrift://base1-01.lab##.pvc-ds-bc.athens.cloudera.com:9083,thrift://base2-01.lab##.pvc-ds-bc.athens.cloudera.com:9083|
 |Kafka Broker Endpoint|`Kafka Endpoints`|
 
-Kafka Endpoints in Datahub
+
