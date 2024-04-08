@@ -1,4 +1,4 @@
-# Iceberg Lab**
+# Iceberg Lab
 
 ## Summary
 This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse.
@@ -22,9 +22,9 @@ Value Propositions: Take advantage of Iceberg - CDP’s Open Data Lakehouse, to 
 
 
 ## TABLE OF CONTENT
-1. ![Introduction to the workshop](###1.Introduction-to-the-workshop)
-2. ![Iceberg with NiFi and Sql Stream Builder](###2-Iceberg-with NiFi-and-SQL-Stream-Builder)  
-3. ![3. Introduction to Iceberg with Sql Stream Builder](###3.-Introduction-to-Iceberg-with-SQL-Stream-Builder)
+[1.Introduction to the workshop](#1-introduction-to-the-workshop)
+[2.Iceberg with NiFi and Sql Stream Builder](2-introduction-to-iceberg-with-nifi)  
+[3. Introduction to Iceberg with Sql Stream Builder](2-introduction-to-iceberg-with-nifi)
 
 
 ### 1. Introduction-to-the-workshop  
