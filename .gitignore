@@ -3,3 +3,6 @@
 .ipython/profile_default/startup
 .local/share/jupyter/runtime
 .pip
+.Rprofile
+.git-credentials
+.bash_history

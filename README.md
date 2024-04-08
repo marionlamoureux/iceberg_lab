@@ -1,26 +1,33 @@
-**Iceberg Lab**
+# Iceberg Lab**
 
-# Summary
-This workshop will take you through the new capabilities that have been added to CDP PvC Base Lakehouse Edition version 7.1.9.
-In this workshop you will learn how to take advantage of Iceberg to support ata Lakehouse initiatives.
-These instructions include: 1) setup of the Workshop; and 2) Labs that you will execute as part of the Workshop.
-Value Propositions: Take advantage of Iceberg - CDP’s Open Data Lakehouse, to experience:
-- Better performance
-- Lower maintenance responsibilities
-- Multi-function analytics without having many copies of data
-- Greater control.
+## Summary
+This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse.
+In this workshop you will learn how to take advantage of Iceberg to support Data Lakehouse initiatives.
+These instructions include:   
+1- setup of the Workshop;  
+2- Labs that you will execute as part of the Workshop.  
+
+
+Value Propositions: Take advantage of Iceberg - CDP’s Open Data Lakehouse, to experience:  
+- Better performance  
+- Lower maintenance responsibilities  
+- Multi-function analytics without having many copies of data  
+- Greater control.  
 
 *Note to admins: Refer to the Setup file containing the recommendations to setup the lab*
 
-Dataset airlines schema:
+**Dataset airlines schema**  
 
 ![Airlines schema](./images/Iceberg_airlinesschema.png)
 
 
-**TABLE OF CONTENT** 
-1. [Introduction to Iceberg with NiFi and Sql Stream Builder](#1-Introduction-to-Iceberg-with NiFi-and-SQL-Stream-Builder)  
+## TABLE OF CONTENT
+1. ![Introduction to the workshop](###1.Introduction-to-the-workshop)
+2. ![Iceberg with NiFi and Sql Stream Builder](###2-Iceberg-with NiFi-and-SQL-Stream-Builder)  
+3. ![3. Introduction to Iceberg with Sql Stream Builder](###3.-Introduction-to-Iceberg-with-SQL-Stream-Builder)
 
 
+### 1. Introduction-to-the-workshop  
 Check that the airlines data was ingested for you: 
 Execute the following in HUE Impala Editor to test that data has loaded correctly and 
 that you have the appropriate access
@@ -229,7 +236,7 @@ Users can develop an Iceberg application once and deploy anywhere.
 [Apache Iceberg Documentation (be careful not everything may be supported yet in CDP)](https://iceberg.apache.org/docs/latest/)  
 [Impala Iceberg Cheatsheet](https://docs.google.com/document/d/1cusHyLBA7hS5zLV0vVctymoEbUviJi4aT8SfKyIe_Ao/edit?usp=drive_link)  
 
-# 1. Introduction to Iceberg with NiFi  
+### 2. Introduction to Iceberg with NiFi  
 
 NiFi/Flink/SSB (Ingest Data ,Stream Data, SQL Stream Builder Queries)
 In this lab we are going to use Nifi, Flink, and Sql Stream Builder to complete sample integrations with Iceberg.
@@ -245,7 +252,7 @@ https://github.com/cldr-steven-matison/NiFi-Templates/blob/main/SSBDemo.json
 
 Save it as a JSON file locally and access CDF to deploy it:
 
-# 2. Introduction to Iceberg with Sql Stream Builder
+### 3. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
@@ -284,7 +291,6 @@ Access the CDF Catalog and deploy flow  in the environment indicated by your adm
 |Hive Metastore URI|thrift://base1-01.lab##.pvc-ds-bc.athens.cloudera.com:9083,thrift://base2-01.lab##.pvc-ds-bc.athens.cloudera.com:9083|
 |Kafka Broker Endpoint|`Kafka Endpoints`|  
 
-## SSB
 Access SSB and perform the below steps:
 
 1. Import this repo as a project in Sql Stream Builder
