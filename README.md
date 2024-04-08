@@ -245,7 +245,6 @@ https://github.com/cldr-steven-matison/NiFi-Templates/blob/main/SSBDemo.json
 
 Save it as a JSON file locally and access CDF to deploy it:
 
-
 # 2. Introduction to Iceberg with Sql Stream Builder
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
@@ -262,15 +261,15 @@ In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously 
 The Endpoints are available on the overview page of the Datahub indicated by the admin, on the bottom menu,
 under "endpoints".  
 Kafka Endpoints in Datahub overview
-![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.pnd)
+![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.png)
 
 **Copy/paste the thrift Hive URI**  
 In you virtual warehouse, copy the JDBC url and keep only the node name in the string:  
-hs2-asdf.dw-go01-demo-aws.ylcu-atmi.cloudera.site
+`hs2-asdf.dw-go01-demo-aws.ylcu-atmi.cloudera.site`
 
 **Download the configuration files**
 In your environment, access the Cloudera manager page under "data lake"
-
+![Configurationfiles](./images/Iceberg_downloadclientconfiguration.png)
 
 **Access CDF**  
 Access the CDF Catalog and deploy flow  in the environment indicated by your admin.
@@ -283,6 +282,43 @@ Access the CDF Catalog and deploy flow  in the environment indicated by your adm
 |Hadoop Configuration Resources|/etc/hive/conf/hive-site.xml,/etc/hadoop/conf/core-site.xml,/etc/hive/conf/hdfs-site.xml|
 |Kerberos Keytab|/tmp/<user-id>_nifi.keytab|
 |Hive Metastore URI|thrift://base1-01.lab##.pvc-ds-bc.athens.cloudera.com:9083,thrift://base2-01.lab##.pvc-ds-bc.athens.cloudera.com:9083|
-|Kafka Broker Endpoint|`Kafka Endpoints`|
+|Kafka Broker Endpoint|`Kafka Endpoints`|  
 
+## SSB
+Access SSB and perform the below steps:
+
+1. Import this repo as a project in Sql Stream Builder
+2. Open your Project and have a look around at the left menu. Notice all hover tags. Explore the vast detail in Explorer menus.
+3. Import Your Keytab
+4. Check out Source Control. If you created vs import on first screen you may have to press import here still. You can setup Authentication here.
+5. Create and activate an Environment with a key value pair for your userid -> username
+6. Inspect/Add Data Sources. You may need to re-add Kafka. The Hive data source should work out of the box.
+7. Inspect/Add Virtual Kafka Tables. You can edit the existing tables against your kafka data source and correct topics. Just be sure to choose right topics and detect schema before save.
+
+## Modifications to Jobs
+Note: current repo should not require any job modifications.
+
+_CSA_1_11_Iceberg_Sample - Example in CSA 1.11 docs_
+No modifications should be required to this job
+Countries_Kafka - Select from Kafka Countries, Create IceBerg Table, Insert Results
+Confirm Kafka topic
+Routes_Kafka - Select from Kafka Routes, Create IceBerg Table, Insert Results
+Confirm Kafka topic
+Test_Hue_Tables
+Confirm source iceberg table exists, check table names, and namespaces.
+Time_Travel
+Execute required DESCRIBE in Hue, use SnapShot Ids
+### Top Tips
+If you are using different topics w/ different schema, use SSB to get the DDL for topic. Copy paste into the ssb job's create statement and begin modifying to acceptance. Just be careful with complicated schema such as array, struct, etc.
+If you are testing CREATE and INSERT in iterations, you should increment all table names per test iteration. Your previous interations will effect next iterations so stay in unique table names.
+Use DROP statement with care. It will DROP your Virtual Table, but not necessarily the impala/hive table. DROP those in HUE if needed.
+Execution of Jobs:
+Warning: These are not full ssb jobs. In these are samples you execute each statements one at a time.
+
+```
+Execute the SELECT * FROM kafka_topic. This will confirm that you have results in your kafka topic. Be patient, if this is your first job may take some time (1-2 minutes) to report results.
+Execute the CREATE TABLE Statement. This will create the virtual table in ssb_default name space. It will not create the table in IMPALA.
+Execute the INSERT INTO SELECT. Be Patient. This will create the impala table and begin reporting results from the kafka topic shortly.
+Lastly, execute the final select. These results are from IMPALA.
+```
 
