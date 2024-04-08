@@ -1,0 +1,5 @@
+.cache/matplotlib
+.conda/envs/python3.9/conda-meta
+.ipython/profile_default/startup
+.local/share/jupyter/runtime
+.pip
