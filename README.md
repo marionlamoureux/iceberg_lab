@@ -4,33 +4,36 @@
 This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse.
 In this workshop you will learn how to take advantage of Iceberg to support Data Lakehouse initiatives.
 These instructions include:   
-1- setup of the Workshop;  
-2- Labs that you will execute as part of the Workshop.  
 
 
-Value Propositions: Take advantage of Iceberg - CDP’s Open Data Lakehouse, to experience:  
+**Value Propositions**: Take advantage of Iceberg - CDP’s Open Data Lakehouse, to experience:  
 - Better performance  
 - Lower maintenance responsibilities  
 - Multi-function analytics without having many copies of data  
-- Greater control.  
+- Greater control  
 
 *Note to admins: Refer to the Setup file containing the recommendations to setup the lab*
+
+
+## TABLE OF CONTENT
+[1. Introduction to the workshop](#1-introduction-to-the-workshop)  
+[2. Iceberg with NiFi and Sql Stream Builder](2-introduction-to-iceberg-with-nifi)  
+[3. Introduction to Iceberg with Sql Stream Builder](2-introduction-to-iceberg-with-nifi)
+
+
+### 1. Introduction-to-the-workshop  
+Check that the airlines data was ingested for you:
+
 
 **Dataset airlines schema**  
 
 ![Airlines schema](./images/Iceberg_airlinesschema.png)
 
-
-## TABLE OF CONTENT
-[1.Introduction to the workshop](#1-introduction-to-the-workshop)  
-[2.Iceberg with NiFi and Sql Stream Builder](2-introduction-to-iceberg-with-nifi)  
-[3. Introduction to Iceberg with Sql Stream Builder](2-introduction-to-iceberg-with-nifi)
-
-
-### 1. Introduction-to-the-workshop  
-Check that the airlines data was ingested for you: 
 Execute the following in HUE Impala Editor to test that data has loaded correctly and 
-that you have the appropriate access
+that you have the appropriate access.  
+Access 
+
+
 ```SQL
 SELECT COUNT(*) FROM airlines_csv.flights_csv;
 ```
