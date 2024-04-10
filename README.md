@@ -38,15 +38,21 @@ Here displayed in a file explorer:
 ![Raw Data Set](./images/dataset_folder.png)
 
 
-Check that the airlines data was ingested for you: Execute the following in HUE Impala Editor to test that data has loaded correctly and 
-that you have the appropriate access.
+Make a note of your username, in a CDP Public Cloud workshop, its should be a account from user01 to user50, 
+assigned by your workshop presenter.
+Check that the airlines data was ingested for you: you should have a database named after your username.
+
 
 Navigate to Data Warehouse, then Virtual Warehouse and open the SQL Authoring tool HUE.
 ![Home_CDW](./images/home_cdw.png)
 
+Execute the following in HUE Impala Editor to test that data has loaded correctly and 
+that you have the appropriate access.
+![Hue Editor](./images/Hue_editor.png)
+
 
 ```SQL
-SELECT COUNT(*) FROM airlines_csv.flights_csv;
+SELECT COUNT(*) FROM ${username}_airlines_csv.flights_csv;
 ```
 
 ![Flights data](./images/Iceberg_Flightsdata.png)
@@ -54,8 +60,8 @@ SELECT COUNT(*) FROM airlines_csv.flights_csv;
 ```SQL
 -- CREATE DATABASES
 -- EACH USER RUNS TO CREATE DATABASES
-CREATE DATABASE ${user_id}_airlines;
-CREATE DATABASE ${user_id}_airlines_maint;
+CREATE DATABASE ${username}_airlines;
+CREATE DATABASE ${username}_airlines_maint;
 
 
 -- CREATE HIVE TABLE FORMAT TO CONVERT TO ICEBERG LATER
