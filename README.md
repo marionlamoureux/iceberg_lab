@@ -22,16 +22,27 @@ These instructions include:
 
 
 ### 1. Introduction-to-the-workshop  
-Check that the airlines data was ingested for you:
+Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
+Schema for the data set is below:Entity-Relation Diagram of tables we use in todays workshop:
 
+Fact table: flights (86mio rows)
+Dimension tables: airlines (1.5k rows), airports (3.3k rows) and planes.
 
 **Dataset airlines schema**  
 
 ![Airlines schema](./images/Iceberg_airlinesschema.png)
 
-Execute the following in HUE Impala Editor to test that data has loaded correctly and 
-that you have the appropriate access.  
-Access 
+**Raw format of the flight set**  
+Here displayed in a file explorer:
+
+![Raw Data Set](./images/dataset_folder.png)
+
+
+Check that the airlines data was ingested for you: Execute the following in HUE Impala Editor to test that data has loaded correctly and 
+that you have the appropriate access.
+
+Navigate to Data Warehouse, then Virtual Warehouse and open the SQL Authoring tool HUE.
+![Home_CDW](./images/home_cdw.png)
 
 
 ```SQL
