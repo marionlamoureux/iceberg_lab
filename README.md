@@ -43,25 +43,34 @@ assigned by your workshop presenter.
 Check that the airlines data was ingested for you: you should have a database named after your username.
 
 
-Navigate to Data Warehouse, then Virtual Warehouse and open the SQL Authoring tool HUE.
+Navigate to Data Warehouse, then Virtual Warehouse and open the SQL Authoring tool HUE.  
+  
 ![Home_CDW](./images/home_cdw.png)
 
 Execute the following in HUE Impala Editor to test that data has loaded correctly and 
-that you have the appropriate access.
+that you have the appropriate access.  
+  
 ![Hue Editor](./images/Hue_editor.png)
 
 
 ```SQL
-SELECT COUNT(*) FROM ${username}_airlines_csv.flights_csv;
+SELECT COUNT(*) FROM ${user_id}_airlines_csv.flights_csv;  
 ```
+  
+To set the variable with your username, fill in the field as below:  
+![Setqueryvaribale](./images/Set_variable_hue.png)  
+and check that your fact table comes back with circa 80million rows  
 
 ![Flights data](./images/Iceberg_Flightsdata.png)
+
+Then, generate the Iceberg database from the pre-ingested csv tables.  
+
 
 ```SQL
 -- CREATE DATABASES
 -- EACH USER RUNS TO CREATE DATABASES
-CREATE DATABASE ${username}_airlines;
-CREATE DATABASE ${username}_airlines_maint;
+CREATE DATABASE ${user_id}_airlines;
+CREATE DATABASE ${user_id}_airlines_maint;
 
 
 -- CREATE HIVE TABLE FORMAT TO CONVERT TO ICEBERG LATER
