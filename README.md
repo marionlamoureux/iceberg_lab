@@ -285,9 +285,18 @@ Will show the newly ingested data, note the path, folder breakdown is different 
 
 #### 2. Snapshots
 
-Because of the ingest
+From the INGEST queries earlier, snapshots was created and allow the time travel feature in Iceberg.
+
 ```SQL
-DESCRIBE HISTORY ${user_id}_airlines_maint.flights BETWEEN '2024-04-11 09:48:07.654000000' and '2024-04-11 09:50:23.203000000'
+
+```
+Make a note of the timestamps for 2 different snapshots, you can then run:
+
+```SQL
+DESCRIBE HISTORY ${user_id}_airlines_maint.flights  BETWEEN <Timestamp1> AND <Timestamp2>
+```
+Timestamp format looks like this:  
+``'2024-04-11 09:48:07.654000000'`` 
 
 SELECT COUNT(*) FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF 3916175409400584430  
 SELECT * FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF 3916175409400584430
