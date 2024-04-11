@@ -17,23 +17,26 @@ These instructions include:
 
 ## TABLE OF CONTENT
 [1. Introduction to the workshop](#1-introduction-to-the-workshop)  
-[2. Iceberg with NiFi and Sql Stream Builder](2-introduction-to-iceberg-with-nifi)  
-[3. Introduction to Iceberg with Sql Stream Builder](2-introduction-to-iceberg-with-nifi)  
+[2. Table Maintenance in Iceberg](#2-table-maintenance-in-Iceberg)  
+[3. Iceberg with NiFi and Sql Stream Builder](#3-introduction-to-iceberg-with-nifi)  
+[4. Introduction to Iceberg with Sql Stream Builder](#4-introduction-to-iceberg-with-nifi)  
 
 
 ### 1. Introduction-to-the-workshop  
-**Goal of the lab**:Check the dataset made available in a database  
+**Goal of the lab**:Check the dataset made available in a database in a csv format and store it all as Iceberg.  
+
 Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
 Schema for the data set is below:Entity-Relation Diagram of tables we use in todays workshop:
 
 Fact table: flights (86mio rows)
-Dimension tables: airlines (1.5k rows), airports (3.3k rows) and planes.
+Dimension tables: airlines (1.5k rows), airports (3.3k rows), planes (5k rows) and unique tickets (100k rows).
 
 **Dataset airlines schema**  
 
 ![Airlines schema](./images/Iceberg_airlinesschema.png)
 
 **Raw format of the flight set**  
+
 Here displayed in a file explorer:
 
 ![Raw Data Set](./images/dataset_folder.png)
@@ -41,26 +44,24 @@ Here displayed in a file explorer:
 
 Make a note of your username, in a CDP Public Cloud workshop, its should be a account from user01 to user50, 
 assigned by your workshop presenter.
-Check that the airlines data was ingested for you: you should have a database named after your username.
-
+Check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`. Each participant will create their own Iceberg databases out of the shared master database.
 
 Navigate to Data Warehouse, then Virtual Warehouse and open the SQL Authoring tool HUE.  
   
 ![Home_CDW](./images/home_cdw.png)
 
-Execute the following in HUE Impala Editor to test that data has loaded correctly and 
-that you have the appropriate access.  
+Execute the following in HUE Impala Editor to test that data has loaded correctly and that you have the appropriate access.  
   
 ![Hue Editor](./images/Hue_editor.png)
 
 
 ```SQL
-SELECT COUNT(*) FROM ${user_id}_airlines_csv.flights_csv;  
+SELECT COUNT(*) FROM airlines_csv.flights_csv;  
 ```
-  
+
+**Note: These queries use variables in Hue**
 To set the variable with your username, fill in the field as below:  
 ![Setqueryvaribale](./images/Set_variable_hue.png)  
-and check that your fact table comes back with circa 80million rows  
 
 ![Flights data](./images/Iceberg_Flightsdata.png)
 
@@ -134,6 +135,11 @@ CREATE TABLE ${user_id}_airlines.flights_iceberg (
 PARTITIONED BY (year int)
 STORED AS ICEBERG 
 ;
+```
+
+For the Nifi lab:
+
+```SQL
 
 -- LOAD DATA INTO ICEBERG TABLE FORMAT STORED AS PARQUET
 INSERT INTO ${user_id}_airlines.flights_iceberg
@@ -176,6 +182,13 @@ CREATE TABLE ${user_id}_airlines.`countries_nifi_iceberg` (
   `name` VARCHAR,
   `currency` VARCHAR
 ) STORED AS ICEBERG;
+```
+
+### 2. Table Maintenance in Iceberg
+
+
+
+```SQL
 
 -- [TABLE MAINTENANCE] CREATE FLIGHTS TABLE IN ICEBERG TABLE FORMAT
 drop table if exists ${user_id}_airlines_maint.flights;
@@ -194,6 +207,9 @@ PARTITIONED BY (year int)
 STORED AS ICEBERG 
 ;
 ```
+
+
+
 
 ```SQL
 -- LOAD DATA TO SIMULATE SMALL FILES
