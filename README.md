@@ -265,7 +265,7 @@ Also note the path and folder structure: a folder is a partition, a file is an i
 Now, let's alter the table, adding a partition on the month on top of the year.  
 
 ```SQL
-ALTER TABLE ${user_id}_airlines_maint.flights add PARTITION FIELD month;
+ALTER TABLE ${user_id}_airlines_maint.flights SET PARTITION SPEC (year, month);
 ```  
 
 Ingest a month worth of data.  
