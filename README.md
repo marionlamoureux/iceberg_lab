@@ -18,10 +18,11 @@ These instructions include:
 ## TABLE OF CONTENT
 [1. Introduction to the workshop](#1-introduction-to-the-workshop)  
 [2. Iceberg with NiFi and Sql Stream Builder](2-introduction-to-iceberg-with-nifi)  
-[3. Introduction to Iceberg with Sql Stream Builder](2-introduction-to-iceberg-with-nifi)
+[3. Introduction to Iceberg with Sql Stream Builder](2-introduction-to-iceberg-with-nifi)  
 
 
 ### 1. Introduction-to-the-workshop  
+**Goal of the lab**:Check the dataset made available in a database  
 Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
 Schema for the data set is below:Entity-Relation Diagram of tables we use in todays workshop:
 
@@ -64,6 +65,9 @@ and check that your fact table comes back with circa 80million rows
 ![Flights data](./images/Iceberg_Flightsdata.png)
 
 Then, generate the Iceberg database from the pre-ingested csv tables.  
+To run several queries in a row in Hue, make sure you select all the queries:  
+![Hue_runqueries.png](./images/Hue_runqueries.png)  
+
 
 
 ```SQL

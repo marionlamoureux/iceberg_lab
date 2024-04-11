@@ -1,6 +1,12 @@
 # Setup instructions
 ## Data Set
-Save the airline data in a folder under the default CDP datalake bucket.
+Save the airline data in a folder under the default CDP datalake bucket under several folders:  
+-flights  
+-airports  
+-airlines  
+-unique_tickets  
+-planes  
+
 Make a note of the path to be indicated in the SQL under the variable "${data-bucket}"
 Example: for s3://goes-se-sandbox01/airline-csv/flights/ the folder is airline-csv (no / before nor after)
 

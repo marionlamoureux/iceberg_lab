@@ -36,5 +36,17 @@ drop table if exists airlines_csv.airports_csv;
 CREATE EXTERNAL TABLE airlines_csv.airports_csv(iata string, airport string, city string, state DOUBLE, country string, lat DOUBLE, lon DOUBLE) 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' 
 STORED AS TEXTFILE LOCATION '/<data_bucket>/airports' tblproperties("skip.header.line.count"="1");
+
+
+drop table if exists airlines_csv.unique_tickets_csv;
+CREATE EXTERNAL TABLE airlines_csv.unique_tickets_csv(ticketnumber BIGINT, leg1flightnum BIGINT, leg1uniquecarrier STRING,
+  leg1origin STRING,   leg1dest STRING, leg1month BIGINT,
+  leg1dayofmonth BIGINT, leg1dayofweek BIGINT, leg1deptime BIGINT,
+  leg1arrtime BIGINT, leg2flightnum BIGINT, leg2uniquecarrier STRING,
+  leg2origin STRING, leg2dest STRING, leg2month BIGINT, leg2dayofmonth BIGINT,
+  leg2dayofweek BIGINT, leg2deptime BIGINT, leg2arrtime BIGINT) 
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' 
+STORED AS TEXTFILE LOCATION '/<data_bucket>/unique_tickets' tblproperties("skip.header.line.count"="1");
+
 ```
 
