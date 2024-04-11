@@ -265,7 +265,7 @@ Also note the path and folder structure: a folder is a partition, a file is an i
 Now, let's alter the table, adding a partition on the month on top of the year.  
 
 ```SQL
-ALTER TABLE ${user_id}_airlines_maint.flights add PARTITION FIELD month
+ALTER TABLE ${user_id}_airlines_maint.flights add PARTITION FIELD month;
 ```  
 
 Ingest a month worth of data.  
@@ -290,12 +290,13 @@ Will show the newly ingested data, note the path, folder breakdown is different 
 From the INGEST queries earlier, snapshots was created and allow the time travel feature in Iceberg.
 
 ```SQL
+DESCRIBE HISTORY ${user_id}_airlines_maint.flights;  
+```  
 
-```
 Make a note of the timestamps for 2 different snapshots, as well as the snapshot id for one, you can then run:
 
 ```SQL
-DESCRIBE HISTORY ${user_id}_airlines_maint.flights  BETWEEN <Timestamp1> AND <Timestamp2>
+DESCRIBE HISTORY ${user_id}_airlines_maint.flights  BETWEEN ${Timestamp1} AND ${Timestamp2} 
 ```
 Timestamp format looks like this:  
 `'2024-04-11 09:48:07.654000000'`  
@@ -303,8 +304,8 @@ Timestamp format looks like this:
   
 ```SQL
 
-SELECT COUNT(*) FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF <snapshotid>
-SELECT * FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF <snapshotid>
+SELECT COUNT(*) FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF ${snapshotid}
+SELECT * FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF ${snapshotid}
 
 ```
 Snapshot id format looks like:
