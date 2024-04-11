@@ -1,16 +1,17 @@
 # Iceberg Lab
 
 ## Summary
-This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse.
-In this workshop you will learn how to take advantage of Iceberg to support Data Lakehouse initiatives.
-These instructions include:   
+This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse and into the various features of the SqL stream builder.
 
+In this workshop you will learn how to take advantage of Iceberg to support Data Lakehouse initiatives.
 
 **Value Propositions**: Take advantage of Iceberg - CDP’s Open Data Lakehouse, to experience:  
 - Better performance  
 - Lower maintenance responsibilities  
 - Multi-function analytics without having many copies of data  
 - Greater control  
+
+It will also 
 
 *Note to admins: Refer to the Setup file containing the recommendations to setup the lab*
 
@@ -187,6 +188,7 @@ CREATE TABLE ${user_id}_airlines.`countries_nifi_iceberg` (
 ### 2. Table Maintenance in Iceberg
 
 
+Under the maintenance database, let's load the flight table partitioned by year.
 
 ```SQL
 
@@ -208,7 +210,8 @@ STORED AS ICEBERG
 ;
 ```
 
-
+Here demontration partition evolution, inserting like that will demonstrate partition evolution
+and snapshot feature for time travel
 
 
 ```SQL
@@ -264,12 +267,89 @@ INSERT INTO ${user_id}_airlines_maint.flights
  SELECT * FROM airlines_csv.flights_csv WHERE year = 1996 AND month = 12;
 ```
 
+#### 1. Partition evolution
+Let's look at the file size
+
+For reference, and because Iceberg will integrate nicely with all the components of the Cloudera Data Platform 
+and with different engines, the task can be performed in PySpark, looking like so:
+**In pyspark**
+```SQL
+SELECT partition,file_path, file_size_in_bytes
+FROM ${user-id}_airlines_maint.flights.files order by partition
+
+```
+
+Here we're sticking to the Cloudera Data Warehouse service for simplicity, so we'll perform the task using Impala.
+
+**In Impala**
+
+```SQL
+SHOW FILES in marion_airlines_maint.flights;
+```
+
+Make a note of the average file size which should be around 5MB.
+Also note the path and folder structure: a folder is a partition, a file is an ingest
+
+Now, let's alter the table, adding a partition on the month on top of the year.
+
+```SQL
+ALTER TABLE <user-id>_airlines_maint.flights add PARTITION FIELD month
+```
+Ingest a month worth of data.
+
+```SQL
+INSERT INTO ${user_id}_airlines_maint.flights
+ SELECT * FROM airlines_csv.flights_csv
+ WHERE year <= 1996 AND month <= 1
+```
+Compaction Feature 
+
+
+
+#### 2. Snapshots
+
+```SQL
+DESCRIBE HISTORY ${user_id}_airlines_maint.flights BETWEEN '2024-04-11 09:48:07.654000000' and '2024-04-11 09:50:23.203000000'
+
+SELECT COUNT(*) FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF 3916175409400584430  
+SELECT * FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF 3916175409400584430
+
+```
+
+
+#### 3. ACID V2
+
+https://blog.min.io/iceberg-acid-transactions/
+
+
+Row level delete or update make it compliant
+Isolation, concurrency
+
+```SQL
+SELECT * FROM  ${user_id}_airlines_maint.flights LIMit 1
+
+SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 1 and tailnum = 'N923RW'
+and deptime = 1703
+
+SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
+and deptime = 730
+
+
+UPDATE ${user_id}_airlines_maint.flights SET uniquecarrier = 'BB' 
+WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
+and deptime = 730
+
+
+ALTER TABLE ${user_id}_airlines_maint.flights SET TBLPROPERTIES('format-version'= '2')
+```
 
 Copy & paste the SQL below into HUE,
 ```SQL
 -- TEST PLANES PROPERTIES
 DESCRIBE FORMATTED ${user_id}_airlines.planes;
 ```
+
+
 
 Pay attention to the following properties: 
 - Table Type: `EXTERNAL`
@@ -294,17 +374,37 @@ Next we will use NiFi to ingest a countries data set (JSON) and send to Kafka an
 Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.  
 
 **Execute the following in NiFi**  
+Access the Cloudera Data Flow Service:  
+![AccessCDF](./images/AccessCDF.png)  
 
-Let's deploy our NiFi flows. Download flow definition file here:  
 
-https://github.com/cldr-steven-matison/NiFi-Templates/blob/main/SSBDemo.json
+Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo - Iceberg` Flow and deploy it:  
 
-Save it as a JSON file locally and access CDF to deploy it:
+![CataloginCDF.png](./images/CataloginCDF.png)  
+
+
+In the Flow deployment wizard, pick a name for your flow (indicate your usename to avoid confusion with other participant's flow).
+In the parameter's page, fill in the fields with the value for the parameters necessary to configure the flow.
+
+`thrift://workshopforbt-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`
+
 
 ### 3. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
+
+We'll be accessing SSB from a datahub and Kafka from a different datahub:  
+
+![Datahubs](./images/AccessDataHub.png)  
+
+  
+
+#### 1.Configuration details for SSB
+
+You'll need:
+- The Kafka endpoints you'll be querying
+- The thrift Hive URI
 
 
 **Download you Kerberos Keytab**  
@@ -312,20 +412,26 @@ On the left hand menu, click on your username and access the Profile menu. On th
 ![Get Keytab](./images/Iceberg_GetKeytab.png)  
 
 
-**Copy/Paste the Kafka Endpoints**  
+**Copy/Paste the Kafka Endpoints**    
+  
 In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously setup by the lab admin, 
 The Endpoints are available on the overview page of the Datahub indicated by the admin, on the bottom menu,
 under "endpoints".  
 Kafka Endpoints in Datahub overview
 ![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.png)
 
-**Copy/paste the thrift Hive URI**  
-In you virtual warehouse, copy the JDBC url and keep only the node name in the string:  
+
+**Copy/paste the thrift Hive URI**   
+In the Cloudera Data Warehousing service, identify the Hive Virtual Warehouse and copy the JDBC url and keep only the node name in the string:  
 `hs2-asdf.dw-go01-demo-aws.ylcu-atmi.cloudera.site`
+
+![JDBCfromHive.png](./images/JDBCfromHive.png)
+
 
 **Download the configuration files**
 In your environment, access the Cloudera manager page under "data lake"
 ![Configurationfiles](./images/Iceberg_downloadclientconfiguration.png)
+
 
 **Access CDF**  
 Access the CDF Catalog and deploy flow  in the environment indicated by your admin.
