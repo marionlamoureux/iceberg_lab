@@ -256,7 +256,7 @@ Here we're sticking to the Cloudera Data Warehouse service for simplicity, so we
 **In Impala**  
   
 ```SQL
-SHOW FILES in marion_airlines_maint.flights;
+SHOW FILES in ${user-id}_airlines_maint.flights;
 ```
 
 Make a note of the average file size which should be around 5MB.
@@ -277,7 +277,7 @@ INSERT INTO ${user_id}_airlines_maint.flights
 ```
 Let's have another look:  
 ```SQL
-SHOW FILES in marion_airlines_maint.flights;
+SHOW FILES in ${user-id}_airlines_maint.flights;
 ```  
 
 Will show the newly ingested data, note the path, folder breakdown is different from before, with the additional partitioning over month taking place.
@@ -285,6 +285,7 @@ Will show the newly ingested data, note the path, folder breakdown is different 
 
 #### 2. Snapshots
 
+Because of the ingest
 ```SQL
 DESCRIBE HISTORY ${user_id}_airlines_maint.flights BETWEEN '2024-04-11 09:48:07.654000000' and '2024-04-11 09:50:23.203000000'
 
