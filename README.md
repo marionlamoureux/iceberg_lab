@@ -501,6 +501,15 @@ Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo 
 In the Flow deployment wizard, pick a name for your flow (indicate your usename to avoid confusion with other participant's flow).
 In the parameter's page, fill in the fields with the value for the parameters necessary to configure the flow.
 
+|Parameter|Value|
+|----------|----------|
+|CDP Workload User|<enter your user id>|
+|CDP Workload User Password|<enter your login password> and set sensitive to ‘Yes’|
+|Hadoop Configuration Resources|/etc/hive/conf/hive-site.xml,/etc/hadoop/conf/core-site.xml,/etc/hive/conf/hdfs-site.xml|
+|Kerberos Keytab|/tmp/<user-id>_nifi.keytab|
+|Hive Metastore URI|thrift://base1-01.lab##.pvc-ds-bc.athens.cloudera.com:9083,thrift://base2-01.lab##.pvc-ds-bc.athens.cloudera.com:9083|
+|Kafka Broker Endpoint|`Kafka Endpoints`|  
+  
 
 ### 3. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
@@ -521,25 +530,7 @@ In the Cloudera Data Warehousing service, identify the Hive Virtual Warehouse an
 ![JDBCfromHive.png](./images/JDBCfromHive.png)
 
 
-**Download the configuration files**
-In your environment, access the Cloudera manager page under "data lake"
-![Configurationfiles](./images/Iceberg_downloadclientconfiguration.png)
-
-
-**Access CDF**  
-Access the CDF Catalog and deploy flow  in the environment indicated by your admin.
-
-
-|Parameter|Value|
-|----------|----------|
-|CDP Workload User|<enter your user id>|
-|CDP Workload User Password|<enter your login password> and set sensitive to ‘Yes’|
-|Hadoop Configuration Resources|/etc/hive/conf/hive-site.xml,/etc/hadoop/conf/core-site.xml,/etc/hive/conf/hdfs-site.xml|
-|Kerberos Keytab|/tmp/<user-id>_nifi.keytab|
-|Hive Metastore URI|thrift://base1-01.lab##.pvc-ds-bc.athens.cloudera.com:9083,thrift://base2-01.lab##.pvc-ds-bc.athens.cloudera.com:9083|
-|Kafka Broker Endpoint|`Kafka Endpoints`|  
-
-Access SSB and perform the below steps:
+Access the SSB datahub indicated by the workshop presenter and perform the below steps:
 
 1. Import this repo as a project in Sql Stream Builder
 2. Open your Project and have a look around at the left menu. Notice all hover tags. Explore the vast detail in Explorer menus.
@@ -548,6 +539,28 @@ Access SSB and perform the below steps:
 5. Create and activate an Environment with a key value pair for your userid -> username
 6. Inspect/Add Data Sources. You may need to re-add Kafka. The Hive data source should work out of the box.
 7. Inspect/Add Virtual Kafka Tables. You can edit the existing tables against your kafka data source and correct topics. Just be sure to choose right topics and detect schema before save.
+
+  
+  
+  
+Open the SSB UI by clicking on Streaming SQL Console.
+![AccessSSB.png](./images/AccessSSB.png)
+  
+ 
+Create Kafka Data Store: Create Kafka Data Store by selecting Data Sources in the left pane,
+clicking on the three-dotted icon next to Kafka, then selecting New Kafka Data Source.
+![KafkaAddsource.png](./images/KafkaAddsource.png)  
+  
+**Name**: {user-id}_cdp_kafka. 
+**Brokers**: (Comma-separated List as shown below)
+  
+Example: `bt-kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, 
+  bt-kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093,
+  bt-kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`
+**Protocol**: SASL/SSL
+**SASL Mechanism**: PLAIN.
+**SASL Username**: <CDP Username>. 
+**SASL Password**: Workload User password set by your admin as defined earlier/
 
 ## Modifications to Jobs
 Note: current repo should not require any job modifications.
