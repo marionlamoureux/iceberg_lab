@@ -23,8 +23,11 @@ It will also
 [4. Introduction to Iceberg with Sql Stream Builder](#4-introduction-to-iceberg-with-nifi)  
 
 
-### 1. Introduction-to-the-workshop  
-**Goal of the lab**:Check the dataset made available in a database in a csv format and store it all as Iceberg.  
+### 1. Introduction to the workshop  
+**Goal of the section:   
+Check the dataset made available in a database in a csv format and store it all as Iceberg.**  
+
+#### 1. Data Set
 
 Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
 Schema for the data set is below:Entity-Relation Diagram of tables we use in todays workshop:
@@ -42,14 +45,22 @@ Here displayed in a file explorer:
 
 ![Raw Data Set](./images/dataset_folder.png)
 
+#### 2. Access the data set in Cloudera Data Warehouse
+In this section, we will check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`. 
+Each participant will then create their own Iceberg databases out of the shared master database.
 
-Make a note of your username, in a CDP Public Cloud workshop, its should be a account from user01 to user50, 
-assigned by your workshop presenter.
-Check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`. Each participant will create their own Iceberg databases out of the shared master database.
+Make a note of your username, in a CDP Public Cloud workshop, it should be a account from user01 to user50, 
+assigned by your workshop presenter.  
 
-Navigate to Data Warehouse, then Virtual Warehouse and open the SQL Authoring tool HUE.  
+Navigate to Data Warehouse service:
   
 ![Home_CDW](./images/home_cdw.png)
+
+Then an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW, 
+here we'll be using the type that leverages Impala as an engine:  
+
+[!Typesofvirtualwarehouses.png](./images/Typesofvirtualwarehouses.png)  
+
 
 Execute the following in HUE Impala Editor to test that data has loaded correctly and that you have the appropriate access.  
   
@@ -61,16 +72,24 @@ SELECT COUNT(*) FROM airlines_csv.flights_csv;
 ```
 
 **Note: These queries use variables in Hue**
-To set the variable with your username, fill in the field as below:  
+
+To set the variable value with your username, fill in the field as below:  
 ![Setqueryvaribale](./images/Set_variable_hue.png)  
 
-![Flights data](./images/Iceberg_Flightsdata.png)
 
-Then, generate the Iceberg database from the pre-ingested csv tables.  
+![Flights data](./images/Iceberg_Flightsdata.png)  
+
+#### 3. Generating the Iceberg tables
+
+In this section, we will generate the Iceberg database from the pre-ingested csv tables.   
+
 To run several queries in a row in Hue, make sure you select all the queries:  
+
 ![Hue_runqueries.png](./images/Hue_runqueries.png)  
 
 
+Run the below queries to create your own databases and ingest data from the master database.  
+  
 
 ```SQL
 -- CREATE DATABASES
@@ -137,6 +156,7 @@ PARTITIONED BY (year int)
 STORED AS ICEBERG 
 ;
 ```
+
 
 For the Nifi lab:
 
@@ -368,10 +388,11 @@ Users can develop an Iceberg application once and deploy anywhere.
 ### 2. Introduction to Iceberg with NiFi  
 
 NiFi/Flink/SSB (Ingest Data ,Stream Data, SQL Stream Builder Queries)
-In this lab we are going to use Nifi, Flink, and Sql Stream Builder to complete sample integrations with Iceberg.
-First, we will use NiFi to ingest an airport route data set (JSON) and send that data to Kafka and Iceberg. 
-Next we will use NiFi to ingest a countries data set (JSON) and send to Kafka and Iceberg.  
-Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.  
+In this very short lab we are going to use Nifi to load data into Kafka and Iceberg:  
+- First, we will use NiFi to ingest an airport route data set (JSON) and send that data to Kafka and Iceberg.  
+- Next we will use NiFi to ingest a countries data set (JSON) and send to Kafka and Iceberg.   
+- Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.   
+  
 
 **Execute the following in NiFi**  
 Access the Cloudera Data Flow Service:  
@@ -386,6 +407,7 @@ Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo 
 In the Flow deployment wizard, pick a name for your flow (indicate your usename to avoid confusion with other participant's flow).
 In the parameter's page, fill in the fields with the value for the parameters necessary to configure the flow.
 
+Hive Metastore URI:  
 `thrift://workshopforbt-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`
 
 
