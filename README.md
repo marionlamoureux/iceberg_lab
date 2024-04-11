@@ -180,6 +180,8 @@ CREATE TABLE ${user_id}_airlines_maint.flights (
 PARTITIONED BY (year int)
 STORED AS ICEBERG 
 ;
+
+
 ```
 
 **Partition evolution**: the insert queries below are designed to demonstrate partition evolution
@@ -305,10 +307,10 @@ DESCRIBE HISTORY ${user_id}_airlines_maint.flights;
 Make a note of the timestamps for 2 different snapshots, as well as the snapshot id for one, you can then run:
 
 ```SQL
-DESCRIBE HISTORY ${user_id}_airlines_maint.flights  BETWEEN ${Timestamp1} AND ${Timestamp2} 
+DESCRIBE HISTORY ${user_id}_airlines_maint.flights  BETWEEN '${Timestamp1}' AND '${Timestamp2}';
 ```
 Timestamp format looks like this:  
-`'2024-04-11 09:48:07.654000000'`  
+`2024-04-11 09:48:07.654000000`  
   
   
 ```SQL
@@ -318,7 +320,7 @@ SELECT * FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF ${snaps
 
 ```
 Snapshot id format looks like:
-`3916175409400584430` with no quotes
+`3916175409400584430` **with no quotes**
 
 #### 3. ACID V2
 
@@ -337,11 +339,12 @@ Example:
 SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
 and deptime = 730
 
-
+----Now, Let's run an UPDATE Statement with will likely FAIL
 UPDATE ${user_id}_airlines_maint.flights SET uniquecarrier = 'BB' 
 WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
 and deptime = 730
 ```
+
 As Iceberg table are created as V1 by default, you might get an error message. You will be able to migrate the table from Iceberg V1 to V2 using the below query:
 ```SQL
 ALTER TABLE ${user_id}_airlines_maint.flights SET TBLPROPERTIES('format-version'= '2')
@@ -360,9 +363,7 @@ Copy & paste the SQL below into HUE
 ```SQL
 -- TEST PLANES PROPERTIES
 DESCRIBE FORMATTED ${user_id}_airlines.planes;
-```
-
-
+```  
 
 Pay attention to the following properties: 
 - Table Type: `EXTERNAL`
@@ -385,16 +386,10 @@ In this very short lab we are going to use Nifi to load data into Kafka and Iceb
 - Next we will use NiFi to ingest a countries data set (JSON) and send to Kafka and Iceberg.   
 - Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.   
   
+#### 1. Setup 1 - Create the table in Hue
 While still in Hue, please run the below to create Iceberg tables as destination for the Nifi flow will deploy just after:
 
 ```SQL
-
--- LOAD DATA INTO ICEBERG TABLE FORMAT STORED AS PARQUET
-INSERT INTO ${user_id}_airlines.flights_iceberg
- SELECT * FROM airlines_csv.flights_csv
- WHERE year <= 2006;
-
---
 -- TABLES NEEDED FOR THE NIFI LAB
 DROP TABLE IF EXISTS ${user_id}_airlines.`routes_nifi_iceberg`;
 CREATE TABLE ${user_id}_airlines.`routes_nifi_iceberg` (
@@ -433,11 +428,71 @@ CREATE TABLE ${user_id}_airlines.`countries_nifi_iceberg` (
 ```
 
 
-**Execute the following in NiFi**  
+#### 2. Setup 2 - Collect all the configuration details for the flow
+
+You'll need a few information from the workspace to configure the pre-designed flow:
+- Your keytab
+- Kafka Endpoints
+- Hive Metastore URI
+
+
+**Download you Kerberos Keytab**  
+On the left hand menu, click on your username and access the Profile menu. On the right, under Actions, click Get keytab. 
+Access your user profile
+![Userprofile.png](./images/Userprofile.png)  
+
+Download the keytab file
+![Get Keytab](./images/Iceberg_GetKeytab.png)  
+
+
+**Collect the Kafka Broker endpoints**
+In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously setup by the lab admin.
+![Datahubs](./images/AccessDataHub.png)  
+The Endpoints are available on the overview page of the Datahub indicated by the admin, on the bottom menu,
+under "endpoints".  
+
+Kafka Endpoints in Datahub overview
+![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.png)
+
+
+**Grab the Hive Metastore URI**
+The hive metastore for the datalake is indicated in the configuration file:  
+  
+Access the Management Console:  
+
+![AccessManagementConsole.png](./images/AccessManagementConsole.png)  
+
+
+Select the Datalake:  
+
+![Datalake.png](./images/Datalake.png)  
+
+
+Access the url for the Cloudera Manager of the environment:  
+
+![ClouderaManagerinfo.png](./images/ClouderaManagerinfo.png)  
+
+
+Access the Hive metastore service in Cloudera Manager: 
+
+![AccessHiveMetastoreservice.png](./images/AccessHiveMetastoreservice.png)  
+
+Download the Configuration files in a zip:  
+
+![DowloadHiveconfigurationzip.png](./images/DowloadHiveconfigurationzip.png)
+
+In the hive-conf.xml file, grab the value for the hive.metastore.uris
+![hive-conf.png](./images/hive-conf.png)  
+
+Hive Metastore URI example:
+
+`thrift://workshopforbt-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`
+
+
+#### 3. Deploy the Nifi Flow
+
 Access the Cloudera Data Flow Service:  
 ![AccessCDF](./images/AccessCDF.png)  
-
-
 Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo - Iceberg` Flow and deploy it:  
 
 ![CataloginCDF.png](./images/CataloginCDF.png)  
@@ -446,41 +501,18 @@ Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo 
 In the Flow deployment wizard, pick a name for your flow (indicate your usename to avoid confusion with other participant's flow).
 In the parameter's page, fill in the fields with the value for the parameters necessary to configure the flow.
 
-Hive Metastore URI:  
-`thrift://workshopforbt-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`
-
 
 ### 3. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
 
-We'll be accessing SSB from a datahub and Kafka from a different datahub:  
-
-![Datahubs](./images/AccessDataHub.png)  
-
-  
 
 #### 1.Configuration details for SSB
 
 You'll need:
 - The Kafka endpoints you'll be querying
 - The thrift Hive URI
-
-
-**Download you Kerberos Keytab**  
-On the left hand menu, click on your username and access the Profile menu. On the right, under Actions, click Get keytab.  
-![Get Keytab](./images/Iceberg_GetKeytab.png)  
-
-
-**Copy/Paste the Kafka Endpoints**    
-  
-In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously setup by the lab admin, 
-The Endpoints are available on the overview page of the Datahub indicated by the admin, on the bottom menu,
-under "endpoints".  
-Kafka Endpoints in Datahub overview
-![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.png)
-
 
 **Copy/paste the thrift Hive URI**   
 In the Cloudera Data Warehousing service, identify the Hive Virtual Warehouse and copy the JDBC url and keep only the node name in the string:  
