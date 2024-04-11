@@ -562,6 +562,25 @@ Example: `bt-kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093,
 **SASL Username**: <CDP Username>. 
 **SASL Password**: Workload User password set by your admin as defined earlier/
 
+Click on Validate to test the connections. Once successful click on Create.
+Create Kafka Table: Create Kafka Table, by selecting Virtual Tables in the left pane by clicking on the three-dotted icon next to it.
+Then click on New Kafka Table.  
+  
+![CreateKafkaTable.png](./images/CreateKafkaTable.png)
+  
+Configure the Kafka Table using the details below.
+Table Name: {user-id}_syslog_data.
+Kafka Cluster: <select the Kafka data source you created previously>.
+Data Format: JSON.
+Topic Name: <select the topic created in Schema Registry>.
+![KafkaTableConfig.png](./images/KafkaTableConfig.png)  
+    
+When you select Data Format as AVRO, you must provide the correct Schema Definition when creating the table for SSB to be able to successfully process the topic data. For JSON tables, though, SSB can look at the data flowing through the topic and try to infer the schema automatically, which is quite handy at times. Obviously, there must be data in the topic already for this feature to work correctly.
+
+Note: SSB tries its best to infer the schema correctly, but this is not always possible and sometimes data types are inferred incorrectly. You should always review the inferred schemas to check if it’s correctly inferred and make the necessary adjustments.
+
+Since you are reading data from a JSON topic, go ahead and click on Detect Schema to get the schema inferred. You should see the schema be updated in the Schema Definition tab.
+
 ## Modifications to Jobs
 Note: current repo should not require any job modifications.
 
