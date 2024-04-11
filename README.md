@@ -267,6 +267,15 @@ Now, let's alter the table, adding a partition on the month on top of the year.
 ```SQL
 ALTER TABLE ${user_id}_airlines_maint.flights SET PARTITION SPEC (year, month);
 ```  
+  
+Check the partition fields in the table properties
+```SQL
+
+DESCRIBE EXTENDED  ${user_id}_airlines_maint.flights
+```
+
+![Partitionkeys](./images/Partitionkeys.png)  
+
 
 Ingest a month worth of data.  
   
@@ -314,16 +323,16 @@ Snapshot id format looks like:
 #### 3. ACID V2
 
 https://blog.min.io/iceberg-acid-transactions/
+Let update a row.
 
-
-Row level delete or update make it compliant
-Isolation, concurrency
 
 ```SQL
-SELECT * FROM  ${user_id}_airlines_maint.flights LIMit 1
+SELECT * FROM  ${user_id}_airlines_maint.flights LIMIT 1
+```
 
-SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 1 and tailnum = 'N923RW'
-and deptime = 1703
+Save the values for year, month, tailnum and deptime to be able to identify that row after update.
+Example:  
+```SQL
 
 SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
 and deptime = 730
@@ -332,12 +341,22 @@ and deptime = 730
 UPDATE ${user_id}_airlines_maint.flights SET uniquecarrier = 'BB' 
 WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
 and deptime = 730
-
-
+```
+As Iceberg table are created as V1 by default, you might get an error message. You will be able to migrate the table from Iceberg V1 to V2 using the below query:
+```SQL
 ALTER TABLE ${user_id}_airlines_maint.flights SET TBLPROPERTIES('format-version'= '2')
+---Reperform the UPDATE
+
+UPDATE ${user_id}_airlines_maint.flights SET uniquecarrier = 'BB' 
+WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
+and deptime = 730
+
+---Check that the update worked:
+SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
+and deptime = 730
 ```
 
-Copy & paste the SQL below into HUE,
+Copy & paste the SQL below into HUE
 ```SQL
 -- TEST PLANES PROPERTIES
 DESCRIBE FORMATTED ${user_id}_airlines.planes;
