@@ -274,8 +274,10 @@ Ingest a month worth of data.
 INSERT INTO ${user_id}_airlines_maint.flights
  SELECT * FROM airlines_csv.flights_csv
  WHERE year <= 1996 AND month <= 1
-```
-Let's have another look:  
+```  
+
+Let's have another look:   
+  
 ```SQL
 SHOW FILES in ${user_id}_airlines_maint.flights;
 ```  
@@ -290,19 +292,23 @@ From the INGEST queries earlier, snapshots was created and allow the time travel
 ```SQL
 
 ```
-Make a note of the timestamps for 2 different snapshots, you can then run:
+Make a note of the timestamps for 2 different snapshots, as well as the snapshot id for one, you can then run:
 
 ```SQL
 DESCRIBE HISTORY ${user_id}_airlines_maint.flights  BETWEEN <Timestamp1> AND <Timestamp2>
 ```
 Timestamp format looks like this:  
-``'2024-04-11 09:48:07.654000000'`` 
+`'2024-04-11 09:48:07.654000000'`  
+  
+  
+```SQL
 
-SELECT COUNT(*) FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF 3916175409400584430  
-SELECT * FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF 3916175409400584430
+SELECT COUNT(*) FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF <snapshotid>
+SELECT * FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF <snapshotid>
 
 ```
-
+Snapshot id format looks like:
+`3916175409400584430` with no quotes
 
 #### 3. ACID V2
 
