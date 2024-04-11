@@ -158,53 +158,6 @@ STORED AS ICEBERG
 ```
 
 
-For the Nifi lab:
-
-```SQL
-
--- LOAD DATA INTO ICEBERG TABLE FORMAT STORED AS PARQUET
-INSERT INTO ${user_id}_airlines.flights_iceberg
- SELECT * FROM airlines_csv.flights_csv
- WHERE year <= 2006;
-
---
--- TABLES NEEDED FOR THE NIFI LAB
-DROP TABLE IF EXISTS ${user_id}_airlines.`routes_nifi_iceberg`;
-CREATE TABLE ${user_id}_airlines.`routes_nifi_iceberg` (
-  `airline_iata` VARCHAR,
-  `airline_icao` VARCHAR,
-  `departure_airport_iata` VARCHAR,
-  `departure_airport_icao` VARCHAR,
-  `arrival_airport_iata` VARCHAR,
-  `arrival_airport_icao` VARCHAR,
-  `codeshare` BOOLEAN,
-  `transfers` BIGINT,
-  `planes` ARRAY<VARCHAR>
-) STORED AS ICEBERG;
-
-DROP TABLE IF EXISTS ${user_id}_airlines.`airports_nifi_iceberg`;
-CREATE TABLE ${user_id}_airlines.`airports_nifi_iceberg` (
-  `city_code` VARCHAR,
-  `country_code` VARCHAR,
-  `name_translations` STRUCT<`en`:string>,
-  `time_zone` VARCHAR,
-  `flightable` BOOLEAN,
-  `coordinates` struct<`lat`:DOUBLE, `lon`:DOUBLE>,
-  `name` VARCHAR,
-  `code` VARCHAR,
-  `iata_type` VARCHAR
-) STORED AS ICEBERG;
-
-DROP TABLE IF EXISTS ${user_id}_airlines.`countries_nifi_iceberg`;
-CREATE TABLE ${user_id}_airlines.`countries_nifi_iceberg` (
-  `name_translations` STRUCT<`en`:VARCHAR>,
-  `cases` STRUCT<`su`:VARCHAR>,
-  `code` VARCHAR,
-  `name` VARCHAR,
-  `currency` VARCHAR
-) STORED AS ICEBERG;
-```
-
 ### 2. Table Maintenance in Iceberg
 
 
@@ -387,12 +340,58 @@ Users can develop an Iceberg application once and deploy anywhere.
 
 ### 2. Introduction to Iceberg with NiFi  
 
-NiFi/Flink/SSB (Ingest Data ,Stream Data, SQL Stream Builder Queries)
 In this very short lab we are going to use Nifi to load data into Kafka and Iceberg:  
 - First, we will use NiFi to ingest an airport route data set (JSON) and send that data to Kafka and Iceberg.  
 - Next we will use NiFi to ingest a countries data set (JSON) and send to Kafka and Iceberg.   
 - Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.   
   
+While still in Hue, please run the below to create Iceberg tables as destination for the Nifi flow will deploy just after:
+
+```SQL
+
+-- LOAD DATA INTO ICEBERG TABLE FORMAT STORED AS PARQUET
+INSERT INTO ${user_id}_airlines.flights_iceberg
+ SELECT * FROM airlines_csv.flights_csv
+ WHERE year <= 2006;
+
+--
+-- TABLES NEEDED FOR THE NIFI LAB
+DROP TABLE IF EXISTS ${user_id}_airlines.`routes_nifi_iceberg`;
+CREATE TABLE ${user_id}_airlines.`routes_nifi_iceberg` (
+  `airline_iata` VARCHAR,
+  `airline_icao` VARCHAR,
+  `departure_airport_iata` VARCHAR,
+  `departure_airport_icao` VARCHAR,
+  `arrival_airport_iata` VARCHAR,
+  `arrival_airport_icao` VARCHAR,
+  `codeshare` BOOLEAN,
+  `transfers` BIGINT,
+  `planes` ARRAY<VARCHAR>
+) STORED AS ICEBERG;
+
+DROP TABLE IF EXISTS ${user_id}_airlines.`airports_nifi_iceberg`;
+CREATE TABLE ${user_id}_airlines.`airports_nifi_iceberg` (
+  `city_code` VARCHAR,
+  `country_code` VARCHAR,
+  `name_translations` STRUCT<`en`:string>,
+  `time_zone` VARCHAR,
+  `flightable` BOOLEAN,
+  `coordinates` struct<`lat`:DOUBLE, `lon`:DOUBLE>,
+  `name` VARCHAR,
+  `code` VARCHAR,
+  `iata_type` VARCHAR
+) STORED AS ICEBERG;
+
+DROP TABLE IF EXISTS ${user_id}_airlines.`countries_nifi_iceberg`;
+CREATE TABLE ${user_id}_airlines.`countries_nifi_iceberg` (
+  `name_translations` STRUCT<`en`:VARCHAR>,
+  `cases` STRUCT<`su`:VARCHAR>,
+  `code` VARCHAR,
+  `name` VARCHAR,
+  `currency` VARCHAR
+) STORED AS ICEBERG;
+```
+
 
 **Execute the following in NiFi**  
 Access the Cloudera Data Flow Service:  
