@@ -247,7 +247,7 @@ and with different engines, the task can be performed in PySpark, looking like s
   
 ```SQL
 SELECT partition,file_path, file_size_in_bytes
-FROM ${user-id}_airlines_maint.flights.files order by partition
+FROM ${user_id}_airlines_maint.flights.files order by partition
 
 ```
 
@@ -256,7 +256,7 @@ Here we're sticking to the Cloudera Data Warehouse service for simplicity, so we
 **In Impala**  
   
 ```SQL
-SHOW FILES in ${user-id}_airlines_maint.flights;
+SHOW FILES in ${user_id}_airlines_maint.flights;
 ```
 
 Make a note of the average file size which should be around 5MB.
@@ -265,7 +265,7 @@ Also note the path and folder structure: a folder is a partition, a file is an i
 Now, let's alter the table, adding a partition on the month on top of the year.  
 
 ```SQL
-ALTER TABLE <user-id>_airlines_maint.flights add PARTITION FIELD month
+ALTER TABLE ${user_id}_airlines_maint.flights add PARTITION FIELD month
 ```  
 
 Ingest a month worth of data.  
@@ -277,7 +277,7 @@ INSERT INTO ${user_id}_airlines_maint.flights
 ```
 Let's have another look:  
 ```SQL
-SHOW FILES in ${user-id}_airlines_maint.flights;
+SHOW FILES in ${user_id}_airlines_maint.flights;
 ```  
 
 Will show the newly ingested data, note the path, folder breakdown is different from before, with the additional partitioning over month taking place.
