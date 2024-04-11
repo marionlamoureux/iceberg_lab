@@ -59,7 +59,7 @@ Navigate to Data Warehouse service:
 Then an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW, 
 here we'll be using the type that leverages Impala as an engine:  
 
-[!Typesofvirtualwarehouses.png](./images/Typesofvirtualwarehouses.png)  
+![Typesofvirtualwarehouses.png](./images/Typesofvirtualwarehouses.png)  
 
 
 Execute the following in HUE Impala Editor to test that data has loaded correctly and that you have the appropriate access.  
