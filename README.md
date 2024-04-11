@@ -57,7 +57,7 @@ Navigate to Data Warehouse service:
 ![Home_CDW](./images/home_cdw.png)
 
 Then an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW, 
-here we'll be using the type that leverages Impala as an engine:  
+here we'll be using the type that leverages **Impala** as an engine:  
 
 ![Typesofvirtualwarehouses.png](./images/Typesofvirtualwarehouses.png)  
 
@@ -160,7 +160,6 @@ STORED AS ICEBERG
 
 ### 2. Table Maintenance in Iceberg
 
-
 Under the maintenance database, let's load the flight table partitioned by year.
 
 ```SQL
@@ -183,8 +182,8 @@ STORED AS ICEBERG
 ;
 ```
 
-Here demontration partition evolution, inserting like that will demonstrate partition evolution
-and snapshot feature for time travel
+**Partition evolution**: the insert queries below are designed to demonstrate partition evolution
+and snapshot feature for time travel 
 
 
 ```SQL
@@ -241,11 +240,11 @@ INSERT INTO ${user_id}_airlines_maint.flights
 ```
 
 #### 1. Partition evolution
-Let's look at the file size
+Let's look at the file size. For reference only, and because Iceberg will integrate nicely with all the components of the Cloudera Data Platform 
+and with different engines, the task can be performed in PySpark, looking like so:  
 
-For reference, and because Iceberg will integrate nicely with all the components of the Cloudera Data Platform 
-and with different engines, the task can be performed in PySpark, looking like so:
-**In pyspark**
+**In pyspark**  
+  
 ```SQL
 SELECT partition,file_path, file_size_in_bytes
 FROM ${user-id}_airlines_maint.flights.files order by partition
@@ -254,29 +253,34 @@ FROM ${user-id}_airlines_maint.flights.files order by partition
 
 Here we're sticking to the Cloudera Data Warehouse service for simplicity, so we'll perform the task using Impala.
 
-**In Impala**
-
+**In Impala**  
+  
 ```SQL
 SHOW FILES in marion_airlines_maint.flights;
 ```
 
 Make a note of the average file size which should be around 5MB.
-Also note the path and folder structure: a folder is a partition, a file is an ingest
+Also note the path and folder structure: a folder is a partition, a file is an ingest as we performed them above.
 
-Now, let's alter the table, adding a partition on the month on top of the year.
+Now, let's alter the table, adding a partition on the month on top of the year.  
 
 ```SQL
 ALTER TABLE <user-id>_airlines_maint.flights add PARTITION FIELD month
-```
-Ingest a month worth of data.
+```  
 
+Ingest a month worth of data.  
+  
 ```SQL
 INSERT INTO ${user_id}_airlines_maint.flights
  SELECT * FROM airlines_csv.flights_csv
  WHERE year <= 1996 AND month <= 1
 ```
-Compaction Feature 
+Let's have another look:  
+```SQL
+SHOW FILES in marion_airlines_maint.flights;
+```  
 
+Will show the newly ingested data, note the path, folder breakdown is different from before, with the additional partitioning over month taking place.
 
 
 #### 2. Snapshots
