@@ -493,12 +493,22 @@ Hive Metastore URI example:
 
 Access the Cloudera Data Flow Service:  
 ![AccessCDF](./images/AccessCDF.png)  
-Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo - Iceberg` Flow and deploy it:  
+Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo - Iceberg` Flow 
 
 ![CataloginCDF.png](./images/CataloginCDF.png)  
 
+and deploy it:  
+
+![CDFDeployFlow.png](./images/CDFDeployFlow.png)
+
+The deployment can take place in on of several CDP environment coexisting in the same CDP tenant, here called **Target Workspace** for this lab, we only have the one 
+but a typical usecase would be a dev a test or a production environment.
 
 In the Flow deployment wizard, pick a name for your flow (indicate your usename to avoid confusion with other participant's flow).
+You can pick a project at this stage or leave it "Unassigned". Projects are used to limit the visibility of drafts, deployments, Inbound Connections, and custom NAR Configurations within an Environment.
+We'll be using the default version of Nifi.
+  
+  
 In the parameter's page, fill in the fields with the value for the parameters necessary to configure the flow.
 
 |Parameter|Value|
@@ -506,11 +516,14 @@ In the parameter's page, fill in the fields with the value for the parameters ne
 |CDP Workload User|<enter your user id>|
 |CDP Workload User Password|<enter your login password> and set sensitive to ‘Yes’|
 |Hadoop Configuration Resources|/etc/hive/conf/hive-site.xml,/etc/hadoop/conf/core-site.xml,/etc/hive/conf/hdfs-site.xml|
-|Kerberos Keytab|/tmp/<user-id>_nifi.keytab|
-|Hive Metastore URI|thrift://base1-01.lab##.pvc-ds-bc.athens.cloudera.com:9083,thrift://base2-01.lab##.pvc-ds-bc.athens.cloudera.com:9083|
-|Kafka Broker Endpoint|`Kafka Endpoints`|  
+|Hive Metastore URI|Collected earlier. Ex:`thrift://workshopforbt-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`|
+|Kafka Broker Endpoint|Collected earlier. Ex `bt-kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, bt-kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093, bt-kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`|  
+|Kerberos Keytab|Load file collected earlier|  
   
-
+Leave the default settings for Sizing and scaling, as well as the KPIs and deploy your flow.
+  
+Give the flow around 10 minutes to deploy.
+  
 ### 3. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
