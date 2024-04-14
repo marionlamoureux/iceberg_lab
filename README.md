@@ -517,19 +517,6 @@ Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg 
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
 
 
-#### 1.Configuration details for SSB
-
-You'll need:
-- The Kafka endpoints you'll be querying
-- The thrift Hive URI
-
-**Copy/paste the thrift Hive URI**   
-In the Cloudera Data Warehousing service, identify the Hive Virtual Warehouse and copy the JDBC url and keep only the node name in the string:  
-`hs2-asdf.dw-go01-demo-aws.ylcu-atmi.cloudera.site`
-
-![JDBCfromHive.png](./images/JDBCfromHive.png)
-
-
 Access the SSB datahub indicated by the workshop presenter and perform the below steps:
 
 1. Import this repo as a project in Sql Stream Builder
@@ -540,14 +527,55 @@ Access the SSB datahub indicated by the workshop presenter and perform the below
 6. Inspect/Add Data Sources. You may need to re-add Kafka. The Hive data source should work out of the box.
 7. Inspect/Add Virtual Kafka Tables. You can edit the existing tables against your kafka data source and correct topics. Just be sure to choose right topics and detect schema before save.
 
-  
-  
-  
+
 Open the SSB UI by clicking on Streaming SQL Console.
 ![AccessSSB.png](./images/AccessSSB.png)
   
- 
-Create Kafka Data Store: Create Kafka Data Store by selecting Data Sources in the left pane,
+
+You'll need:
+- A project downloaded from github, pointing to a specific and unique repository to import all the confitguration details
+- An active environment in your SSB project to store your userid variable
+- The Kafka endpoints you'll be querying
+  
+
+#### 1.Setup SSB: Project
+Before you can use Streaming SQL Console, you need to create a project where you can submit your SQL jobs and
+manage your project resources. Created or imported projects can be shared with other users in Streaming SQL Console. You can invite members
+using their Streaming SQL Console username and set the access level to member or administrator.
+Projects aim to provide a Software Development Lifecycle (SDLC) for streaming applications in SQL Stream Builder
+(SSB): they allow developers to think about a task they want to solve using SSB, and collect all related resources,
+such as job and table definitions or data sources in a central place.
+  
+A project is a collection of resources, static definitions of data sources, jobs with materialized views, virtual tables,
+user-defined functions (UDF), and materialized view API keys. These resources are called internal to a project and
+can be safely used by any job within the project.
+  
+
+#### 2.Setup SSB: activate environment
+We'll need a variable containing your username to be pointing to the correct Kafka topics and Iceberg tables named after that username in previous labs.
+To set a envrionment variable in your SSB project, you'll need an **active** environment.
+Creating an environment file for a project means that users can create a template with variables that could be used to
+store environment-specific configuration.
+For example, you might have a development, staging and production environment, each containing different clusters,
+databases, service URLs and authentication methods. Projects and environments allow you to write the logic and create the resources once, and use template placeholders for values that need to be replaced with the environment
+specific parameters.
+To each project, you can create multiple environments, but only one can be active at a time for a project.
+Environments can be exported to files, and can be imported again to be used for another project, or on another cluster.
+While environments are applied to a given project, they are not part of the project. They are not synchronized to Git
+when exporting or importing the project. This separation is what allows the storing of environment-specific values, or
+configurations that you do not want to expose to the Git repository.
+  
+![SSBNewenvironment.png](./images/SSBNewenvironment.png)
+
+  
+The variable key the project is expecting is:
+Key: `userid`
+Value: <your username>
+
+![EnvrionmentSaveSSB.png](./images/EnvrionmentSaveSSB.png)
+  
+#### 2.Setup SSB: Create Kafka Data Store
+Create Kafka Data Store by selecting Data Sources in the left pane,
 clicking on the three-dotted icon next to Kafka, then selecting New Kafka Data Source.
 ![KafkaAddsource.png](./images/KafkaAddsource.png)  
   
@@ -580,7 +608,16 @@ When you select Data Format as AVRO, you must provide the correct Schema Definit
 Note: SSB tries its best to infer the schema correctly, but this is not always possible and sometimes data types are inferred incorrectly. You should always review the inferred schemas to check if it’s correctly inferred and make the necessary adjustments.
 
 Since you are reading data from a JSON topic, go ahead and click on Detect Schema to get the schema inferred. You should see the schema be updated in the Schema Definition tab.
+  
 
+**This step is performed automatically when deploying the project from github:Copy/paste the thrift Hive URI**   
+In the Cloudera Data Warehousing service, identify the Hive Virtual Warehouse and copy the JDBC url and keep only the node name in the string:  
+`hs2-asdf.dw-go01-demo-aws.ylcu-atmi.cloudera.site`
+
+![JDBCfromHive.png](./images/JDBCfromHive.png)
+
+
+  
 ## Modifications to Jobs
 Note: current repo should not require any job modifications.
 
