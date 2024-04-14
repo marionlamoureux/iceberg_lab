@@ -523,7 +523,20 @@ In the parameter's page, fill in the fields with the value for the parameters ne
 Leave the default settings for Sizing and scaling, as well as the KPIs and deploy your flow.
   
 Give the flow around 10 minutes to deploy.
+Once done, you can access the flow within the Nifi Canvas by seletion "View in Nifi":  
+
+![CDFViewInNifi.png](./images/CDFViewInNifi.png)
   
+In Hue, you can query the tables previously created and see the data being ingested from Nifi.
+```SQL
+SELECT * FROM ${user_id}_airlines.`countries_nifi_iceberg`
+SELECT * FROM ${user_id}_airlines.`airports_nifi_iceberg`
+SELECT * FROM ${user_id}_airlines.`routes_nifi_iceberg`
+```
+In Kafka, accessing the "Streams Messaging Light Duty" Datahub, powered by Kafka, you can see the topics created by the client in the Nifi processor and the messages ingested subsequently.
+
+![AccessStreamMessengingManager.png](./images/AccessStreamMessengingManager.png)
+
 ### 3. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
