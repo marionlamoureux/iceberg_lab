@@ -493,14 +493,49 @@ Hive Metastore URI example:
 
 Access the Cloudera Data Flow Service:  
 ![AccessCDF](./images/AccessCDF.png)  
-Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo - Iceberg` Flow and deploy it:  
+Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo - Iceberg` Flow 
 
 ![CataloginCDF.png](./images/CataloginCDF.png)  
 
+and deploy it:  
+
+![CDFDeployFlow.png](./images/CDFDeployFlow.png)
+
+The deployment can take place in on of several CDP environment coexisting in the same CDP tenant, here called **Target Workspace** for this lab, we only have the one 
+but a typical usecase would be a dev a test or a production environment.
 
 In the Flow deployment wizard, pick a name for your flow (indicate your usename to avoid confusion with other participant's flow).
+You can pick a project at this stage or leave it "Unassigned". Projects are used to limit the visibility of drafts, deployments, Inbound Connections, and custom NAR Configurations within an Environment.
+We'll be using the default version of Nifi.
+  
+  
 In the parameter's page, fill in the fields with the value for the parameters necessary to configure the flow.
 
+|Parameter|Value|
+|----------|----------|
+|CDP Workload User|<enter your user id>|
+|CDP Workload User Password|<enter your login password> and set sensitive to ‘Yes’|
+|Hadoop Configuration Resources|/etc/hive/conf/hive-site.xml,/etc/hadoop/conf/core-site.xml,/etc/hive/conf/hdfs-site.xml|
+|Hive Metastore URI|Collected earlier. Ex:`thrift://workshopforbt-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`|
+|Kafka Broker Endpoint|Collected earlier. Ex `bt-kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, bt-kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093, bt-kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`|  
+|Kerberos Keytab|Load file collected earlier|  
+  
+Leave the default settings for Sizing and scaling, as well as the KPIs and deploy your flow.
+  
+Give the flow around 10 minutes to deploy.
+Once done, you can access the flow within the Nifi Canvas by seletion "View in Nifi":  
+
+![CDFViewInNifi.png](./images/CDFViewInNifi.png)
+  
+In Hue, you can query the tables previously created and see the data being ingested from Nifi.
+```SQL
+SELECT * FROM ${user_id}_airlines.`countries_nifi_iceberg`
+SELECT * FROM ${user_id}_airlines.`airports_nifi_iceberg`
+SELECT * FROM ${user_id}_airlines.`routes_nifi_iceberg`
+```
+In Kafka, accessing the "Streams Messaging Light Duty" Datahub, powered by Kafka, you can see the topics created by the client in the Nifi processor and the messages ingested subsequently.
+
+![AccessStreamMessengingManager.png](./images/AccessStreamMessengingManager.png)
 
 ### 3. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
@@ -508,38 +543,7 @@ Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg 
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
 
 
-#### 1.Configuration details for SSB
-
-You'll need:
-- The Kafka endpoints you'll be querying
-- The thrift Hive URI
-
-**Copy/paste the thrift Hive URI**   
-In the Cloudera Data Warehousing service, identify the Hive Virtual Warehouse and copy the JDBC url and keep only the node name in the string:  
-`hs2-asdf.dw-go01-demo-aws.ylcu-atmi.cloudera.site`
-
-![JDBCfromHive.png](./images/JDBCfromHive.png)
-
-
-**Download the configuration files**
-In your environment, access the Cloudera manager page under "data lake"
-![Configurationfiles](./images/Iceberg_downloadclientconfiguration.png)
-
-
-**Access CDF**  
-Access the CDF Catalog and deploy flow  in the environment indicated by your admin.
-
-
-|Parameter|Value|
-|----------|----------|
-|CDP Workload User|<enter your user id>|
-|CDP Workload User Password|<enter your login password> and set sensitive to ‘Yes’|
-|Hadoop Configuration Resources|/etc/hive/conf/hive-site.xml,/etc/hadoop/conf/core-site.xml,/etc/hive/conf/hdfs-site.xml|
-|Kerberos Keytab|/tmp/<user-id>_nifi.keytab|
-|Hive Metastore URI|thrift://base1-01.lab##.pvc-ds-bc.athens.cloudera.com:9083,thrift://base2-01.lab##.pvc-ds-bc.athens.cloudera.com:9083|
-|Kafka Broker Endpoint|`Kafka Endpoints`|  
-
-Access SSB and perform the below steps:
+Access the SSB datahub indicated by the workshop presenter and perform the below steps:
 
 1. Import this repo as a project in Sql Stream Builder
 2. Open your Project and have a look around at the left menu. Notice all hover tags. Explore the vast detail in Explorer menus.
@@ -549,6 +553,97 @@ Access SSB and perform the below steps:
 6. Inspect/Add Data Sources. You may need to re-add Kafka. The Hive data source should work out of the box.
 7. Inspect/Add Virtual Kafka Tables. You can edit the existing tables against your kafka data source and correct topics. Just be sure to choose right topics and detect schema before save.
 
+
+Open the SSB UI by clicking on Streaming SQL Console.
+![AccessSSB.png](./images/AccessSSB.png)
+  
+
+You'll need:
+- A project downloaded from github, pointing to a specific and unique repository to import all the confitguration details
+- An active environment in your SSB project to store your userid variable
+- The Kafka endpoints you'll be querying
+  
+
+#### 1.Setup SSB: Project
+Before you can use Streaming SQL Console, you need to create a project where you can submit your SQL jobs and
+manage your project resources. Created or imported projects can be shared with other users in Streaming SQL Console. You can invite members
+using their Streaming SQL Console username and set the access level to member or administrator.
+Projects aim to provide a Software Development Lifecycle (SDLC) for streaming applications in SQL Stream Builder
+(SSB): they allow developers to think about a task they want to solve using SSB, and collect all related resources,
+such as job and table definitions or data sources in a central place.
+  
+A project is a collection of resources, static definitions of data sources, jobs with materialized views, virtual tables,
+user-defined functions (UDF), and materialized view API keys. These resources are called internal to a project and
+can be safely used by any job within the project.
+  
+
+#### 2.Setup SSB: activate environment
+We'll need a variable containing your username to be pointing to the correct Kafka topics and Iceberg tables named after that username in previous labs.
+To set a envrionment variable in your SSB project, you'll need an **active** environment.
+Creating an environment file for a project means that users can create a template with variables that could be used to
+store environment-specific configuration.
+For example, you might have a development, staging and production environment, each containing different clusters,
+databases, service URLs and authentication methods. Projects and environments allow you to write the logic and create the resources once, and use template placeholders for values that need to be replaced with the environment
+specific parameters.
+To each project, you can create multiple environments, but only one can be active at a time for a project.
+Environments can be exported to files, and can be imported again to be used for another project, or on another cluster.
+While environments are applied to a given project, they are not part of the project. They are not synchronized to Git
+when exporting or importing the project. This separation is what allows the storing of environment-specific values, or
+configurations that you do not want to expose to the Git repository.
+  
+![SSBNewenvironment.png](./images/SSBNewenvironment.png)
+
+  
+The variable key the project is expecting is:
+Key: `userid`
+Value: <your username>
+
+![EnvrionmentSaveSSB.png](./images/EnvrionmentSaveSSB.png)
+  
+#### 2.Setup SSB: Create Kafka Data Store
+Create Kafka Data Store by selecting Data Sources in the left pane,
+clicking on the three-dotted icon next to Kafka, then selecting New Kafka Data Source.
+![KafkaAddsource.png](./images/KafkaAddsource.png)  
+  
+**Name**: {user-id}_cdp_kafka. 
+**Brokers**: (Comma-separated List as shown below)
+  
+Example: `bt-kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, 
+  bt-kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093,
+  bt-kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`
+**Protocol**: SASL/SSL
+**SASL Mechanism**: PLAIN.
+**SASL Username**: <CDP Username>. 
+**SASL Password**: Workload User password set by your admin as defined earlier/
+
+Click on Validate to test the connections. Once successful click on Create.
+Create Kafka Table: Create Kafka Table, by selecting Virtual Tables in the left pane by clicking on the three-dotted icon next to it.
+Then click on New Kafka Table.  
+  
+![CreateKafkaTable.png](./images/CreateKafkaTable.png)
+  
+Configure the Kafka Table using the details below.
+Table Name: {user-id}_syslog_data.
+Kafka Cluster: <select the Kafka data source you created previously>.
+Data Format: JSON.
+Topic Name: <select the topic created in Schema Registry>.
+![KafkaTableConfig.png](./images/KafkaTableConfig.png)  
+    
+When you select Data Format as AVRO, you must provide the correct Schema Definition when creating the table for SSB to be able to successfully process the topic data. For JSON tables, though, SSB can look at the data flowing through the topic and try to infer the schema automatically, which is quite handy at times. Obviously, there must be data in the topic already for this feature to work correctly.
+
+Note: SSB tries its best to infer the schema correctly, but this is not always possible and sometimes data types are inferred incorrectly. You should always review the inferred schemas to check if it’s correctly inferred and make the necessary adjustments.
+
+Since you are reading data from a JSON topic, go ahead and click on Detect Schema to get the schema inferred. You should see the schema be updated in the Schema Definition tab.
+  
+
+**This step is performed automatically when deploying the project from github:Copy/paste the thrift Hive URI**   
+In the Cloudera Data Warehousing service, identify the Hive Virtual Warehouse and copy the JDBC url and keep only the node name in the string:  
+`hs2-asdf.dw-go01-demo-aws.ylcu-atmi.cloudera.site`
+
+![JDBCfromHive.png](./images/JDBCfromHive.png)
+
+
+  
 ## Modifications to Jobs
 Note: current repo should not require any job modifications.
 
