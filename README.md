@@ -325,7 +325,8 @@ Snapshot id format looks like:
 #### 3. ACID V2
 
 https://blog.min.io/iceberg-acid-transactions/
-Let update a row.
+
+Let's update a row.
 
 
 ```SQL
