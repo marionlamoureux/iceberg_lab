@@ -1,0 +1,32 @@
+{
+  "job_name" : "Test_Hue_Tables",
+  "api_endpoints" : [ ],
+  "sql" : "-- First, create the ssb_default impala connector.\n-- DROP TABLE IF EXISTS `flights_iceberg`;\nCREATE TABLE `flights_iceberg`(\n `month` int, dayofmonth int, \n dayofweek int, deptime int, crsdeptime int, arrtime int, \n crsarrtime int, uniquecarrier string, flightnum int, tailnum string, \n actualelapsedtime int, crselapsedtime int, airtime int, arrdelay int, \n depdelay int, origin string, dest string, distance int, taxiin int, \n taxiout int, cancelled int, cancellationcode string, diverted string, \n carrierdelay int, weatherdelay int, nasdelay int, securitydelay int, \n lateaircraftdelay int\n) WITH ( \n    'connector' = 'iceberg', \n    'catalog-database' = '${ssb.env.userid}_airlines', \n    'catalog-table' = 'flights_iceberg',\n    'catalog-type' = 'hive', \n    'catalog-name' = 'hive-catalog', \n    'engine.hive.enabled' = 'true'\n);\n\n-- Second, execute select with some parallelism\nSET 'table.exec.iceberg.infer-source-parallelism.max' = '2';\nselect * FROM `flights_iceberg`;",
+  "mv_config" : {
+    "name" : "Test_Hue_Tables",
+    "retention" : 300,
+    "min_row_retention_count" : 0,
+    "recreate" : false,
+    "key_column_name" : null,
+    "column_indices_disabled" : false,
+    "indexed_columns" : [ ],
+    "not_indexed_columns" : [ ],
+    "api_key" : null,
+    "ignore_nulls" : false,
+    "require_restart" : false,
+    "batch_size" : 0,
+    "enabled" : false
+  },
+  "runtime_config" : {
+    "execution_mode" : "SESSION",
+    "parallelism" : 1,
+    "sample_interval" : 0,
+    "sample_count" : 100,
+    "window_size" : 100,
+    "start_with_savepoint" : false,
+    "log_config" : {
+      "type" : "LOG4J_PROPERTIES",
+      "content" : "\nrootLogger.level = INFO\nrootLogger.appenderRef.file.ref = MainAppender\n#Uncomment this if you want to _only_ change Flink's logging\n#logger.flink.name = org.apache.flink\n#logger.flink.level = INFO\n\n# The following lines keep the log level of common libraries/connectors on\n# log level INFO. The root logger does not override this. You have to manually\n# change the log levels here.\nlogger.akka.name = akka\nlogger.akka.level = INFO\nlogger.kafka.name= org.apache.kafka\nlogger.kafka.level = INFO\nlogger.hadoop.name = org.apache.hadoop\nlogger.hadoop.level = INFO\nlogger.zookeeper.name = org.apache.zookeeper\nlogger.zookeeper.level = INFO\n\n# Log all infos in the given file\nappender.main.name = MainAppender\nappender.main.type = File\nappender.main.append = false\nappender.main.fileName = /var/log/ssb\nappender.main.layout.type = PatternLayout\nappender.main.layout.pattern = %d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %-60c %x - %m%n\n\n# Suppress the irrelevant (wrong) warnings from the Netty channel handler\nlogger.netty.name = org.apache.flink.shaded.akka.org.jboss.netty.channel.DefaultChannelPipeline\nlogger.netty.level = OFF\n"
+    }
+  }
+}

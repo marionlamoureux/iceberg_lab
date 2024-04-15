@@ -1,0 +1,47 @@
+{
+  "metadata" : {
+    "schema.7.data-type" : "BIGINT",
+    "schema.0.data-type" : "VARCHAR(2147483647)",
+    "schema.9.name" : "eventTimestamp",
+    "schema.1.name" : "airline_icao",
+    "scan.startup.mode" : "earliest-offset",
+    "schema.4.name" : "arrival_airport_iata",
+    "schema.3.data-type" : "VARCHAR(2147483647)",
+    "schema.9.metadata" : "timestamp",
+    "schema.3.name" : "departure_airport_icao",
+    "schema.7.name" : "transfers",
+    "properties.request.timeout.ms" : "120000",
+    "schema.watermark.0.strategy.data-type" : "TIMESTAMP(3)",
+    "schema.6.name" : "codeshare",
+    "schema.5.data-type" : "VARCHAR(2147483647)",
+    "schema.0.name" : "airline_iata",
+    "schema.5.name" : "arrival_airport_icao",
+    "schema.watermark.0.strategy.expr" : "`eventTimestamp` - INTERVAL '3' SECOND",
+    "properties.auto.offset.reset" : "earliest",
+    "schema.8.data-type" : "ARRAY<VARCHAR(2147483647)>",
+    "schema.2.name" : "departure_airport_iata",
+    "format" : "json",
+    "schema.6.data-type" : "BOOLEAN",
+    "schema.9.virtual" : "false",
+    "schema.1.data-type" : "VARCHAR(2147483647)",
+    "connector" : "kafka: Local Kafka",
+    "schema.2.data-type" : "VARCHAR(2147483647)",
+    "schema.watermark.0.rowtime" : "eventTimestamp",
+    "properties.transaction.timeout.ms" : "900000",
+    "topic" : "stevenmatison_routes",
+    "schema.9.data-type" : "TIMESTAMP(3) WITH LOCAL TIME ZONE",
+    "schema.4.data-type" : "VARCHAR(2147483647)",
+    "schema.8.name" : "planes",
+    "ssb.schema.text" : "{\n  \"type\": \"record\",\n  \"name\": \"inferredSchema\",\n  \"fields\": [\n    {\n      \"name\": \"airline_iata\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"2B\\\"'\"\n    },\n    {\n      \"name\": \"airline_icao\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from 'null'\"\n    },\n    {\n      \"name\": \"departure_airport_iata\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"AER\\\"'\"\n    },\n    {\n      \"name\": \"departure_airport_icao\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from 'null'\"\n    },\n    {\n      \"name\": \"arrival_airport_iata\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"DME\\\"'\"\n    },\n    {\n      \"name\": \"arrival_airport_icao\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from 'null'\"\n    },\n    {\n      \"name\": \"codeshare\",\n      \"type\": \"boolean\",\n      \"doc\": \"Type inferred from 'false'\"\n    },\n    {\n      \"name\": \"transfers\",\n      \"type\": \"long\",\n      \"doc\": \"Type inferred from '0'\"\n    },\n    {\n      \"name\": \"planes\",\n      \"type\": {\n        \"type\": \"array\",\n        \"items\": \"string\"\n      },\n      \"doc\": \"Type inferred from '[\\\"CR2\\\"]'\"\n    }\n  ]\n}",
+    "ssb.watermark_spec" : {
+      "timestamp_column" : "__ssb_kafka_timestamp"
+    },
+    "ssb.properties" : {
+      "auto.offset.reset" : "earliest"
+    }
+  },
+  "type" : "ssb",
+  "table_name" : "routes_kafka",
+  "transform_code_b64_encoded" : false,
+  "transform_code" : ""
+}

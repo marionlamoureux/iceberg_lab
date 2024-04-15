@@ -1,0 +1,47 @@
+{
+  "metadata" : {
+    "schema.7.data-type" : "ROW<`lat` DOUBLE, `lon` DOUBLE>",
+    "schema.0.data-type" : "ROW<`en` VARCHAR(2147483647)>",
+    "schema.9.name" : "eventTimestamp",
+    "schema.1.name" : "city_code",
+    "scan.startup.mode" : "earliest-offset",
+    "schema.4.name" : "code",
+    "schema.3.data-type" : "VARCHAR(2147483647)",
+    "schema.9.metadata" : "timestamp",
+    "schema.3.name" : "time_zone",
+    "schema.7.name" : "coordinates",
+    "properties.request.timeout.ms" : "120000",
+    "schema.watermark.0.strategy.data-type" : "TIMESTAMP(3)",
+    "schema.6.name" : "name",
+    "schema.5.data-type" : "VARCHAR(2147483647)",
+    "schema.0.name" : "name_translations",
+    "schema.5.name" : "iata_type",
+    "schema.watermark.0.strategy.expr" : "`eventTimestamp` - INTERVAL '3' SECOND",
+    "properties.auto.offset.reset" : "earliest",
+    "schema.8.data-type" : "BOOLEAN",
+    "schema.2.name" : "country_code",
+    "format" : "json",
+    "schema.6.data-type" : "VARCHAR(2147483647)",
+    "schema.9.virtual" : "false",
+    "schema.1.data-type" : "VARCHAR(2147483647)",
+    "connector" : "kafka: Local Kafka",
+    "schema.2.data-type" : "VARCHAR(2147483647)",
+    "schema.watermark.0.rowtime" : "eventTimestamp",
+    "properties.transaction.timeout.ms" : "900000",
+    "topic" : "stevenmatison_airports",
+    "schema.9.data-type" : "TIMESTAMP(3) WITH LOCAL TIME ZONE",
+    "schema.4.data-type" : "VARCHAR(2147483647)",
+    "schema.8.name" : "flightable",
+    "ssb.schema.text" : "{\n  \"type\": \"record\",\n  \"name\": \"inferredSchema\",\n  \"fields\": [\n    {\n      \"name\": \"name_translations\",\n      \"type\": {\n        \"type\": \"record\",\n        \"name\": \"name_translations\",\n        \"fields\": [\n          {\n            \"name\": \"en\",\n            \"type\": \"string\",\n            \"doc\": \"Type inferred from '\\\"Narrabri\\\"'\"\n          }\n        ]\n      },\n      \"doc\": \"Type inferred from '{\\\"en\\\":\\\"Narrabri\\\"}'\"\n    },\n    {\n      \"name\": \"city_code\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"NAA\\\"'\"\n    },\n    {\n      \"name\": \"country_code\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"AU\\\"'\"\n    },\n    {\n      \"name\": \"time_zone\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"Australia/Sydney\\\"'\"\n    },\n    {\n      \"name\": \"code\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"NAA\\\"'\"\n    },\n    {\n      \"name\": \"iata_type\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"airport\\\"'\"\n    },\n    {\n      \"name\": \"name\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"Narrabri\\\"'\"\n    },\n    {\n      \"name\": \"coordinates\",\n      \"type\": {\n        \"type\": \"record\",\n        \"name\": \"coordinates\",\n        \"fields\": [\n          {\n            \"name\": \"lat\",\n            \"type\": \"double\",\n            \"doc\": \"Type inferred from '-30.31829'\"\n          },\n          {\n            \"name\": \"lon\",\n            \"type\": \"double\",\n            \"doc\": \"Type inferred from '149.82912'\"\n          }\n        ]\n      },\n      \"doc\": \"Type inferred from '{\\\"lat\\\":-30.31829,\\\"lon\\\":149.82912}'\"\n    },\n    {\n      \"name\": \"flightable\",\n      \"type\": \"boolean\",\n      \"doc\": \"Type inferred from 'true'\"\n    }\n  ]\n}",
+    "ssb.watermark_spec" : {
+      "timestamp_column" : "__ssb_kafka_timestamp"
+    },
+    "ssb.properties" : {
+      "auto.offset.reset" : "earliest"
+    }
+  },
+  "type" : "ssb",
+  "table_name" : "airports_kafka",
+  "transform_code_b64_encoded" : false,
+  "transform_code" : ""
+}

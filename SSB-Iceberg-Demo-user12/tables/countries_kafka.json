@@ -1,0 +1,39 @@
+{
+  "metadata" : {
+    "schema.5.name" : "eventTimestamp",
+    "schema.watermark.0.strategy.expr" : "`eventTimestamp` - INTERVAL '3' SECOND",
+    "properties.auto.offset.reset" : "earliest",
+    "schema.0.data-type" : "ROW<`en` VARCHAR(2147483647)>",
+    "schema.2.name" : "code",
+    "format" : "json",
+    "schema.1.name" : "cases",
+    "scan.startup.mode" : "earliest-offset",
+    "schema.4.name" : "currency",
+    "schema.1.data-type" : "ROW<`su` VARCHAR(2147483647)>",
+    "schema.5.metadata" : "timestamp",
+    "schema.3.data-type" : "VARCHAR(2147483647)",
+    "connector" : "kafka: Local Kafka",
+    "schema.2.data-type" : "VARCHAR(2147483647)",
+    "schema.3.name" : "name",
+    "properties.request.timeout.ms" : "120000",
+    "schema.watermark.0.rowtime" : "eventTimestamp",
+    "schema.watermark.0.strategy.data-type" : "TIMESTAMP(3)",
+    "properties.transaction.timeout.ms" : "900000",
+    "schema.5.virtual" : "false",
+    "topic" : "stevenmatison_countries",
+    "schema.5.data-type" : "TIMESTAMP(3) WITH LOCAL TIME ZONE",
+    "schema.4.data-type" : "VARCHAR(2147483647)",
+    "schema.0.name" : "name_translations",
+    "ssb.schema.text" : "{\n  \"type\": \"record\",\n  \"name\": \"inferredSchema\",\n  \"fields\": [\n    {\n      \"name\": \"name_translations\",\n      \"type\": {\n        \"type\": \"record\",\n        \"name\": \"name_translations\",\n        \"fields\": [\n          {\n            \"name\": \"en\",\n            \"type\": \"string\",\n            \"doc\": \"Type inferred from '\\\"Hong Kong\\\"'\"\n          }\n        ]\n      },\n      \"doc\": \"Type inferred from '{\\\"en\\\":\\\"Hong Kong\\\"}'\"\n    },\n    {\n      \"name\": \"cases\",\n      \"type\": {\n        \"type\": \"record\",\n        \"name\": \"cases\",\n        \"fields\": [\n          {\n            \"name\": \"su\",\n            \"type\": \"string\",\n            \"doc\": \"Type inferred from '\\\"Hong Kong\\\"'\"\n          }\n        ]\n      },\n      \"doc\": \"Type inferred from '{\\\"su\\\":\\\"Hong Kong\\\"}'\"\n    },\n    {\n      \"name\": \"code\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"HK\\\"'\"\n    },\n    {\n      \"name\": \"name\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"Hong Kong\\\"'\"\n    },\n    {\n      \"name\": \"currency\",\n      \"type\": \"string\",\n      \"doc\": \"Type inferred from '\\\"HKD\\\"'\"\n    }\n  ]\n}",
+    "ssb.watermark_spec" : {
+      "timestamp_column" : "__ssb_kafka_timestamp"
+    },
+    "ssb.properties" : {
+      "auto.offset.reset" : "earliest"
+    }
+  },
+  "type" : "ssb",
+  "table_name" : "countries_kafka",
+  "transform_code_b64_encoded" : false,
+  "transform_code" : ""
+}
