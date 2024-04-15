@@ -585,7 +585,8 @@ Step 1: click import with the SSB Home UI:
   
 Step 2: indicate the url to the git repo: `https://github.com/marionlamoureux/iceberg_lab` and indicate the branch`main`.  
     
-Step 3: point to the pre-created folder named after your username following the naming convention `SSB-Iceberg-Demo-user<xx>`
+Step 3: point to the pre-created folder named after your username following the naming convention `SSB-Iceberg-Demo-user<xx>`.  
+    
 ![ALLfoldersforSSB.png](./images/ALLfoldersforSSB.png)
   
 Click `Import`  
