@@ -451,11 +451,15 @@ You'll need a few information from the workspace to configure the pre-designed f
 
 
 **Download you Kerberos Keytab**  
-On the left hand menu, click on your username and access the Profile menu. On the right, under Actions, click Get keytab. 
-Access your user profile
+Change from your HUE tab back to the tab with the CDW UI. On the left hand menu,
+click on your username and access the Profile page (this should take you to
+https://console.cdp.cloudera.com/iam/index.html#/my-account). On the right,
+under Actions, click Get keytab.
+
 ![Userprofile.png](./images/Userprofile.png)  
 
 Download the keytab file
+
 ![Get Keytab](./images/Iceberg_GetKeytab.png)  
 
 
