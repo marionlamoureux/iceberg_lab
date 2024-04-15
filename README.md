@@ -401,7 +401,7 @@ In this very short lab we are going to use Nifi to load data into Kafka and Iceb
 - Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.   
   
 #### 1. Setup 1 - Create the table in Hue
-While still in Hue, please run the below to create Iceberg tables as destination for the Nifi flow will deploy just after:
+While still in Hue, please run the below to create Iceberg tables as destination for the Nifi flow we will deploy just after:
 
 ```SQL
 -- TABLES NEEDED FOR THE NIFI LAB
