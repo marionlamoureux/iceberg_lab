@@ -1,4 +1,4 @@
-# Iceberg Lab
+# Iceberg and SQL Stream Builder Lab
 
 ## Summary
 This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse and into the various features of the SqL stream builder.
@@ -537,7 +537,7 @@ In Kafka, accessing the "Streams Messaging Light Duty" Datahub, powered by Kafka
 
 ![AccessStreamMessengingManager.png](./images/AccessStreamMessengingManager.png)
 
-### 3. Introduction to Iceberg with Sql Stream Builder  
+### 4. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
@@ -575,8 +575,24 @@ such as job and table definitions or data sources in a central place.
 A project is a collection of resources, static definitions of data sources, jobs with materialized views, virtual tables,
 user-defined functions (UDF), and materialized view API keys. These resources are called internal to a project and
 can be safely used by any job within the project.
+
+A project can be set up by importing a repository from a github source, which we will do here. Within the Git repository, "Project" would be pointing to a folder
+within the github repository containing the files to set up data sources, api keys and jobs within SSB. As this folder name needs to be unique, the hack for this workshop
+is that all attendees are pointing to the same git repository but pointing to pre-created folders within it named after their username.
+Step 1: click import with the SSB Home UI:  
+![SSBProjectImport.png](./images/SBProjectImport.png)  
+  
+Step 2: indicate the url to the git repo: `https://github.com/marionlamoureux/iceberg_lab` and indicate the branch`main`.  
+    
+Step 3: point to the pre-created folder named after your username following the naming convention `SSB-Iceberg-Demo-user<xx>`
+![ALLfoldersforSSB.png](./images/ALLfoldersforSSB.png)
+  
+Click `Import`  
+  
+![SSBImportwindow.png](./images/SSBImportwindow.png)  
   
 
+  
 #### 2.Setup SSB: activate environment
 We'll need a variable containing your username to be pointing to the correct Kafka topics and Iceberg tables named after that username in previous labs.
 To set a envrionment variable in your SSB project, you'll need an **active** environment.
