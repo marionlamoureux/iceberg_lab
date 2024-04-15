@@ -578,9 +578,10 @@ can be safely used by any job within the project.
 
 A project can be set up by importing a repository from a github source, which we will do here. Within the Git repository, "Project" would be pointing to a folder
 within the github repository containing the files to set up data sources, api keys and jobs within SSB. As this folder name needs to be unique, the hack for this workshop
-is that all attendees are pointing to the same git repository but pointing to pre-created folders within it named after their username.
+is that all attendees are pointing to the same git repository but pointing to pre-created folders within it named after their username.  
+  
 Step 1: click import with the SSB Home UI:  
-![SSBProjectImport.png](./images/SBProjectImport.png)  
+![SSBProjectImport.png](./images/SSBProjectImport.png)  
   
 Step 2: indicate the url to the git repo: `https://github.com/marionlamoureux/iceberg_lab` and indicate the branch`main`.  
     
