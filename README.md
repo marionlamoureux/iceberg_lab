@@ -384,7 +384,7 @@ Pay attention to the following properties:
 - SerDe Library: `org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe`
 - Location: `warehouse/tablespace/external/hive/`
 
-The following labs will take you through various CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
+The following labs will take you through various aspects of CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
 CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Flink, SSB, Spark 3, NiFi, and Replication (BDR). 
 This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment. 
 Users can develop an Iceberg application once and deploy anywhere.  
