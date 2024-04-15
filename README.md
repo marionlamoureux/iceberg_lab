@@ -336,14 +336,16 @@ SELECT * FROM  ${user_id}_airlines_maint.flights LIMIT 1
 Save the values for year, month, tailnum and deptime to be able to identify that row after update.
 Example:  
 ```SQL
-
 SELECT * FROM ${user_id}_airlines_maint.flights
 WHERE year = ${year}
   AND month = ${month}
   AND tailnum = '${tailnum}'
   AND deptime = ${deptime};
+```
 
-----Now, Let's run an UPDATE Statement with will likely FAIL
+**Note** the next statement will FAIL:
+
+```SQL
 UPDATE ${user_id}_airlines_maint.flights
 SET uniquecarrier = 'BB'
 WHERE year = ${year}
