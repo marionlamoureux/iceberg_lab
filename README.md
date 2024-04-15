@@ -1,7 +1,7 @@
 # Iceberg and SQL Stream Builder Lab
 
 ## Summary
-This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse and into the various features of the SqL stream builder.
+This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse and into the various features of the Sql stream builder.
 
 In this workshop you will learn how to take advantage of Iceberg to support Data Lakehouse initiatives.
 
@@ -56,7 +56,7 @@ Navigate to Data Warehouse service:
   
 ![Home_CDW](./images/home_cdw.png)
 
-Then an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW, 
+Then choose an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW, 
 here we'll be using the type that leverages **Impala** as an engine:  
 
 ![Typesofvirtualwarehouses.png](./images/Typesofvirtualwarehouses.png)  
@@ -64,12 +64,12 @@ here we'll be using the type that leverages **Impala** as an engine:
 
 Execute the following in HUE Impala Editor to test that data has loaded correctly and that you have the appropriate access.  
   
-![Hue Editor](./images/Hue_editor.png)
-
-
 ```SQL
 SELECT COUNT(*) FROM airlines_csv.flights_csv;  
 ```
+
+![Hue Editor](./images/Hue_editor.png)
+
 
 **Note: These queries use variables in Hue**
 
@@ -325,7 +325,8 @@ Snapshot id format looks like:
 #### 3. ACID V2
 
 https://blog.min.io/iceberg-acid-transactions/
-Let update a row.
+
+Let's update a row.
 
 
 ```SQL
@@ -336,13 +337,19 @@ Save the values for year, month, tailnum and deptime to be able to identify that
 Example:  
 ```SQL
 
-SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
-and deptime = 730
+SELECT * FROM ${user_id}_airlines_maint.flights
+WHERE year = ${year}
+  AND month = ${month}
+  AND tailnum = '${tailnum}'
+  AND deptime = ${deptime};
 
 ----Now, Let's run an UPDATE Statement with will likely FAIL
-UPDATE ${user_id}_airlines_maint.flights SET uniquecarrier = 'BB' 
-WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
-and deptime = 730
+UPDATE ${user_id}_airlines_maint.flights
+SET uniquecarrier = 'BB'
+WHERE year = ${year}
+  AND month = ${month}
+  AND tailnum = '${tailnum}'
+  AND deptime = ${deptime};
 ```
 
 As Iceberg table are created as V1 by default, you might get an error message. You will be able to migrate the table from Iceberg V1 to V2 using the below query:
