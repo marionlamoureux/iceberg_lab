@@ -385,7 +385,7 @@ Pay attention to the following properties:
 - Location: `warehouse/tablespace/external/hive/`
 
 The following labs will take you through various aspects of CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
-CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Flink, SSB, Spark 3, NiFi, and Replication (BDR). 
+CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Hive, Flink, Sql Stream Builder (SSB), Spark 3, NiFi, and Replication Manager (BDR).
 This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment. 
 Users can develop an Iceberg application once and deploy anywhere.  
 
