@@ -571,7 +571,7 @@ In Kafka, accessing the "Streams Messaging Light Duty" Datahub, powered by Kafka
 ![AccessStreamMessengingManager.png](./images/AccessStreamMessengingManager.png)
 
 ### 4. Introduction to Iceberg with Sql Stream Builder  
-Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
+Once we are complete with NiFi, we will shift into Sql Stream Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
 
