@@ -354,16 +354,23 @@ WHERE year = ${year}
 
 As Iceberg table are created as V1 by default, you might get an error message. You will be able to migrate the table from Iceberg V1 to V2 using the below query:
 ```SQL
-ALTER TABLE ${user_id}_airlines_maint.flights SET TBLPROPERTIES('format-version'= '2')
----Reperform the UPDATE
+ALTER TABLE ${user_id}_airlines_maint.flights
+SET TBLPROPERTIES('format-version'= '2')
 
-UPDATE ${user_id}_airlines_maint.flights SET uniquecarrier = 'BB' 
-WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
-and deptime = 730
+--- Try the UPDATE again:
+UPDATE ${user_id}_airlines_maint.flights
+SET uniquecarrier = 'BB' 
+WHERE year = ${year}
+  AND month = ${month}
+  AND tailnum = '${tailnum}'
+  AND deptime = ${deptime};
 
----Check that the update worked:
-SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
-and deptime = 730
+--- Check that the update worked:
+SELECT * FROM ${user_id}_airlines_maint.flights
+WHERE year = ${year}
+  AND month = ${month}
+  AND tailnum = '${tailnum}'
+  AND deptime = ${deptime};
 ```
 
 Copy & paste the SQL below into HUE
