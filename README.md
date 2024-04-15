@@ -1,7 +1,7 @@
 # Iceberg and SQL Stream Builder Lab
 
 ## Summary
-This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse and into the various features of the SqL stream builder.
+This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse and into the various features of the Sql stream builder.
 
 In this workshop you will learn how to take advantage of Iceberg to support Data Lakehouse initiatives.
 
