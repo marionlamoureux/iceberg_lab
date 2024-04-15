@@ -64,12 +64,12 @@ here we'll be using the type that leverages **Impala** as an engine:
 
 Execute the following in HUE Impala Editor to test that data has loaded correctly and that you have the appropriate access.  
   
-![Hue Editor](./images/Hue_editor.png)
-
-
 ```SQL
 SELECT COUNT(*) FROM airlines_csv.flights_csv;  
 ```
+
+![Hue Editor](./images/Hue_editor.png)
+
 
 **Note: These queries use variables in Hue**
 
