@@ -337,13 +337,19 @@ Save the values for year, month, tailnum and deptime to be able to identify that
 Example:  
 ```SQL
 
-SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
-and deptime = 730
+SELECT * FROM ${user_id}_airlines_maint.flights
+WHERE year = ${year}
+  AND month = ${month}
+  AND tailnum = '${tailnum}'
+  AND deptime = ${deptime};
 
 ----Now, Let's run an UPDATE Statement with will likely FAIL
-UPDATE ${user_id}_airlines_maint.flights SET uniquecarrier = 'BB' 
-WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
-and deptime = 730
+UPDATE ${user_id}_airlines_maint.flights
+SET uniquecarrier = 'BB'
+WHERE year = ${year}
+  AND month = ${month}
+  AND tailnum = '${tailnum}'
+  AND deptime = ${deptime};
 ```
 
 As Iceberg table are created as V1 by default, you might get an error message. You will be able to migrate the table from Iceberg V1 to V2 using the below query:
