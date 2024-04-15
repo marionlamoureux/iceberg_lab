@@ -469,9 +469,13 @@ Download the keytab file
 ##### Collect the Kafka Broker endpoints
 
 In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously setup by the lab admin.
+
 ![Datahubs](./images/AccessDataHub.png)  
-The Endpoints are available on the overview page of the Datahub indicated by the admin, on the bottom menu,
-under "endpoints".  
+
+The name of the Datahub to access will be provided by the instructor.
+
+The Kafka broker endpoints are available on the overview page of the Datahub,
+on the bottom menu, under "Endpoints".
 
 Kafka Endpoints in Datahub overview
 ![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.png)
@@ -517,7 +521,7 @@ Hive Metastore URI example:
 
 Access the Cloudera Data Flow Service:  
 ![AccessCDF](./images/AccessCDF.png)  
-Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo - Iceberg` Flow 
+Let's deploy our NiFi flows. Access the Flow Catalog and identify the `SSB Demo - Iceberg` Flow
 
 ![CataloginCDF.png](./images/CataloginCDF.png)  
 
@@ -525,15 +529,20 @@ and deploy it:
 
 ![CDFDeployFlow.png](./images/CDFDeployFlow.png)
 
-The deployment can take place in on of several CDP environment coexisting in the same CDP tenant, here called **Target Workspace** for this lab, we only have the one 
-but a typical usecase would be a dev a test or a production environment.
+The **Target Workspace** selector is used to choose in which of the available CDP
+Environments to create the new flow Deployment. For this lab, we only have one,
+but a typical pattern would be to have separate Environments for development,
+testing and production deployments.
 
-In the Flow deployment wizard, pick a name for your flow (indicate your usename to avoid confusion with other participant's flow).
+In the Flow deployment wizard, pick a name for your flow (include your usename
+to avoid confusion with other participants' flows).
+
 You can pick a project at this stage or leave it "Unassigned". Projects are used to limit the visibility of drafts, deployments, Inbound Connections, and custom NAR Configurations within an Environment.
-We'll be using the default version of Nifi.
+
+On the next page, "NiFi Configuration", keep all the default options, including
+the NiFi version.
   
-  
-In the parameter's page, fill in the fields with the value for the parameters necessary to configure the flow.
+On the next page, "Parameters", fill in the fields with the value for the parameters necessary to configure the flow.
 
 |Parameter|Value|
 |----------|----------|
