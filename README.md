@@ -336,14 +336,16 @@ SELECT * FROM  ${user_id}_airlines_maint.flights LIMIT 1
 Save the values for year, month, tailnum and deptime to be able to identify that row after update.
 Example:  
 ```SQL
-
 SELECT * FROM ${user_id}_airlines_maint.flights
 WHERE year = ${year}
   AND month = ${month}
   AND tailnum = '${tailnum}'
   AND deptime = ${deptime};
+```
 
-----Now, Let's run an UPDATE Statement with will likely FAIL
+**Note** the next statement will FAIL:
+
+```SQL
 UPDATE ${user_id}_airlines_maint.flights
 SET uniquecarrier = 'BB'
 WHERE year = ${year}
@@ -354,16 +356,23 @@ WHERE year = ${year}
 
 As Iceberg table are created as V1 by default, you might get an error message. You will be able to migrate the table from Iceberg V1 to V2 using the below query:
 ```SQL
-ALTER TABLE ${user_id}_airlines_maint.flights SET TBLPROPERTIES('format-version'= '2')
----Reperform the UPDATE
+ALTER TABLE ${user_id}_airlines_maint.flights
+SET TBLPROPERTIES('format-version'= '2')
 
-UPDATE ${user_id}_airlines_maint.flights SET uniquecarrier = 'BB' 
-WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
-and deptime = 730
+--- Try the UPDATE again:
+UPDATE ${user_id}_airlines_maint.flights
+SET uniquecarrier = 'BB' 
+WHERE year = ${year}
+  AND month = ${month}
+  AND tailnum = '${tailnum}'
+  AND deptime = ${deptime};
 
----Check that the update worked:
-SELECT * FROM ${user_id}_airlines_maint.flights WHERE year = 1996 and MOnth = 2 and tailnum = 'N2ASAA'
-and deptime = 730
+--- Check that the update worked:
+SELECT * FROM ${user_id}_airlines_maint.flights
+WHERE year = ${year}
+  AND month = ${month}
+  AND tailnum = '${tailnum}'
+  AND deptime = ${deptime};
 ```
 
 Copy & paste the SQL below into HUE
@@ -377,8 +386,8 @@ Pay attention to the following properties:
 - SerDe Library: `org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe`
 - Location: `warehouse/tablespace/external/hive/`
 
-The following labs will take you through various CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
-CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Flink, SSB, Spark 3, NiFi, and Replication (BDR). 
+The following labs will take you through various aspects of CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
+CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Hive, Flink, Sql Stream Builder (SSB), Spark 3, NiFi, and Replication Manager (BDR).
 This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment. 
 Users can develop an Iceberg application once and deploy anywhere.  
 
@@ -394,7 +403,7 @@ In this very short lab we are going to use Nifi to load data into Kafka and Iceb
 - Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.   
   
 #### 1. Setup 1 - Create the table in Hue
-While still in Hue, please run the below to create Iceberg tables as destination for the Nifi flow will deploy just after:
+While still in Hue, please run the below to create Iceberg tables as destination for the Nifi flow we will deploy just after:
 
 ```SQL
 -- TABLES NEEDED FOR THE NIFI LAB
@@ -443,27 +452,39 @@ You'll need a few information from the workspace to configure the pre-designed f
 - Hive Metastore URI
 
 
-**Download you Kerberos Keytab**  
-On the left hand menu, click on your username and access the Profile menu. On the right, under Actions, click Get keytab. 
-Access your user profile
+##### Download your Kerberos Keytab
+
+Change from your HUE tab back to the tab with the CDW UI. On the left hand menu,
+click on your username and access the Profile page (this should take you to
+https://console.cdp.cloudera.com/iam/index.html#/my-account). On the right,
+under Actions, click Get keytab.
+
 ![Userprofile.png](./images/Userprofile.png)  
 
 Download the keytab file
+
 ![Get Keytab](./images/Iceberg_GetKeytab.png)  
 
 
-**Collect the Kafka Broker endpoints**
+##### Collect the Kafka Broker endpoints
+
 In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously setup by the lab admin.
+
 ![Datahubs](./images/AccessDataHub.png)  
-The Endpoints are available on the overview page of the Datahub indicated by the admin, on the bottom menu,
-under "endpoints".  
+
+The name of the Datahub to access will be provided by the instructor.
+
+The Kafka broker endpoints are available on the overview page of the Datahub,
+on the bottom menu, under "Endpoints".
 
 Kafka Endpoints in Datahub overview
 ![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.png)
 
 
-**Grab the Hive Metastore URI**
-The hive metastore for the datalake is indicated in the configuration file:  
+##### Grab the Hive Metastore URI
+
+The hive metastore for the datalake is indicated in a configuration file which
+can be downloaded from Cloudera Manager:
   
 Access the Management Console:  
 
@@ -500,7 +521,7 @@ Hive Metastore URI example:
 
 Access the Cloudera Data Flow Service:  
 ![AccessCDF](./images/AccessCDF.png)  
-Let's deploy our NiFi flows. Access the data catalog and identify the `SSB Demo - Iceberg` Flow 
+Let's deploy our NiFi flows. Access the Flow Catalog and identify the `SSB Demo - Iceberg` Flow
 
 ![CataloginCDF.png](./images/CataloginCDF.png)  
 
@@ -508,15 +529,20 @@ and deploy it:
 
 ![CDFDeployFlow.png](./images/CDFDeployFlow.png)
 
-The deployment can take place in on of several CDP environment coexisting in the same CDP tenant, here called **Target Workspace** for this lab, we only have the one 
-but a typical usecase would be a dev a test or a production environment.
+The **Target Workspace** selector is used to choose in which of the available CDP
+Environments to create the new flow Deployment. For this lab, we only have one,
+but a typical pattern would be to have separate Environments for development,
+testing and production deployments.
 
-In the Flow deployment wizard, pick a name for your flow (indicate your usename to avoid confusion with other participant's flow).
+In the Flow deployment wizard, pick a name for your flow (include your usename
+to avoid confusion with other participants' flows).
+
 You can pick a project at this stage or leave it "Unassigned". Projects are used to limit the visibility of drafts, deployments, Inbound Connections, and custom NAR Configurations within an Environment.
-We'll be using the default version of Nifi.
+
+On the next page, "NiFi Configuration", keep all the default options, including
+the NiFi version.
   
-  
-In the parameter's page, fill in the fields with the value for the parameters necessary to configure the flow.
+On the next page, "Parameters", fill in the fields with the value for the parameters necessary to configure the flow.
 
 |Parameter|Value|
 |----------|----------|
@@ -545,7 +571,7 @@ In Kafka, accessing the "Streams Messaging Light Duty" Datahub, powered by Kafka
 ![AccessStreamMessengingManager.png](./images/AccessStreamMessengingManager.png)
 
 ### 4. Introduction to Iceberg with Sql Stream Builder  
-Once we are complete with NiFi, we will shift into Sql Streams Builder to show its capability to query Kafka with SQL,
+Once we are complete with NiFi, we will shift into Sql Stream Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
 
