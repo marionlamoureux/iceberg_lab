@@ -693,34 +693,36 @@ In the Cloudera Data Warehousing service, identify the Hive Virtual Warehouse an
 
 ![JDBCfromHive.png](./images/JDBCfromHive.png)
 
-
+Once done, create a new job in the editor and try a few statements:
   
-## Modifications to Jobs
-Note: current repo should not require any job modifications.
+```SQL
+SELECT * FROM <kafka_topic> --. This will confirm that you have results in your kafka topic. Be patient, if this is your first job may take some time (1-2 minutes) to report results.
+CREATE TABLE <tablename> -- This will create the virtual table in ssb_default name space. It will not create the table in IMPALA.
+INSERT INTO <tablename> SELECT * from <kafka_topic> --. Be Patient. This will create the impala table and begin reporting results from the kafka topic shortly.
+--Lastly, execute the final select. These results are from IMPALA.
+```
+  
+## 3. Running the Jobs
 
-**CSA_1_11_Iceberg_Sample** - Example in CSA 1.11 docs  
-No modifications should be required to this job  
-**Countries_Kafka** - Select from Kafka Countries, Create IceBerg Table, Insert Results  
-Confirm Kafka topic  
-**Routes_Kafka** - Select from Kafka Routes, Create IceBerg Table, Insert Results  
-Confirm Kafka topic  
-**Test_Hue_Tables**  
-Confirm source iceberg table exists, check table names, and namespaces.  
-**Time_Travel**  
+1- **CSA_1_11_Iceberg_Sample**  
+No modifications should be required to this job
+You need to run the queries sepratatly.   
+2- **Countries_Kafka**  
+Select from Kafka Countries, Create Iceberg Table, Insert Results  
+Confirm Kafka topic   
+3- **Routes_Kafka**
+Select from Kafka Routes, Create IceBerg Table, Insert Results   
+Confirm Kafka topic   
+4- **Test_Hue_Tables**    
+Confirm source iceberg table exists, check table names, and namespaces.   
+5- **Time_Travel**  
 Execute required DESCRIBE in Hue, use SnapShot Ids  
 
 
 ### Top Tips
-If you are using different topics w/ different schema, use SSB to get the DDL for topic. Copy paste into the ssb job's create statement and begin modifying to acceptance. Just be careful with complicated schema such as array, struct, etc.
+If you are using different topics w/ different schema, use SSB to get the DDL for topic. 
+Copy paste into the ssb job's create statement and begin modifying to acceptance. Just be careful with complicated schema such as array, struct, etc.
 If you are testing CREATE and INSERT in iterations, you should increment all table names per test iteration. Your previous interations will effect next iterations so stay in unique table names.
 Use DROP statement with care. It will DROP your Virtual Table, but not necessarily the impala/hive table. DROP those in HUE if needed.
-Execution of Jobs:
-Warning: These are not full ssb jobs. In these are samples you execute each statements one at a time.
 
-```
-Execute the SELECT * FROM kafka_topic. This will confirm that you have results in your kafka topic. Be patient, if this is your first job may take some time (1-2 minutes) to report results.
-Execute the CREATE TABLE Statement. This will create the virtual table in ssb_default name space. It will not create the table in IMPALA.
-Execute the INSERT INTO SELECT. Be Patient. This will create the impala table and begin reporting results from the kafka topic shortly.
-Lastly, execute the final select. These results are from IMPALA.
-```
 
