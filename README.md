@@ -663,9 +663,7 @@ Example: `bt-kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093,
   bt-kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093,
   bt-kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`  
 **Protocol**: SASL/SSL  
-**SASL Mechanism**: PLAIN.  
-**SASL Username**: <CDP Username>.   
-**SASL Password**: Workload User password set by your admin as defined earlier/  
+**SASL Mechanism**: KERBEROS  
 
 Click on Validate to test the connections. Once successful click on Create.
 Create Kafka Table: Create Kafka Table, by selecting Virtual Tables in the left pane by clicking on the three-dotted icon next to it.
