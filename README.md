@@ -693,13 +693,13 @@ In the Cloudera Data Warehousing service, identify the Hive Virtual Warehouse an
 
 ![JDBCfromHive.png](./images/JDBCfromHive.png)
 
-Once done, create a new job in the editor and try a few statements:
+Once done, create a new job in the editor and try a few statements:  
   
 ```SQL
-SELECT * FROM <kafka_topic> --. This will confirm that you have results in your kafka topic. Be patient, if this is your first job may take some time (1-2 minutes) to report results.
-CREATE TABLE <tablename> -- This will create the virtual table in ssb_default name space. It will not create the table in IMPALA.
-INSERT INTO <tablename> SELECT * from <kafka_topic> --. Be Patient. This will create the impala table and begin reporting results from the kafka topic shortly.
---Lastly, execute the final select. These results are from IMPALA.
+SELECT * FROM <kafka_topic> --. This will confirm that you have results in your kafka topic. Be patient, if this is your first job may take some time (1-2 minutes) to report results.  
+CREATE TABLE <tablename> -- This will create the virtual table in ssb_default name space. It will not create the table in IMPALA.  
+INSERT INTO <tablename> SELECT * from <kafka_topic> --. Be Patient. This will create the impala table and begin reporting results from the kafka topic shortly.  
+--Lastly, execute the final select. These results are from IMPALA.  
 ```
   
 ## 3. Running the Jobs
