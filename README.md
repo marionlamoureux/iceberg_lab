@@ -703,21 +703,21 @@ INSERT INTO <tablename> SELECT * from <kafka_topic> --. Be Patient. This will cr
 ```
   
 ## 3. Running the Jobs
-
-1- **CSA_1_11_Iceberg_Sample**  
-No modifications should be required to this job
-You need to run the queries sepratatly.   
-2- **Countries_Kafka**  
+   
+1- **Countries_Kafka**  
 Select from Kafka Countries, Create Iceberg Table, Insert Results  
 Confirm Kafka topic   
-3- **Routes_Kafka**
+2- **Routes_Kafka**
 Select from Kafka Routes, Create IceBerg Table, Insert Results   
 Confirm Kafka topic   
-4- **Test_Hue_Tables**    
+3- **Test_Hue_Tables**    
 Confirm source iceberg table exists, check table names, and namespaces.   
-5- **Time_Travel**  
+4- **Time_Travel**  
 Execute required DESCRIBE in Hue, use SnapShot Ids  
-
+5- **CSA_1_11_Iceberg_Sample**  
+No modifications should be required to this job
+You need to run the queries separately.  
+  
 
 ### Top Tips
 If you are using different topics w/ different schema, use SSB to get the DDL for topic. 
