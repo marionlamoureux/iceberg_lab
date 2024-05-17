@@ -28,18 +28,18 @@ And finally an overview of the SQL Stream Builder powered by Flink including:
 
 ## TABLE OF CONTENT
 [1. Introduction to the workshop](#1-introduction-to-the-workshop)  
-  	[1.1. Logging in](##11-logging-in)  
-  	[1.2. Data Set](##11-data-set)   
-  	[1.3. Access the data set in Cloudera Data Warehouse](##13-access-the-data-set-in-cloudera-data-warehouse)  
-  	[1.4. Generating the Iceberg tables](##14-generating-the-iceberg-tables)   
+    	[1.1. Logging in](##11-logging-in)  
+    	[1.2. Data Set](##11-data-set)   
+    	[1.3. Access the data set in Cloudera Data Warehouse](##13-access-the-data-set-in-cloudera-data-warehouse)  
+    	[1.4. Generating the Iceberg tables](##14-generating-the-iceberg-tables)   
 [2. Table Maintenance in Iceberg](#2-table-maintenance-in-Iceberg)  
-  	[2.1. Loading data](##21-loading-data)  
-  	[2.2. Partition evolution](22-partition-evolution)  
-  	[2.3. Snapshots](##23-snapshots)  
+    	[2.1. Loading data](##21-loading-data)  
+    	[2.2. Partition evolution](22-partition-evolution)  
+    	[2.3. Snapshots](##23-snapshots)  
 [3. Introduction to Iceberg with NiFi ](#3-introduction-to-iceberg-with-nifi)   
-  	[3.1. Setup 1 - Create the table in Hue](##31-setup-1-create-the-table-in-hue)  
-  	[3.2. Setup 2 - Collect all the configuration details](##32-setup-2-collect-all-the-configuration-details)  
-  	[3.3. Deploy the Nifi Flow](##33-deploy-the-nifi-flow)  
+    	[3.1. Setup 1 - Create the table in Hue](##31-setup-1-create-the-table-in-hue)  
+    	[3.2. Setup 2 - Collect all the configuration details](##32-setup-2-collect-all-the-configuration-details)  
+    	[3.3. Deploy the Nifi Flow](##33-deploy-the-nifi-flow)  
 [4. Introduction to Iceberg with Sql Stream Builder ](#4-introduction-to-iceberg-with-nifi) 
 
 
