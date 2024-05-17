@@ -5,13 +5,23 @@ This workshop will take you through the new capabilities that have been added to
 
 In this workshop you will learn how to take advantage of Iceberg to support Data Lakehouse initiatives.
 
-**Value Propositions**: Take advantage of Iceberg - CDP’s Open Data Lakehouse, to experience:  
+**Value Propositions**:  
+
+Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:  
 - Better performance  
 - Lower maintenance responsibilities  
 - Multi-function analytics without having many copies of data  
 - Greater control  
 
-It will also 
+It will also give on overview of **Cloudera Data Flow** to give hands on experience of:  
+- real-time data streaming  
+- out of the box connection to various data sources and integration with Iceberg  
+- easy deployment of data pipelines using no code and accelerators  
+
+And finally an overview of the SQL Stream Builder powered by Flink including:  
+- make streaming processing accessible with simply SQL  
+- easy integration with Iceberg  
+
 
 *Note to admins: Refer to the Setup file containing the recommendations to setup the lab*
 
@@ -27,23 +37,11 @@ It will also
 **Goal of the section:   
 Check the dataset made available in a database in a csv format and store it all as Iceberg.**  
 
-#### 1. Data Set
+#### 1.1. Data Set
 
 Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
-Schema for the data set is below:Entity-Relation Diagram of tables we use in todays workshop:
+For additional information : ![Data Set Description](./setup/Data-Set-Description.md)
 
-Fact table: flights (86mio rows)
-Dimension tables: airlines (1.5k rows), airports (3.3k rows), planes (5k rows) and unique tickets (100k rows).
-
-**Dataset airlines schema**  
-
-![Airlines schema](./images/Iceberg_airlinesschema.png)
-
-**Raw format of the flight set**  
-
-Here displayed in a file explorer:
-
-![Raw Data Set](./images/dataset_folder.png)
 
 #### 2. Access the data set in Cloudera Data Warehouse
 In this section, we will check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`. 
