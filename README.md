@@ -40,7 +40,7 @@ Check the dataset made available in a database in a csv format and store it all 
 #### 1.1. Data Set
 
 Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
-For additional information : ![Data Set Description](./setup/Data-Set-Description.md)
+For additional information : ![Data Set Description](./additional/Data-Set-Description.md)
 
 
 #### 2. Access the data set in Cloudera Data Warehouse
