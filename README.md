@@ -35,32 +35,35 @@ And finally an overview of the SQL Stream Builder powered by Flink including:
 
 ### 1. Introduction to the workshop  
 **Goal of the section:   
-Check the dataset made available in a database in a csv format and store it all as Iceberg.**  
+Check the dataset made available in a database in a csv format and store it all as Iceberg.** 
 
-#### 1.1. Data Set
+#### 1.1. Logging in
+
+Access the url indicated by the presenter and indicate your credentials.
+
+_Make a note of your username, in a CDP Public Cloud workshop, it should be a account from user01 to user50, assigned by your workshop presenter. It will be useful during the lab._
+
+#### 1.2. Data Set
 
 Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
 For additional information : [Data Set Description](./additional/Data-Set-Description.md)
 
+#### 1.3. Access the data set in Cloudera Data Warehouse
+In this section, we will check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`.   
 
-#### 2. Access the data set in Cloudera Data Warehouse
-In this section, we will check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`. 
 Each participant will then create their own Iceberg databases out of the shared master database.
 
-Make a note of your username, in a CDP Public Cloud workshop, it should be a account from user01 to user50, 
-assigned by your workshop presenter.  
 
 Navigate to Data Warehouse service:
   
 ![Home_CDW](./images/home_cdw.png)
 
-Then choose an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW, 
-here we'll be using the type that leverages **Impala** as an engine:  
+Then choose an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW, here we'll be using the type that leverages **Impala** as an engine:  
 
 ![Typesofvirtualwarehouses.png](./images/Typesofvirtualwarehouses.png)  
 
 
-Execute the following in HUE Impala Editor to test that data has loaded correctly and that you have the appropriate access.  
+Execute the following in HUE Impala Editor to test that data has loaded correctly and that you have the appropriate access.   
   
 ```SQL
 SELECT COUNT(*) FROM airlines_csv.flights_csv;  
@@ -77,7 +80,7 @@ To set the variable value with your username, fill in the field as below:
 
 ![Flights data](./images/Iceberg_Flightsdata.png)  
 
-#### 3. Generating the Iceberg tables
+#### 1.4. Generating the Iceberg tables
 
 In this section, we will generate the Iceberg database from the pre-ingested csv tables.   
 
@@ -155,13 +158,16 @@ STORED AS ICEBERG
 ;
 ```
 
+You now have you're own database you can run the below queries over  
 
 ### 2. Table Maintenance in Iceberg
 
-Under the maintenance database, let's load the flight table partitioned by year.
+#### 2.1. Loading data
+
+Under the 'maintenance' database, let's load the flight table partitioned by year.  
+
 
 ```SQL
-
 -- [TABLE MAINTENANCE] CREATE FLIGHTS TABLE IN ICEBERG TABLE FORMAT
 drop table if exists ${user_id}_airlines_maint.flights;
 
@@ -178,8 +184,6 @@ CREATE TABLE ${user_id}_airlines_maint.flights (
 PARTITIONED BY (year int)
 STORED AS ICEBERG 
 ;
-
-
 ```
 
 **Partition evolution**: the insert queries below are designed to demonstrate partition evolution
@@ -239,25 +243,18 @@ INSERT INTO ${user_id}_airlines_maint.flights
  SELECT * FROM airlines_csv.flights_csv WHERE year = 1996 AND month = 12;
 ```
 
-#### 1. Partition evolution
-Let's look at the file size. For reference only, and because Iceberg will integrate nicely with all the components of the Cloudera Data Platform 
-and with different engines, the task can be performed in PySpark, looking like so:  
-
-**In pyspark**  
+#### 2.2. Partition evolution  
   
-```SQL
-SELECT partition,file_path, file_size_in_bytes
-FROM ${user_id}_airlines_maint.flights.files order by partition
-
-```
-
-Here we're sticking to the Cloudera Data Warehouse service for simplicity, so we'll perform the task using Impala.
+  
+Let's look at the file size. 
 
 **In Impala**  
   
 ```SQL
 SHOW FILES in ${user_id}_airlines_maint.flights;
-```
+```  
+
+**For reference only**, you can check out other ways to run that command: [pyspark](./additional/pyspark.md)
 
 Make a note of the average file size which should be around 5MB.
 Also note the path and folder structure: a folder is a partition, a file is an ingest as we performed them above.
@@ -270,7 +267,6 @@ ALTER TABLE ${user_id}_airlines_maint.flights SET PARTITION SPEC (year, month);
   
 Check the partition fields in the table properties
 ```SQL
-
 DESCRIBE EXTENDED  ${user_id}_airlines_maint.flights
 ```
 
@@ -294,7 +290,7 @@ SHOW FILES in ${user_id}_airlines_maint.flights;
 Will show the newly ingested data, note the path, folder breakdown is different from before, with the additional partitioning over month taking place.
 
 
-#### 2. Snapshots
+#### 2.3. Snapshots
 
 From the INGEST queries earlier, snapshots was created and allow the time travel feature in Iceberg.
 
@@ -326,7 +322,6 @@ https://blog.min.io/iceberg-acid-transactions/
 
 Let's update a row.
 
-
 ```SQL
 SELECT * FROM  ${user_id}_airlines_maint.flights LIMIT 1
 ```
@@ -341,18 +336,7 @@ WHERE year = ${year}
   AND deptime = ${deptime};
 ```
 
-**Note** the next statement will FAIL:
-
-```SQL
-UPDATE ${user_id}_airlines_maint.flights
-SET uniquecarrier = 'BB'
-WHERE year = ${year}
-  AND month = ${month}
-  AND tailnum = '${tailnum}'
-  AND deptime = ${deptime};
-```
-
-As Iceberg table are created as V1 by default, you might get an error message. You will be able to migrate the table from Iceberg V1 to V2 using the below query:
+As Iceberg table are created as V1 by default, you will be able to migrate the table from Iceberg V1 to V2 using the below query:
 ```SQL
 ALTER TABLE ${user_id}_airlines_maint.flights
 SET TBLPROPERTIES('format-version'= '2')
@@ -389,18 +373,19 @@ CDP Public Cloud now includes support for Apache Iceberg in the following servic
 This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment. 
 Users can develop an Iceberg application once and deploy anywhere.  
 
+
 **Handy Iceberg Links**  
 [Apache Iceberg Documentation (be careful not everything may be supported yet in CDP)](https://iceberg.apache.org/docs/latest/)  
 [Impala Iceberg Cheatsheet](https://docs.google.com/document/d/1cusHyLBA7hS5zLV0vVctymoEbUviJi4aT8SfKyIe_Ao/edit?usp=drive_link)  
 
-### 2. Introduction to Iceberg with NiFi  
+### 3. Introduction to Iceberg with NiFi  
 
 In this very short lab we are going to use Nifi to load data into Kafka and Iceberg:  
 - First, we will use NiFi to ingest an airport route data set (JSON) and send that data to Kafka and Iceberg.  
 - Next we will use NiFi to ingest a countries data set (JSON) and send to Kafka and Iceberg.   
 - Finally we will use NiFi to ingest an airports data set (JSON) and send to Kafka and Iceberg.   
   
-#### 1. Setup 1 - Create the table in Hue
+#### 3.1. Setup 1 - Create the table in Hue
 While still in Hue, please run the below to create Iceberg tables as destination for the Nifi flow we will deploy just after:
 
 ```SQL
@@ -442,7 +427,7 @@ CREATE TABLE ${user_id}_airlines.`countries_nifi_iceberg` (
 ```
 
 
-#### 2. Setup 2 - Collect all the configuration details for the flow
+#### 3.2. Setup 2 - Collect all the configuration details for the flow
 
 You'll need a few information from the workspace to configure the pre-designed flow:
 - Your keytab
@@ -459,7 +444,8 @@ under Actions, click Get keytab.
 
 ![Userprofile.png](./images/Userprofile.png)  
 
-Download the keytab file
+Download the keytab file  
+  
 
 ![Get Keytab](./images/Iceberg_GetKeytab.png)  
 
@@ -515,10 +501,12 @@ Hive Metastore URI example:
 `thrift://workshopforbt-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`
 
 
-#### 3. Deploy the Nifi Flow
+#### 3.3. Deploy the Nifi Flow
 
-Access the Cloudera Data Flow Service:  
+Access the Cloudera Data Flow Service:   
+  
 ![AccessCDF](./images/AccessCDF.png)  
+  
 Let's deploy our NiFi flows. Access the Flow Catalog and identify the `SSB Demo - Iceberg` Flow
 
 ![CataloginCDF.png](./images/CataloginCDF.png)  
@@ -568,7 +556,7 @@ In Kafka, accessing the "Streams Messaging Light Duty" Datahub, powered by Kafka
 
 ![AccessStreamMessengingManager.png](./images/AccessStreamMessengingManager.png)
 
-### 4. Introduction to Iceberg with Sql Stream Builder  
+#### 4. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Stream Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
 Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
@@ -595,7 +583,8 @@ You'll need:
 - The Kafka endpoints you'll be querying
   
 
-#### 1.Setup SSB: Project
+#### 4.1. Setup SSB: Project creation
+  
 Before you can use Streaming SQL Console, you need to create a project where you can submit your SQL jobs and
 manage your project resources. Created or imported projects can be shared with other users in Streaming SQL Console. You can invite members
 using their Streaming SQL Console username and set the access level to member or administrator.
