@@ -40,7 +40,8 @@ And finally an overview of the SQL Stream Builder powered by Flink including:
     * [3.1. Setup 1 - Create the table in Hue](##31-setup-1-create-the-table-in-hue)  
     * [3.2. Setup 2 - Collect all the configuration details](##32-setup-2-collect-all-the-configuration-details)  
     * [3.3. Deploy the Nifi Flow](##33-deploy-the-nifi-flow)  
-  * [4. Introduction to Iceberg with Sql Stream Builder ](#4-introduction-to-iceberg-with-nifi) 
+  * [4. Introduction to Iceberg with Sql Stream Builder ](#4-introduction-to-iceberg-with-sql-stream-builder) 
+    * [4.1. Setup SSB: Project creation](##41-setup-ssb-project-creation)
 
 
 ### 1. Introduction to the workshop  
@@ -623,21 +624,14 @@ Click `Import`
   
 ![SSBImportwindow.png](./images/SSBImportwindow.png)  
   
-
   
-#### 2.Setup SSB: activate environment
+#### 3.2. Setup SSB - activate environment  
+
 We'll need a variable containing your username to be pointing to the correct Kafka topics and Iceberg tables named after that username in previous labs.
-To set a envrionment variable in your SSB project, you'll need an **active** environment.
-Creating an environment file for a project means that users can create a template with variables that could be used to
-store environment-specific configuration.
-For example, you might have a development, staging and production environment, each containing different clusters,
-databases, service URLs and authentication methods. Projects and environments allow you to write the logic and create the resources once, and use template placeholders for values that need to be replaced with the environment
-specific parameters.
-To each project, you can create multiple environments, but only one can be active at a time for a project.
-Environments can be exported to files, and can be imported again to be used for another project, or on another cluster.
-While environments are applied to a given project, they are not part of the project. They are not synchronized to Git
-when exporting or importing the project. This separation is what allows the storing of environment-specific values, or
-configurations that you do not want to expose to the Git repository.
+To set a envrionment variable in your SSB project, you'll need an **active** environment.  
+  
+_Documentation on SSB environment_ [SSB environments](./additional/ssbenvironment.md)
+  
   
 ![SSBNewenvironment.png](./images/SSBNewenvironment.png)
 
