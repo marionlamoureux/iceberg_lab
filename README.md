@@ -670,11 +670,10 @@ Topic Name: <select the topic created in Schema Registry>.
 
 ![KafkaTableConfig.png](./images/KafkaTableConfig.png)  
     
-When you select Data Format as AVRO, you must provide the correct Schema Definition when creating the table for SSB to be able to successfully process the topic data. For JSON tables, though, SSB can look at the data flowing through the topic and try to infer the schema automatically, which is quite handy at times. Obviously, there must be data in the topic already for this feature to work correctly.
 
-Note: SSB tries its best to infer the schema correctly, but this is not always possible and sometimes data types are inferred incorrectly. You should always review the inferred schemas to check if it’s correctly inferred and make the necessary adjustments.
-
-Since you are reading data from a JSON topic, go ahead and click on Detect Schema to get the schema inferred. You should see the schema be updated in the Schema Definition tab.
+Since you are reading data from a JSON topic, go ahead and click on Detect Schema to get the schema inferred. You should see the schema be updated in the Schema Definition tab.  
+  
+More on [formats in SSB](./additional/formatsinssb.md)  
   
 
 **This step is performed automatically when deploying the project from github:Copy/paste the thrift Hive URI**   
@@ -692,7 +691,7 @@ INSERT INTO <tablename> SELECT * from <kafka_topic> --. Be Patient. This will cr
 --Lastly, execute the final select. These results are from IMPALA.  
 ```
   
-## 3. Running the Jobs
+## 3.3. Running the Jobs
    
 1- **Countries_Kafka**  
 Select from Kafka Countries, Create Iceberg Table, Insert Results  
