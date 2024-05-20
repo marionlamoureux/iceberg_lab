@@ -54,7 +54,7 @@ Access the url indicated by the presenter and indicate your credentials.
 
 _Make a note of your username, in a CDP Public Cloud workshop, it should be a account from user01 to user50, assigned by your workshop presenter. It will be useful during the lab._
 
-#### 1.2. Data Set
+#### 1.2. Data Set description
 
 Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
 For additional information : [Data Set Description](./documentation/IcebergLab-Documentation.md#data-set)
@@ -71,7 +71,7 @@ Navigate to Data Warehouse service:
 
 Then choose an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW, here we'll be using the type that leverages **Impala** as an engine:  
 
-![Typesofvirtualwarehouses.png](./images/Typesofvirtualwarehouses.png)  
+![Typesofvirtualwarehouses.png](./images/ImpalaVW.png)  
 
 
 Execute the following in HUE Impala Editor to test that data has loaded correctly and that you have the appropriate access.   
