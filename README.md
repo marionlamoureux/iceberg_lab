@@ -279,7 +279,7 @@ Let's look at the file size.
 SHOW FILES in ${user_id}_airlines_maint.flights;
 ```  
 
-**For reference only**, you can check out other ways to run that command: [pyspark](./additional/pyspark.md)
+**For reference only**, you can check out other ways to run that command: [pyspark](documentation/IcebergLab-Documentation.md#pyspark)
 
 Make a note of the average file size which should be around 5MB.
 Also note the path and folder structure: a folder is a partition, a file is an ingest as we performed them above.
@@ -348,7 +348,7 @@ Snapshot id format looks like:
 
 #### 3. ACID V2
 
-Here we'll show the commands that could be run concomitantly thanks to [ACID](../documentation/IcebergLab-Documentation.md#acid) in Iceberg
+Here we'll show the commands that could be run concomitantly thanks to [ACID](./documentation/IcebergLab-Documentation.md#acid) in Iceberg
 Let's update a row.  
 
 
