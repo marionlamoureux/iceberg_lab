@@ -58,6 +58,14 @@ so all resources deployed by CDP are deployed within that region within one spec
 Once you’ve registered an environment in CDP, 
 you can start provisioning CDP resources such as clusters, which run on the physical infrastructure in an CSP data center.
 
+# Workload Password
+
+To access non-SSO interfaces, each user and machine user must set a workload password (also known as "FreeIPA password"). An administrator can set other users' workload passwords.
+Set your own workload password
+As a CDP user, you can see on your profile page if you have previously set your workload password and if the password is about to expire. There are two cases when you may want to set your workload password:
+When you first start using CDP.
+When your password expires. This may or may not happen depending on your company's policies. If your password does expire, you will see a banner notification on the CDP web interface 10 days before the expiry date.
+You can also see on your user’s profile page the state of your workload password (if it expires soon or cannot yet be changed).
 
 # Data hubs
 

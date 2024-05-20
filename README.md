@@ -498,7 +498,6 @@ click on your username and access the Profile page. On the right, under Actions,
 
 Download the keytab file  
   
-
 ![Get Keytab](./images/Iceberg_GetKeytab.png)  
 
 Select the correct [CDP environment](./documentation/IcebergLab-Documentation.md#cdp-environments), you can ask the presenter for it:  
@@ -507,7 +506,14 @@ Select the correct [CDP environment](./documentation/IcebergLab-Documentation.md
 ![CDPenvforkeytab](./images/keytab_env.png)  
 
 
-  
+##### Set your Workload password
+
+In your profile, set your [workload password](./documentation/IcebergLab-Documentation.md#workload-password), for the purpose of this lab, 
+just pick the same password as your login credentials but in a production environment, that is of course not best practice.  
+
+![workloadpassword](./images/workloadpassword.png)
+
+
 ##### Collect the Kafka Broker endpoints
 
 In CDP Public Cloud, Kafka is deployed in a [Datahub](./documentation/IcebergLab-Documentation.md#data-hubs), which is a step previously setup by the lab admin.
@@ -594,7 +600,7 @@ On the next page, "Parameters", fill in the fields with the value for the parame
 |Hadoop Configuration Resources|Collected earlier in the hive-clientconfig zip file downloaded from the datalake's Cloudera Manager `hive-site.xml`,`core-site.xml`,`hdfs-site.xml`|![configfiles](./images/configfiles.png)|
 |Hive Metastore URI|Collected earlier. Ex:`thrift://workshop-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`||
 |Kafka Broker Endpoint|Collected earlier. Ex `kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093, kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`||  
-|Kerberos Keytab|Load file collected earlier from your profile |![file](./images)|  
+|Kerberos Keytab|Load file collected earlier from your profile |![uploadKeytab](./images/Nifi_loadkeytab.png)|  
   
 Leave the default settings for Sizing and scaling, as well as the KPIs and deploy your flow.
   
