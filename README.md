@@ -317,7 +317,8 @@ Will show the newly ingested data, note the path, folder breakdown is different 
 
 #### 2.3. Snapshots
 
-From the INGEST queries earlier, snapshots was created and allow the time travel feature in Iceberg.
+From the INGEST queries earlier, snapshots was created and allow the time travel feature in Iceberg 
+and this section will demonstrate the kind of operation you can run using that feature.
 
 ```SQL
 DESCRIBE HISTORY ${user_id}_airlines_maint.flights;  
@@ -346,6 +347,8 @@ Snapshot id format looks like:
 `3916175409400584430` **with no quotes**
 
 #### 3. ACID V2
+
+Here we'll show the commands that could be run concomitantly thanks to [ACID](../documentation/) in Iceberg
 
 https://blog.min.io/iceberg-acid-transactions/
 

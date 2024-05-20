@@ -29,6 +29,12 @@ SELECT partition,file_path, file_size_in_bytes
 FROM ${user_id}_airlines_maint.flights.files order by partition
 
 ```
+# ACID
+
+ACID is an acronym that refers to the set of 4 key properties that define a transaction: 
+Atomicity, Consistency, Isolation, and Durability. If a database operation has these ACID properties, 
+it can be called an ACID transaction, and data storage systems that apply these operations are called transactional systems.
+This set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps.
 
 
 # SSB environment
