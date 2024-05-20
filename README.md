@@ -151,7 +151,21 @@ CREATE TABLE ${user_id}_airlines.unique_tickets (
 
 INSERT INTO ${user_id}_airlines.unique_tickets
   SELECT * FROM airlines_csv.unique_tickets_csv;
+  
+```
+Copy & paste the SQL below into HUE
 
+```SQL
+-- TEST PLANES PROPERTIES
+DESCRIBE FORMATTED ${user_id}_airlines.planes;
+```  
+
+Pay attention to the following properties: 
+- Table Type: `EXTERNAL`
+- SerDe Library: `org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe`
+- Location: `warehouse/tablespace/external/hive/`
+
+```SQL
 -- CREATE ICEBERG TABLE FORMAT STORED AS PARQUET
 drop table if exists ${user_id}_airlines.planes_iceberg;
 
@@ -177,10 +191,23 @@ STORED AS ICEBERG
 ;
 ```
 
-You now have you're own database you can run the below queries over:  
+
+Copy & paste the SQL below into HUE
+
+```SQL
+-- TEST PLANES PROPERTIES
+DESCRIBE FORMATTED ${user_id}_airlines.planes_iceberg;
+```
+
+Pay attention to the following properties for this Iceberg table, compared to the same table in Hive format:
+- Table Type: `	EXTERNAL_TABLE`
+- SerDe Library: `org.apache.iceberg.mr.hive.HiveIcebergSerDe`
+- Location: `/warehouse/tablespace/external/hive/user020_airlines.db/planes_iceberg	`
+
+
+You now have your own database you can run the below queries over:  
 
 ![AirlinesDB](./images/AirlinesDB.png)
-
 
 
 ### 2. Table Maintenance in Iceberg
@@ -397,17 +424,6 @@ WHERE year = ${year}
   AND tailnum = '${tailnum}'
   AND deptime = ${deptime};
 ```
-
-Copy & paste the SQL below into HUE
-```SQL
--- TEST PLANES PROPERTIES
-DESCRIBE FORMATTED ${user_id}_airlines.planes;
-```  
-
-Pay attention to the following properties: 
-- Table Type: `EXTERNAL`
-- SerDe Library: `org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe`
-- Location: `warehouse/tablespace/external/hive/`
 
 The following labs will take you through various aspects of CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
 CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Hive, Flink, Sql Stream Builder (SSB), Spark 3, NiFi, and Replication Manager (BDR).
