@@ -9,7 +9,12 @@ Save the airline data in a folder under the default CDP datalake bucket under se
 -planes  
 
 Make a note of the path to be indicated in the SQL under the variable "${data-bucket}"
-Example: for s3://goes-se-sandbox01/airline-csv/flights/ the folder is airline-csv (no / before nor after)
+Example: for s3://goes-se-sandbox01/airline-csv/flights/ the folder is airline-csv (no / before nor after), to be pointing to that folder when creating the master csv database
+if you've copied the files in the default S3 bucket, you won't need to refer to the parent bucket.
+
+Refer to [Code MD](./code.md) for the SQL commands to create the database.
+
+
 
 In a RAZ enabled environment, make sure the user group have access to the bucket under Ranger > "S3".
 Also add the user group to Hadoop SQL > "all urls" and "all - database, table, column"
@@ -18,7 +23,6 @@ Run the SQL queries saved under "code" to generate the tables.
 ## Nifi
 
 Make the flow accessing in the CDF catalog for users. Download flow definition file here: 
-
 
 Name the flow : SSB-Iceberg-Demo  
 

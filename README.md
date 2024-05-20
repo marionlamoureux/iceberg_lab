@@ -74,23 +74,17 @@ Then choose an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE.
 ![Typesofvirtualwarehouses.png](./images/ImpalaVW.png)  
 
 
-Execute the following in HUE Impala Editor to test that data has loaded correctly and that you have the appropriate access.   
+Execute the following in **HUE** Impala Editor to test that data has loaded correctly and that you have the appropriate access.   
   
 ```SQL
-SELECT COUNT(*) FROM airlines_csv.flights_csv;  
+SELECT COUNT(*) FROM airlines_csv.flights_csv; 
 ```
 
+**Expected output**  
 ![Hue Editor](./images/Hue_editor.png)
 
 
-**Note: These queries use variables in Hue**
-
-To set the variable value with your username, fill in the field as below:  
-![Setqueryvaribale](./images/Set_variable_hue.png)  
-
-
-![Flights data](./images/Iceberg_Flightsdata.png)  
-
+  
 #### 1.4. Generating the Iceberg tables
 
 In this section, we will generate the Iceberg database from the pre-ingested csv tables.   
@@ -108,8 +102,18 @@ Run the below queries to create your own databases and ingest data from the mast
 -- EACH USER RUNS TO CREATE DATABASES
 CREATE DATABASE ${user_id}_airlines;
 CREATE DATABASE ${user_id}_airlines_maint;
+```
+
+**Note: These queries use variables in Hue**
+
+To set the variable value with your username, fill in the field as below:  
+![Setqueryvaribale](./images/Set_variable_hue.png)  
 
 
+![Flights data](./images/Iceberg_Flightsdata.png)   
+
+
+```SQL
 -- CREATE HIVE TABLE FORMAT TO CONVERT TO ICEBERG LATER
 drop table if exists ${user_id}_airlines.planes;
 
@@ -509,7 +513,7 @@ In the hive-conf.xml file, grab the value for the hive.metastore.uris
 
 Hive Metastore URI example:
 
-`thrift://workshopforbt-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`
+`thrift://workshop-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`
 
 
 #### 3.3. Deploy the Nifi Flow
@@ -546,8 +550,8 @@ On the next page, "Parameters", fill in the fields with the value for the parame
 |CDP Workload User|<enter your user id>|
 |CDP Workload User Password|<enter your login password> and set sensitive to ‘Yes’|
 |Hadoop Configuration Resources|/etc/hive/conf/hive-site.xml,/etc/hadoop/conf/core-site.xml,/etc/hive/conf/hdfs-site.xml|
-|Hive Metastore URI|Collected earlier. Ex:`thrift://workshopforbt-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`|
-|Kafka Broker Endpoint|Collected earlier. Ex `bt-kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, bt-kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093, bt-kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`|  
+|Hive Metastore URI|Collected earlier. Ex:`thrift://workshop-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`|
+|Kafka Broker Endpoint|Collected earlier. Ex `kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093, kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`|  
 |Kerberos Keytab|Load file collected earlier|  
   
 Leave the default settings for Sizing and scaling, as well as the KPIs and deploy your flow.
@@ -650,9 +654,9 @@ clicking on the three-dotted icon next to Kafka, then selecting New Kafka Data S
 **Name**: {user-id}_cdp_kafka.  
 **Brokers**: (Comma-separated List as shown below)
   
-Example: `bt-kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, 
-  bt-kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093,
-  bt-kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`  
+Example: `kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, 
+  kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093,
+  kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`  
 **Protocol**: SASL/SSL  
 **SASL Mechanism**: KERBEROS  
 
