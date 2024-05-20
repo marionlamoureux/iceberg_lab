@@ -89,8 +89,6 @@ SELECT COUNT(*) FROM airlines_csv.flights_csv;
 
 In this section, we will generate the Iceberg database from the pre-ingested csv tables.   
 
-
-
 **Run the below queries to create your own databases and ingest data from the master database**  
   
 
@@ -101,19 +99,21 @@ CREATE DATABASE ${user_id}_airlines;
 CREATE DATABASE ${user_id}_airlines_maint;
 ```
 
-_Note: These queries use variables in Hue
+*Note: These queries use variables in Hue
 
-To set the variable value with your username, fill in the field as below_  
+To set the variable value with your username, fill in the field as below:  
 
 ![Setqueryvaribale](./images/Set_variable_hue.png)  
+
+
+To run several queries in a row in Hue, make sure you select all the queries:*  
+
+![Hue_runqueries.png](./images/Hue_runqueries.png)  
+
+
   
   
 **Once the database is created, create the Hive tables first**  
-
-
-_To run several queries in a row in Hue, make sure you select all the queries:_    
-
-![Hue_runqueries.png](./images/Hue_runqueries.png)  
 
 
 
