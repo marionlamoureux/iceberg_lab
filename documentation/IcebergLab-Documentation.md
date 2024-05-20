@@ -59,6 +59,24 @@ Once you’ve registered an environment in CDP,
 you can start provisioning CDP resources such as clusters, which run on the physical infrastructure in an CSP data center.
 
 
+# Data hubs
+
+ata Hub is a service for launching and managing workload clusters powered by Cloudera Runtime 
+(Cloudera’s unified open source distribution including the best of CDH and HDP)
+
+Data Hub includes a set of cloud optimized built-in templates for common workload types,
+as well as a set of options allowing for extensive customization based on your enterprise’s needs. 
+Furthermore, it offers a set of convenient cluster management options such as cluster scaling, stop, restart, terminate, and more. All clusters are secured via wire encryption and strong authentication out of the box, and users can access cluster UIs and endpoints through a secure gateway powered by Apache Knox. Access to S3 cloud storage from Data Hub clusters is enabled by default (S3Guard is enabled and required in Runtime versions older than 7.2.2).
+
+Data Hub provides complete workload isolation and full elasticity so that every workload, every application,
+or every department can have their own cluster with a different version of the software, different configuration, and running on different infrastructure. This enables a more agile development process.
+
+Since Data Hub clusters are easy to launch and their lifecycle can be automated, you can create them on demand and when you don’t need them,
+you can return the resources to the cloud.
+
+*In this lab*, the Kafka instance is hosted in a datahub, directly deployed from the catalog of images 
+that comes out of the box in your CDP platform, configured and set up to handle Stream messages worklods. The Template name is `Streams Messaging Light Duty: Apache Kafka, Schema Registry, Streams Messaging Manager, Streams Replication Manager, Cruise Control`
+The SSB instance is also hosted in a datahub, template name: `Streaming Analytics Light Duty with Apache Flink`
 
 # SSB environment
  Creating an environment file for a project means that users can create a template with variables that could be used to

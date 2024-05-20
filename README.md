@@ -492,9 +492,7 @@ You'll need a few information from the workspace to configure the pre-designed f
 ##### Download your Kerberos Keytab
 
 Change from your HUE tab back to the tab with the CDW UI. On the left hand menu,
-click on your username and access the Profile page (this should take you to
-https://console.cdp.cloudera.com/iam/index.html#/my-account). On the right,
-under Actions, click Get keytab.
+click on your username and access the Profile page. On the right, under Actions, click Get keytab.
 
 ![Userprofile.png](./images/Userprofile.png)  
 
@@ -503,22 +501,22 @@ Download the keytab file
 
 ![Get Keytab](./images/Iceberg_GetKeytab.png)  
 
-Select the correct [CDP environment, you can ask the presenter for it:  
+Select the correct [CDP environment](./documentation/IcebergLab-Documentation.md#cdp-environments), you can ask the presenter for it:  
+
 
 ![CDPenvforkeytab](./images/keytab_env.png)  
 
 
-
+  
 ##### Collect the Kafka Broker endpoints
 
-In CDP Public Cloud, Kafka is deployed in a Datahub, which is a step previously setup by the lab admin.
+In CDP Public Cloud, Kafka is deployed in a [Datahub](), which is a step previously setup by the lab admin.
 
 ![Datahubs](./images/AccessDataHub.png)  
 
 The name of the Datahub to access will be provided by the instructor.
 
-The Kafka broker endpoints are available on the overview page of the Datahub,
-on the bottom menu, under "Endpoints".
+The Kafka broker endpoints are available on the overview page of the Datahub,on the bottom menu, under "Endpoints".
 
 Kafka Endpoints in Datahub overview
 ![Kafka Borker Endpoints](./images/Iceberg_KafkaBorkerEndpoints.png)
