@@ -14,13 +14,13 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
 - Greater control  
 
 It will also give on overview of **Cloudera Data Flow** to give hands on experience of:  
-- real-time data streaming  
-- out of the box connection to various data sources and integration with Iceberg  
-- easy deployment of data pipelines using no code and accelerators  
+- Real-time data streaming  
+- Out of the box connection to various data sources and integration with Iceberg  
+- Easy deployment of data pipelines using no code and accelerators  
 
 And finally an overview of the SQL Stream Builder powered by Flink including:  
-- make streaming processing accessible with simply SQL  
-- easy integration with Iceberg  
+- Make streaming processing accessible with simply SQL  
+- Easy integration with Iceberg  
 
 
 *Note to admins: Refer to the Setup file containing the recommendations to setup the lab*
@@ -57,7 +57,7 @@ _Make a note of your username, in a CDP Public Cloud workshop, it should be a ac
 #### 1.2. Data Set
 
 Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
-For additional information : [Data Set Description](./additional/Data-Set-Description.md)
+For additional information : [Data Set Description](../documentation/Iceberg%20Lab%20-%20Documentation.md#data-set)
 
 #### 1.3. Access the data set in Cloudera Data Warehouse
 In this section, we will check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`.   
