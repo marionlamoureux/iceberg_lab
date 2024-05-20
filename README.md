@@ -330,11 +330,15 @@ DESCRIBE HISTORY ${user_id}_airlines_maint.flights  BETWEEN '${Timestamp1}' AND 
 ```
 Timestamp format looks like this:  
 `2024-04-11 09:48:07.654000000`  
-  
+
+You can run queries on the content of a snapshot refering its SnapshotID or timestamp:    
   
 ```SQL
-
 SELECT COUNT(*) FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF ${snapshotid}
+```
+ or for example:  
+ 
+```SQL
 SELECT * FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF ${snapshotid}
 
 ```
