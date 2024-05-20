@@ -179,7 +179,7 @@ STORED AS ICEBERG
 
 You now have you're own database you can run the below queries over:  
 
-[AirlinesDB](./images/AirlinesDB.png)
+![AirlinesDB](./images/AirlinesDB.png)
 
 
 
