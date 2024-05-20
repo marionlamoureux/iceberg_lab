@@ -18,7 +18,7 @@ CREATE EXTERNAL TABLE airlines_csv.flights_csv(month int, dayofmonth int,
  depdelay int, origin string, dest string, distance int, taxiin int, 
  taxiout int, cancelled int, cancellationcode string, diverted string, 
  carrierdelay int, weatherdelay int, nasdelay int, securitydelay int, 
-lateaircraftdelay int) 
+lateaircraftdelay int, year int) 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' 
 STORED AS TEXTFILE LOCATION '/<data_bucket>/flights' tblproperties("skip.header.line.count"="1");
 

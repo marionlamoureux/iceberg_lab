@@ -170,7 +170,7 @@ CREATE TABLE ${user_id}_airlines.flights_iceberg (
  depdelay int, origin string, dest string, distance int, taxiin int, 
  taxiout int, cancelled int, cancellationcode string, diverted string, 
  carrierdelay int, weatherdelay int, nasdelay int, securitydelay int, 
- lateaircraftdelay int
+ lateaircraftdelay int, year int
 ) 
 PARTITIONED BY (year int)
 STORED AS ICEBERG 
@@ -204,7 +204,7 @@ CREATE TABLE ${user_id}_airlines_maint.flights (
  depdelay int, origin string, dest string, distance int, taxiin int, 
  taxiout int, cancelled int, cancellationcode string, diverted string, 
  carrierdelay int, weatherdelay int, nasdelay int, securitydelay int, 
- lateaircraftdelay int
+ lateaircraftdelay int, year int
 ) 
 PARTITIONED BY (year int)
 STORED AS ICEBERG 
