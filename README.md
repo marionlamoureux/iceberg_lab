@@ -427,13 +427,10 @@ WHERE year = ${year}
 
 The following labs will take you through various aspects of CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
 CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Hive, Flink, Sql Stream Builder (SSB), Spark 3, NiFi, and Replication Manager (BDR).
+  
 This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment. 
 Users can develop an Iceberg application once and deploy anywhere.  
 
-
-**Handy Iceberg Links**  
-[Apache Iceberg Documentation (be careful not everything may be supported yet in CDP)](https://iceberg.apache.org/docs/latest/)  
-[Impala Iceberg Cheatsheet](https://docs.google.com/document/d/1cusHyLBA7hS5zLV0vVctymoEbUviJi4aT8SfKyIe_Ao/edit?usp=drive_link)  
 
 ### 3. Introduction to Iceberg with NiFi  
 
@@ -505,6 +502,11 @@ Download the keytab file
   
 
 ![Get Keytab](./images/Iceberg_GetKeytab.png)  
+
+Select the correct [CDP environment, you can ask the presenter for it:  
+
+![CDPenvforkeytab](./images/keytab_env.png)  
+
 
 
 ##### Collect the Kafka Broker endpoints

@@ -1,4 +1,9 @@
 
+**Handy Iceberg Links**  
+[Apache Iceberg Documentation (be careful not everything may be supported yet in CDP)](https://iceberg.apache.org/docs/latest/)  
+[Impala Iceberg Cheatsheet](https://docs.google.com/document/d/1cusHyLBA7hS5zLV0vVctymoEbUviJi4aT8SfKyIe_Ao/edit?usp=drive_link)  
+
+
 # Data Set
 Schema for the data set is below: Entity-Relation Diagram of tables we use in todays workshop:
 
@@ -37,6 +42,22 @@ it can be called an ACID transaction, and data storage systems that apply these 
 This set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps.
 
 In the context of Iceberg specifically, additional information can be found in this [blog article](https://blog.min.io/iceberg-acid-transactions/)
+
+
+# CDP environments
+
+In CDP, an environment is a logical subset of your cloud provider account including a specific virtual private network. 
+You can register as many environments as you require, each living either on prem, in the cloud, in as many supporter cloud providers as you need (out of AWS, Azure, GCP
+
+
+The “environment” concept of CDP is closely related to the virtual private network in your cloud provider account. 
+Registering an environment provides CDP with access to your cloud provider account and identifies the resources in your cloud provider account 
+that CDP services can access or provision. 
+A single environment is contained within a single cloud provider region,
+so all resources deployed by CDP are deployed within that region within one specific virtual network. 
+Once you’ve registered an environment in CDP, 
+you can start provisioning CDP resources such as clusters, which run on the physical infrastructure in an CSP data center.
+
 
 
 # SSB environment
