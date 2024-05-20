@@ -348,9 +348,8 @@ Snapshot id format looks like:
 
 #### 3. ACID V2
 
-Here we'll show the commands that could be run concomitantly thanks to [ACID](../documentation/) in Iceberg
+Here we'll show the commands that could be run concomitantly thanks to [ACID](../documentation/IcebergLab-Documentation.md#acid) in Iceberg
 
-https://blog.min.io/iceberg-acid-transactions/
 
 Let's update a row.
 

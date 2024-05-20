@@ -36,6 +36,8 @@ Atomicity, Consistency, Isolation, and Durability. If a database operation has t
 it can be called an ACID transaction, and data storage systems that apply these operations are called transactional systems.
 This set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps.
 
+In the context of Iceberg specifically, additional information can be found in this [blog article](https://blog.min.io/iceberg-acid-transactions/)
+
 
 # SSB environment
  Creating an environment file for a project means that users can create a template with variables that could be used to
