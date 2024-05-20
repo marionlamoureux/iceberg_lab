@@ -349,16 +349,21 @@ Snapshot id format looks like:
 #### 3. ACID V2
 
 Here we'll show the commands that could be run concomitantly thanks to [ACID](../documentation/IcebergLab-Documentation.md#acid) in Iceberg
+Let's update a row.  
 
 
-Let's update a row.
+First, let's find a row:  
 
 ```SQL
-SELECT * FROM  ${user_id}_airlines_maint.flights LIMIT 1
+SELECT year, month, tailnum, deptime, uniquecarrier  FROM  ${user_id}_airlines_maint.flights LIMIT 1
 ```
-
 Save the values for year, month, tailnum and deptime to be able to identify that row after update.
-Example:  
+Example:
+
+![Savearow_hue-ACID](./images/Savearow_hue-ACID.png)  
+
+You can bring back that row with a SELECT on a few unique characteristics and we'll update the uniquecarrier value to something else.
+
 ```SQL
 SELECT * FROM ${user_id}_airlines_maint.flights
 WHERE year = ${year}
@@ -367,12 +372,17 @@ WHERE year = ${year}
   AND deptime = ${deptime};
 ```
 
-As Iceberg table are created as V1 by default, you will be able to migrate the table from Iceberg V1 to V2 using the below query:
+
+As Iceberg table are created as V1 by default, 
+you will be able to migrate the table from Iceberg V1 to V2 using the below query:
 ```SQL
 ALTER TABLE ${user_id}_airlines_maint.flights
 SET TBLPROPERTIES('format-version'= '2')
+```
+Then try the UPDATE:
 
---- Try the UPDATE again:
+```SQL
+
 UPDATE ${user_id}_airlines_maint.flights
 SET uniquecarrier = 'BB' 
 WHERE year = ${year}
