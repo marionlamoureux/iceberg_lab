@@ -111,7 +111,7 @@ To run several queries in a row in Hue, make sure you select all the queries:*
 ![Hue_runqueries.png](./images/Hue_runqueries.png)  
 
 
-  
+
   
 **Once the database is created, create the Hive tables first**  
 
@@ -177,9 +177,15 @@ STORED AS ICEBERG
 ;
 ```
 
-You now have you're own database you can run the below queries over  
+You now have you're own database you can run the below queries over:  
+
+[AirlinesDB](./images/AirlinesDB.png)
+
+
 
 ### 2. Table Maintenance in Iceberg
+
+In this section, we will load data in Iceberg format and demonstrate a few key maintenance features of Iceberg.
 
 #### 2.1. Loading data
 
