@@ -57,7 +57,7 @@ _Make a note of your username, in a CDP Public Cloud workshop, it should be a ac
 #### 1.2. Data Set
 
 Data set for this workshop is the publicly available Airlines data set, which consists of c.80million row of flight information across the United States.  
-For additional information : [Data Set Description](../documentation/Iceberg%20Lab%20-%20Documentation.md#data-set)
+For additional information : [Data Set Description](../documentation/IcebergLab-Documentation.md#data-set)
 
 #### 1.3. Access the data set in Cloudera Data Warehouse
 In this section, we will check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`.   
