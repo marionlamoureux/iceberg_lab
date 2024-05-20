@@ -1,5 +1,4 @@
 
-
 # Data Set
 Schema for the data set is below: Entity-Relation Diagram of tables we use in todays workshop:
 
