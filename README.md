@@ -591,10 +591,11 @@ On the next page, "Parameters", fill in the fields with the value for the parame
 |----------|----------|
 |CDP Workload User|Enter your user id(ex: `user001`)|
 |CDP Workload User Password|Enter your workload password (which is the same as your login password and that you can set under your profile and set sensitive to ‘Yes’|
-|Hadoop Configuration Resources|Collected earlier in the hive-clientconfig zip file downloaded from the datalake's Cloudera Manager `hive-site.xml`,`core-site.xml`,`hdfs-site.xml`|
+|Hadoop Configuration Resources|Collected earlier in the hive-clientconfig zip file downloaded from the datalake's Cloudera Manager `hive-site.xml`,`core-site.xml`,`hdfs-site.xml`
+![configfiles](./images/configfiles.png)|
 |Hive Metastore URI|Collected earlier. Ex:`thrift://workshop-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`|
 |Kafka Broker Endpoint|Collected earlier. Ex `kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, kafka-corebroker1.workshop.vayb-xokg.cloudera.site:9093, kafka-corebroker0.workshop.vayb-xokg.cloudera.site:9093`|  
-|Kerberos Keytab|Load file collected earlier from your profile|  
+|Kerberos Keytab|Load file collected earlier from your profile ![file](./images)|  
   
 Leave the default settings for Sizing and scaling, as well as the KPIs and deploy your flow.
   
