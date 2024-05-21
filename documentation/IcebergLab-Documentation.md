@@ -135,7 +135,24 @@ The Kafka broker endpoints are available on the overview page of the Datahub,on 
 Kafka Endpoints in Datahub overview
 ![Kafka Borker Endpoints](../images/Iceberg_KafkaBorkerEndpoints.png)
 
+# SSB Project
 
+Created or imported projects can be shared with other users in Streaming SQL Console. You can invite members
+using their Streaming SQL Console username and set the access level to member or administrator.
+Projects aim to provide a Software Development Lifecycle (SDLC) for streaming applications in SQL Stream Builder
+(SSB): they allow developers to think about a task they want to solve using SSB, and collect all related resources,
+such as job and table definitions or data sources in a central place.
+  
+A project is a collection of resources, static definitions of data sources, jobs with materialized views, virtual tables,
+user-defined functions (UDF), and materialized view API keys. These resources are called internal to a project and
+can be safely used by any job within the project.
+
+A project can be set up by importing a repository from a github source, which we will do here. Within the Git repository, "Project" would be pointing to a folder
+within the github repository containing the files to set up data sources, api keys and jobs within SSB. As this folder name needs to be unique, the hack for this workshop
+is that all attendees are pointing to the same git repository but pointing to pre-created folders within it named after their username.  
+  
+  
+  
 # SSB environment
  Creating an environment file for a project means that users can create a template with variables that could be used to
 store environment-specific configuration.

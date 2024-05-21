@@ -581,10 +581,9 @@ In Kafka, accessing the "Streams Messaging Light Duty" Datahub, powered by Kafka
 #### 4. Introduction to Iceberg with Sql Stream Builder  
 Once we are complete with NiFi, we will shift into Sql Stream Builder to show its capability to query Kafka with SQL,
 Infer Schema, Create Iceberg Connectors,  and use SQL to INSERT INTO an Iceberg Table.  
-Finally we will wrap up by jumping back into Hue and taking a look at the tables we created.
 
 
-Access the SSB datahub indicated by the workshop presenter and perform the below steps:
+Summary of this section:  
 
 1. Import this repo as a project in Sql Stream Builder
 2. Open your Project and have a look around at the left menu. Notice all hover tags. Explore the vast detail in Explorer menus.
@@ -607,20 +606,9 @@ You'll need:
 
 #### 4.1. Setup SSB: Project creation
   
-Before you can use Streaming SQL Console, you need to create a project where you can submit your SQL jobs and
-manage your project resources. Created or imported projects can be shared with other users in Streaming SQL Console. You can invite members
-using their Streaming SQL Console username and set the access level to member or administrator.
-Projects aim to provide a Software Development Lifecycle (SDLC) for streaming applications in SQL Stream Builder
-(SSB): they allow developers to think about a task they want to solve using SSB, and collect all related resources,
-such as job and table definitions or data sources in a central place.
-  
-A project is a collection of resources, static definitions of data sources, jobs with materialized views, virtual tables,
-user-defined functions (UDF), and materialized view API keys. These resources are called internal to a project and
-can be safely used by any job within the project.
-
-A project can be set up by importing a repository from a github source, which we will do here. Within the Git repository, "Project" would be pointing to a folder
-within the github repository containing the files to set up data sources, api keys and jobs within SSB. As this folder name needs to be unique, the hack for this workshop
-is that all attendees are pointing to the same git repository but pointing to pre-created folders within it named after their username.  
+Before you can use Streaming SQL Console, you need to create a [project](./documentation/IcebergLab-Documentation.md#ssb-project) where you can submit your SQL jobs and
+manage your project resources.  
+ 
   
 Step 1: click import with the SSB Home UI:  
 ![SSBProjectImport.png](./images/SSBProjectImport.png)  
