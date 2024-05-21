@@ -86,6 +86,56 @@ you can return the resources to the cloud.
 that comes out of the box in your CDP platform, configured and set up to handle Stream messages worklods. The Template name is `Streams Messaging Light Duty: Apache Kafka, Schema Registry, Streams Messaging Manager, Streams Replication Manager, Cruise Control`
 The SSB instance is also hosted in a datahub, template name: `Streaming Analytics Light Duty with Apache Flink`
 
+# Hive Metastore URI
+
+The hive metastore for the datalake is indicated in a configuration file which
+can be downloaded from Cloudera Manager:
+  
+Access the Management Console:  
+
+![AccessManagementConsole.png](../images/AccessManagementConsole.png)  
+
+
+Select the Datalake:  
+
+![Datalake.png](../images/Datalake.png)  
+
+
+Access the url for the Cloudera Manager of the environment:  
+
+![ClouderaManagerinfo.png](../images/ClouderaManagerinfo.png)  
+
+
+Access the Hive metastore service in Cloudera Manager: 
+
+![AccessHiveMetastoreservice.png](../images/AccessHiveMetastoreservice.png)  
+
+Download the Configuration files in a zip:  
+
+![DowloadHiveconfigurationzip.png](../images/DowloadHiveconfigurationzip.png)
+
+In the hive-conf.xml file, grab the value for the hive.metastore.uris
+![hive-conf.png](../images/hive-conf.png)  
+
+Hive Metastore URI example:
+
+`thrift://workshop-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`
+
+
+##### Collect the Kafka Broker endpoints
+
+In CDP Public Cloud, Kafka is deployed in a [Datahub](IcebergLab-Documentation.md#data-hubs), which is a step previously setup by the lab admin.
+
+![Datahubs](../images/AccessDataHub.png)  
+
+The name of the Datahub to access will be provided by the instructor.
+
+The Kafka broker endpoints are available on the overview page of the Datahub,on the bottom menu, under "Endpoints".
+
+Kafka Endpoints in Datahub overview
+![Kafka Borker Endpoints](../images/Iceberg_KafkaBorkerEndpoints.png)
+
+
 # SSB environment
  Creating an environment file for a project means that users can create a template with variables that could be used to
 store environment-specific configuration.
