@@ -566,9 +566,13 @@ Once done, you can access the flow within the Nifi Canvas by seletion "View in N
   
 In Hue, you can query the tables previously created and see the data being ingested from Nifi.
 ```SQL
-SELECT * FROM ${user_id}_airlines.`countries_nifi_iceberg`
-SELECT * FROM ${user_id}_airlines.`airports_nifi_iceberg`
-SELECT * FROM ${user_id}_airlines.`routes_nifi_iceberg`
+---Try the below command
+SELECT * FROM ${user_id}_airlines.`countries_nifi_iceberg`;
+---Or
+SELECT * FROM ${user_id}_airlines.`airports_nifi_iceberg`;
+---Or
+SELECT * FROM ${user_id}_airlines.`routes_nifi_iceberg`;
+
 ```
 In Kafka, accessing the "Streams Messaging Light Duty" Datahub, powered by Kafka, you can see the topics created by the client in the Nifi processor and the messages ingested subsequently.
 
