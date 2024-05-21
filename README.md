@@ -674,12 +674,12 @@ Then click on New Kafka Table.
   
 ![CreateKafkaTable.png](./images/CreateKafkaTable.png)
   
-Configure the Kafka Table using the details below, do this for all three tables corresponding to your kafka topics, airports, countries and routes.
-Table Name: <tablename>
-Kafka Cluster: <select the Kafka data source you created previously>.
-Data Format: JSON.
-Topic Name: <select the topic created in Schema Registry>.  
-
+Configure the Kafka Table using the details below, do this for all three tables corresponding to your kafka topics, airports, countries and routes.  
+Table Name: tablename    
+Kafka Cluster:select the Kafka data source you created previously  
+Data Format: JSON.  
+Topic Name: select the topic created in Schema Registry  
+  
 ![KafkaTableConfig.png](./images/KafkaTableConfig.png)  
     
 
