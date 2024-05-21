@@ -655,7 +655,7 @@ Create Kafka Data Store by selecting Data Sources in the left pane,
 clicking on the three-dotted icon next to Kafka, then selecting New Kafka Data Source.
 ![KafkaAddsource.png](./images/KafkaAddsource.png)  
   
-**Name**: {user-id}_cdp_kafka.  
+**Name**: {user-id}_cdp_kafka  
 **Brokers**: (Comma-separated List as shown below)
   
 Example: `kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093, 
@@ -664,8 +664,12 @@ Example: `kafka-corebroker2.workshop.vayb-xokg.cloudera.site:9093,
 **Protocol**: SASL/SSL  
 **SASL Mechanism**: KERBEROS  
 
+![createkafkaconnection](./images/createkafkaconnection.png)
+
 Click on Validate to test the connections. Once successful click on Create.
-Create Kafka Table: Create Kafka Table, by selecting Virtual Tables in the left pane by clicking on the three-dotted icon next to it.
+
+Create Kafka Table: Create Kafka Table, by selecting Virtual Tables in the left pane by clicking on the three-dotted icon next to it.  
+
 Then click on New Kafka Table.  
   
 ![CreateKafkaTable.png](./images/CreateKafkaTable.png)
