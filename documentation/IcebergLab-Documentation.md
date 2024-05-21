@@ -122,7 +122,7 @@ Hive Metastore URI example:
 `thrift://workshop-aw-dl-master0.workshop.vayb-xokg.cloudera.site:9083`
 
 
-##### Collect the Kafka Broker endpoints
+# Kafka Broker endpoints
 
 In CDP Public Cloud, Kafka is deployed in a [Datahub](IcebergLab-Documentation.md#data-hubs), which is a step previously setup by the lab admin.
 

@@ -514,7 +514,7 @@ just pick the same password as your login credentials but in a production enviro
 ![workloadpassword](./images/workloadpassword.png)
 
 
-**Get your [Kafka Endpoints]() from your presenter**
+**Get your [Kafka Endpoints](./documentation/IcebergLab-Documentation.md#kafka-broker-endpoints) from your presenter**
 
 
 **Get the [Hive Metastore URI](./documentation/IcebergLab-Documentation.md#hive-metastore-uri) from your presenter**
