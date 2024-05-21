@@ -644,7 +644,11 @@ Value: `your username`
 
 **Make sure you activate the environment**
 
-![activateenv](./images/SSBNewenvironment.png)
+![activateenv](./images/SSBActivateenv.png)
+
+#### 3.2 Setup SSB: activate your keytab
+
+![keytabinSSB](./images/KeytabinSSB.png)
   
 #### 2.Setup SSB: Create Kafka Data Store
 Create Kafka Data Store by selecting Data Sources in the left pane,
