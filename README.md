@@ -646,7 +646,14 @@ Value: `your username`
 
 ![activateenv](./images/SSBActivateenv.png)
 
+
+
 #### 3.2 Setup SSB: activate your keytab
+
+Click on the top of your screen within the SSB project "unlock keytab"
+![ssbunlockkeytab](./images/ssbunlockkeytab.png)
+
+and indicate your workload password
 
 ![keytabinSSB](./images/KeytabinSSB.png)
   
