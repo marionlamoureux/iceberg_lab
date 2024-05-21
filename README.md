@@ -637,9 +637,14 @@ _Documentation on SSB environment_ [SSB environments](./additional/ssbenvironmen
   
 The variable key the project is expecting is:
 Key: `userid`
-Value: <your username>
+Value: `your username`
 
 ![EnvrionmentSaveSSB.png](./images/EnvrionmentSaveSSB.png)
+
+
+**Make sure you activate the environment**
+
+![activateenv](./images/SSBNewenvironment.png)
   
 #### 2.Setup SSB: Create Kafka Data Store
 Create Kafka Data Store by selecting Data Sources in the left pane,
