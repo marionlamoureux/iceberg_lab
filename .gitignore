@@ -8,3 +8,6 @@
 .bash_history
 .conda/*
 .conda
+.jupyter/
+.local/
+.npm/

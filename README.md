@@ -36,13 +36,6 @@ And finally an overview of the SQL Stream Builder powered by Flink including:
     * [2.1. Loading data](##21-loading-data)  
     * [2.2. Partition evolution](22-partition-evolution)  
     * [2.3. Snapshots](##23-snapshots)  
-  * [3. Introduction to Iceberg with NiFi ](#3-introduction-to-iceberg-with-nifi)   
-    * [3.1. Setup 1 - Create the table in Hue](##31-setup-1-create-the-table-in-hue)  
-    * [3.2. Setup 2 - Collect all the configuration details](##32-setup-2-collect-all-the-configuration-details)  
-    * [3.3. Deploy the Nifi Flow](##33-deploy-the-nifi-flow)  
-  * [4. Introduction to Iceberg with Sql Stream Builder ](#4-introduction-to-iceberg-with-sql-stream-builder) 
-    * [4.1. Setup SSB: Project creation](##41-setup-ssb-project-creation)
-
 
 ### 1. Introduction to the workshop  
 **Goal of the section:   
@@ -165,6 +158,10 @@ Pay attention to the following properties:
 - SerDe Library: `org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe`
 - Location: `warehouse/tablespace/external/hive/`
 
+
+Create Table as Select (CTAS) - create new table Stored as Icerberg, using the default file format, Parquet.  
+
+
 ```SQL
 -- CREATE ICEBERG TABLE FORMAT STORED AS PARQUET
 drop table if exists ${user_id}_airlines.planes_iceberg;
@@ -172,7 +169,13 @@ drop table if exists ${user_id}_airlines.planes_iceberg;
 CREATE TABLE ${user_id}_airlines.planes_iceberg
    STORED AS ICEBERG AS
    SELECT * FROM airlines_csv.planes_csv;
+   
+```
 
+**VALUE**: combine Iceberg with Hive table formats, means you can convert to use Iceberg where it makes sense
+and also can migrate over time vs. having to migrate at the same time.
+
+```SQL
 -- CREATE ICEBERG TABLE FORMAT STORED AS PARQUET
 drop table if exists ${user_id}_airlines.flights_iceberg;
 
@@ -296,6 +299,28 @@ INSERT INTO ${user_id}_airlines_maint.flights
 ```
 
 #### 2.2. Partition evolution  
+
+**Partition Evolution Using SQL**
+This module explores partition evolution for Iceberg tables on the Cloudera Data Platform (CDP). Partitioning allows for efficient data organization and retrieval based on specific columns.
+
+**In-place Table Evolution:**
+
+This example demonstrates modifying an existing Iceberg table (`flights`) to add a new partitioning level by month within the existing year partition. The `ALTER TABLE` statement achieves this with minimal data movement, as the existing data remains indexed by year.
+
+**Impala Querying and Partitioning Benefits:**
+
+The example highlights the advantage of querying Iceberg tables with Impala, leveraging its performance capabilities. It showcases two queries, one targeting data partitioned by year only (2006) and another targeting data partitioned by year and month (2007).
+
+- **EXPLAIN PLAN** is used to analyze the query execution strategy.
+- The query targeting the year-month partition (2007) benefits from efficient scanning of a smaller data partition (month), leading to a significant performance improvement compared to the year-only partitioned data (2006).
+
+**Key Takeaways:**
+
+- Iceberg tables support in-place partition evolution.
+- Partitioning by relevant columns optimizes query performance, especially when using Impala.
+
+Remember to replace `${user_id}` with your actual user ID throughout the process.
+
   
   
 Let's look at the file size. 
