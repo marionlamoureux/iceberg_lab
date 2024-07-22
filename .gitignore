@@ -6,3 +6,5 @@
 .Rprofile
 .git-credentials
 .bash_history
+.conda/*
+.conda
