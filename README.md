@@ -13,15 +13,6 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
 - Multi-function analytics without having many copies of data  
 - Greater control  
 
-It will also give on overview of **Cloudera Data Flow** to give hands on experience of:  
-- Real-time data streaming  
-- Out of the box connection to various data sources and integration with Iceberg  
-- Easy deployment of data pipelines using no code and accelerators  
-
-And finally an overview of the SQL Stream Builder powered by Flink including:  
-- Make streaming processing accessible with simply SQL  
-- Easy integration with Iceberg  
-
 
 *Note to admins: Refer to the Setup file containing the recommendations to setup the lab*
 
@@ -321,8 +312,7 @@ The example highlights the advantage of querying Iceberg tables with Impala, lev
 
 Remember to replace `${user_id}` with your actual user ID throughout the process.
 
-  
-  
+   
 Let's look at the file size. 
 
 **In Impala**  
