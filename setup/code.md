@@ -6,7 +6,6 @@ Example: for s3://goes-se-sandbox01/airline-csv/flights/ the folder is **airline
 *Note: I couldn't make the variable work for the path because of the single quotes, TODO: figure out how this works.*
 
 
-
 ```SQL
 CREATE DATABASE airlines_csv;
 
@@ -47,6 +46,26 @@ CREATE EXTERNAL TABLE airlines_csv.unique_tickets_csv(ticketnumber BIGINT, leg1f
   leg2dayofweek BIGINT, leg2deptime BIGINT, leg2arrtime BIGINT) 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' 
 STORED AS TEXTFILE LOCATION '/<data_bucket>/unique_tickets' tblproperties("skip.header.line.count"="1");
+
+```
+
+
+Double check it worked
+```SQL
+SELECT * FROM airlines_csv.flights_csv LIMIT 10;
+
+
+
+SELECT 'flights_csv', COUNT(*) FROM airlines_csv.flights_csv
+UNION
+SELECT 'planes_csv', COUNT(*) FROM airlines_csv.planes_csv
+UNION
+SELECT 'airlines_csv', COUNT(*) FROM airlines_csv.airlines_csv
+UNION
+SELECT 'airports_csv', COUNT(*) FROM airlines_csv.airports_csv
+UNION
+SELECT 'unique_tickets_csv', COUNT(*) FROM airlines_csv.unique_tickets_csv
+
 
 ```
 

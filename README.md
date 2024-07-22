@@ -35,7 +35,8 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
 
 Access the url indicated by the presenter and indicate your credentials.
 
-_Make a note of your username, in a CDP Public Cloud workshop, it should be a account from user01 to user50, assigned by your workshop presenter._
+_Make a note of your username, in a CDP Public Cloud workshop, it should be a account from user01 to user50,
+assigned by your workshop presenter._
 
 #### 1.2. Data Set description
 
@@ -43,7 +44,8 @@ Data set for this workshop is the publicly available Airlines data set, which co
 For additional information : [Data Set Description](./documentation/IcebergLab-Documentation.md#data-set)
 
 #### 1.3. Access the data set in Cloudera Data Warehouse
-In this section, we will check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`.   
+In this section, we will check that the airlines data was ingested for you: 
+you should be able to query the master database: `airlines_csv`.   
 
 Each participant will then create their own Hive/Iceberg databases out of the shared master database.
 
@@ -81,14 +83,13 @@ CREATE DATABASE ${user_id}_airlines;
 CREATE DATABASE ${user_id}_airlines_maint;
 ```
 
-*Note: These queries use variables in Hue
+**Note on variables**: These queries use variables in Hue
 
 To set the variable value with your username, fill in the field as below:  
 
 ![Setqueryvaribale](./images/Set_variable_hue.png)  
 
-
-To run several queries in a row in Hue, make sure you select all the queries:*  
+**Note on multiple queries**: To run several queries in a row in Hue, make sure you select all the queries:   
 
 ![Hue_runqueries.png](./images/Hue_runqueries.png)  
 
