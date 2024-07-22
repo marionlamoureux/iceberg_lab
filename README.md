@@ -351,6 +351,12 @@ Remember to replace `${user_id}` with your actual user ID throughout the process
 Let's look at the file size. 
 
 **In Impala**  
+
+```SQL
+INSERT INTO ${user_id}_airlines.flights_iceberg
+ SELECT * FROM airlines_csv.flights_csv
+ WHERE year <= 2006
+```  
   
 ```SQL
 SHOW FILES in ${user_id}_airlines_maint.flights;
@@ -378,9 +384,10 @@ DESCRIBE EXTENDED  ${user_id}_airlines_maint.flights
 Ingest a month worth of data.  
   
 ```SQL
-INSERT INTO ${user_id}_airlines_maint.flights
+INSERT INTO ${user_id}_airlines.flights_iceberg
  SELECT * FROM airlines_csv.flights_csv
- WHERE year <= 1996 AND month <= 1
+ WHERE year <= 2007
+
 ```  
 
 Let's have another look:   
@@ -390,6 +397,30 @@ SHOW FILES in ${user_id}_airlines_maint.flights;
 ```  
 
 Will show the newly ingested data, note the path, folder breakdown is different from before, with the additional partitioning over month taking place.
+
+**Impala Query Iceberg Tables - engine agnostic**
+
+- First of all let’s switch to take advantage of the performance capabilities of Impala to query data for this part of the Runbook.
+
+- Execute the following in HUE for Impala VW, In the “user\_id” parameter box enter your user id
+
+```
+-- Typical analytic query patterns that need to be run
+
+-- RUN EXPLAIN PLAN ON THIS QUERY
+SELECT year, month, count(*) 
+FROM ${user_id}_airlines.flights
+WHERE year = 2006 AND month = 12
+GROUP BY year, month
+ORDER BY year desc, month asc;
+
+-- RUN EXPLAIN PLAN ON THIS QUERY; AND COMPARE RESULTS
+SELECT year, month, count(*) 
+FROM ${user_id}_airlines.flights
+WHERE year = 2007 AND month = 12
+GROUP BY year, month
+ORDER BY year desc, month asc;
+```
 
 
 #### 2.3. Snapshots
