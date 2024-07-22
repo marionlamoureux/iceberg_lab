@@ -290,7 +290,20 @@ In this Demo, we'll be exploring in-place schema evolution.
 
 In-place Schema Evolution feature - Add columns to table
 
+```SQL
+CREATE TABLE ${user_id}_airlines.airlines
+   STORED AS ICEBERG AS
+   SELECT * FROM airlines_csv.airlines_csv;
+ALTER TABLE ${user_id}_airlines.airlines ADD COLUMNS(status STRING, updated TIMESTAMP);
+```
 
+The existing table data is not modified with this statement
+Refresh the table browser to see new columns added
+
+Click on the refresh button to the right of Tables
+
+Click airlines table to see the new columns: `status` and `updated`.
+[!schema_evolution](./images/schema_evolution.png)
 
 
 #### 2.2. Partition evolution  
