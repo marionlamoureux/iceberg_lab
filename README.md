@@ -359,7 +359,7 @@ INSERT INTO ${user_id}_airlines.flights_iceberg
 ```  
   
 ```SQL
-SHOW FILES in ${user_id}_airlines_maint.flights;
+SHOW FILES in ${user_id}_airlines.flights_iceberg;
 ```  
 
 **For reference only**, you can check out other ways to run that command: [pyspark](documentation/IcebergLab-Documentation.md#pyspark)
@@ -370,12 +370,12 @@ Also note the path and folder structure: a folder is a partition, a file is an i
 Now, let's alter the table, adding a partition on the month on top of the year.  
 
 ```SQL
-ALTER TABLE ${user_id}_airlines_maint.flights SET PARTITION SPEC (year, month);
+ALTER TABLE ${user_id}_airlines.flights_iceberg SET PARTITION SPEC (year, month);
 ```  
   
 Check the partition fields in the table properties
 ```SQL
-DESCRIBE EXTENDED  ${user_id}_airlines_maint.flights
+DESCRIBE EXTENDED ${user_id}_airlines.flights_iceberg;
 ```
 
 ![Partitionkeys](./images/Partitionkeys.png)  
@@ -386,14 +386,13 @@ Ingest a month worth of data.
 ```SQL
 INSERT INTO ${user_id}_airlines.flights_iceberg
  SELECT * FROM airlines_csv.flights_csv
- WHERE year <= 2007
-
+ WHERE year = 2007;
 ```  
 
 Let's have another look:   
   
 ```SQL
-SHOW FILES in ${user_id}_airlines_maint.flights;
+SHOW FILES in ${user_id}_airlines.flights_iceberg;
 ```  
 
 Will show the newly ingested data, note the path, folder breakdown is different from before, with the additional partitioning over month taking place.
@@ -409,19 +408,27 @@ Will show the newly ingested data, note the path, folder breakdown is different 
 
 -- RUN EXPLAIN PLAN ON THIS QUERY
 SELECT year, month, count(*) 
-FROM ${user_id}_airlines.flights
+FROM ${user_id}_airlines.flights_iceberg
 WHERE year = 2006 AND month = 12
 GROUP BY year, month
 ORDER BY year desc, month asc;
 
 -- RUN EXPLAIN PLAN ON THIS QUERY; AND COMPARE RESULTS
 SELECT year, month, count(*) 
-FROM ${user_id}_airlines.flights
+FROM ${user_id}_airlines.flights_iceberg
 WHERE year = 2007 AND month = 12
 GROUP BY year, month
 ORDER BY year desc, month asc;
 ```
 
+* Highlight the first “SELECT” statement to the “;” and click on the and select EXPLAIN. 
+Scroll down to the bottom of the Explain tab  
+![Explain1_yearpartition](./images/Explain1_yearpartition.png)
+
+
+![PartitionperYear](./images/PartitionperYear.png)
+
+![PartitionperMonth](./images/PartitionperMonth.png)
 
 #### 2.3. Snapshots
 
