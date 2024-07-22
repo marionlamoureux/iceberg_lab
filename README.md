@@ -18,15 +18,15 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
 
 ## TABLE OF CONTENT
   * [1. Introduction to the workshop](#1-introduction-to-the-workshop)  
-    * [1.1. Logging in](##11-logging-in)  
-    * [1.2. Data Set](##11-data-set)   
-    * [1.3. Access the data set in Cloudera Data Warehouse](##13-access-the-data-set-in-cloudera-data-warehouse)  
-    * [1.4. Generating the Iceberg tables](##14-generating-the-iceberg-tables)   
-    * [1.5. Loading data](##15-loading-data)  
-  * [2. Features of Iceberg](#2-Featured-of-Iceberg) 
-    * [2.1. Schema evolution](22-schema-evolution)     
-    * [2.2. Partition evolution](22-partition-evolution)  
-    * [2.3. Snapshots](##23-snapshots)  
+    * [1.1. Logging in](#11-logging-in)  
+    * [1.2. Data Set](#12-data-set-description)   
+    * [1.3. Access the data set in Cloudera Data Warehouse](#13-access-the-data-set-in-cloudera-data-warehouse)  
+    * [1.4. Generating the Iceberg tables](#14-generating-the-iceberg-tables)   
+    * [1.5. Loading data](#15-loading-data)  
+  * [2. Features of Iceberg](#2-features-of-iceberg)  
+    * [2.1. Schema evolution](#21-schema-evolution)     
+    * [2.2. Partition evolution](#22-partition-evolution)  
+    * [2.3. Snapshots](#23-snapshots)  
 
 ### 1. Introduction to the workshop  
 **Goal of the section**: Check the dataset made available in a database in a csv format and store it all as Iceberg.  
@@ -285,7 +285,11 @@ INSERT INTO ${user_id}_airlines_maint.flights
 ### 2. Features of Iceberg
 
 #### 2.1. Schema evolution
+In this Demo, we'll be exploring in-place schema evolution.
 
+In-place Schema Evolution feature - Add columns to table
+
+Execute the folling in HUE for the Hive VW
 
 
 #### 2.2. Partition evolution  
