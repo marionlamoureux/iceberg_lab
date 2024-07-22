@@ -298,12 +298,30 @@ ALTER TABLE ${user_id}_airlines.airlines ADD COLUMNS(status STRING, updated TIME
 ```
 
 The existing table data is not modified with this statement
-Refresh the table browser to see new columns added
+* Refresh the table browser to see new columns added
 
-Click on the refresh button to the right of Tables
+* Click on the refresh button to the right of Tables
 
-Click airlines table to see the new columns: `status` and `updated`.
+* Click airlines table to see the new columns: `status` and `updated`.
 [!schema_evolution](./images/schema_evolution.png)
+
+
+* Add data into the new schema for `airlines` table
+
+```SQL
+INSERT INTO ${user_id}_airlines.airlines
+VALUES("Z999","Adrenaline Airways","NEW",now());
+```
+
+* Query `airlines` table to see old and new schema data
+
+```SQL
+SELECT * FROM ${user_id}_airlines.airlines WHERE code > "Z";
+```
+- As you scroll through the results you will see the 2 columns that we added will contain "NULL" values for the data
+that was already in the table and the new record we inserted will have value in the new columns `status` and `updated`.  
+
+[!SchemaEvolution_View_Results.png](./images/SchemaEvolution_View_Results.png)  
 
 
 #### 2.2. Partition evolution  
