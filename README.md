@@ -100,7 +100,7 @@ To set the variable value with your username, fill in the field as below:
 
 ```SQL
 -- CREATE HIVE TABLE FORMAT TO CONVERT TO ICEBERG LATER
-drop table if exists ${user_id}_airlines.planes;
+DROP TABLE if exists ${user_id}_airlines.planes;
 
 CREATE TABLE ${user_id}_airlines.planes (
   tailnum STRING, owner_type STRING, manufacturer STRING, issue_date STRING,
@@ -113,13 +113,13 @@ INSERT INTO ${user_id}_airlines.planes
   SELECT * FROM airlines_csv.planes_csv;
 
 -- HIVE TABLE FORMAT TO USE CTAS TO CONVERT TO ICEBERG
-drop table if exists ${user_id}_airlines.airports_hive;
+DROP TABLE if exists ${user_id}_airlines.airports_hive;
 
 CREATE TABLE ${user_id}_airlines.airports_hive
    AS SELECT * FROM airlines_csv.airports_csv;
 
 -- HIVE TABLE FORMAT
-drop table if exists ${user_id}_airlines.unique_tickets;
+DROP TABLE if exists ${user_id}_airlines.unique_tickets;
 
 CREATE TABLE ${user_id}_airlines.unique_tickets (
   ticketnumber BIGINT, leg1flightnum BIGINT, leg1uniquecarrier STRING,
@@ -152,7 +152,7 @@ Create Table as Select (CTAS) - create new table Stored as Icerberg, using the d
 
 ```SQL
 -- CREATE ICEBERG TABLE FORMAT STORED AS PARQUET
-drop table if exists ${user_id}_airlines.planes_iceberg;
+DROP TABLE if exists ${user_id}_airlines.planes_iceberg;
 
 CREATE TABLE ${user_id}_airlines.planes_iceberg
    STORED AS ICEBERG AS
@@ -165,7 +165,7 @@ and also can migrate over time vs. having to migrate at the same time.
 
 ```SQL
 -- CREATE ICEBERG TABLE FORMAT STORED AS PARQUET
-drop table if exists ${user_id}_airlines.flights_iceberg;
+DROP TABLE if exists ${user_id}_airlines.flights_iceberg;
 
 CREATE TABLE ${user_id}_airlines.flights_iceberg (
  month int, dayofmonth int, 
