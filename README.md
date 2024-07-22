@@ -13,7 +13,6 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
 - Multi-function analytics without having many copies of data  
 - Greater control  
 
-
 *Note to admins: Refer to the Setup file containing the recommendations to setup the lab*
 
 
@@ -23,8 +22,9 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
     * [1.2. Data Set](##11-data-set)   
     * [1.3. Access the data set in Cloudera Data Warehouse](##13-access-the-data-set-in-cloudera-data-warehouse)  
     * [1.4. Generating the Iceberg tables](##14-generating-the-iceberg-tables)   
-  * [2. Table Maintenance in Iceberg](#2-table-maintenance-in-Iceberg)  
-    * [2.1. Loading data](##21-loading-data)  
+    * [1.5. Loading data](##15-loading-data)  
+  * [2. Features of Iceberg](#2-Featured-of-Iceberg) 
+    * [2.1. Partition evolution](22-schema-evolution)     
     * [2.2. Partition evolution](22-partition-evolution)  
     * [2.3. Snapshots](##23-snapshots)  
 
@@ -199,8 +199,6 @@ You now have your own database you can run the below queries over:
 ![AirlinesDB](./images/AirlinesDB.png)
 
 
-### 2. Table Maintenance in Iceberg
-
 In this section, we will load data in Iceberg format and demonstrate a few key maintenance features of Iceberg.
 
 #### 2.1. Loading data
@@ -283,6 +281,12 @@ INSERT INTO ${user_id}_airlines_maint.flights
 INSERT INTO ${user_id}_airlines_maint.flights
  SELECT * FROM airlines_csv.flights_csv WHERE year = 1996 AND month = 12;
 ```
+
+### 2. Features of Iceberg
+
+#### 2.1. Schema evolution
+
+
 
 #### 2.2. Partition evolution  
 
