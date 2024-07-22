@@ -303,7 +303,7 @@ The existing table data is not modified with this statement
 * Click on the refresh button to the right of Tables
 
 * Click airlines table to see the new columns: `status` and `updated`.
-[!schema_evolution](./images/schema_evolution.png)
+![schema_evolution](./images/schema_evolution.png)
 
 
 * Add data into the new schema for `airlines` table
@@ -321,7 +321,7 @@ SELECT * FROM ${user_id}_airlines.airlines WHERE code > "Z";
 - As you scroll through the results you will see the 2 columns that we added will contain "NULL" values for the data
 that was already in the table and the new record we inserted will have value in the new columns `status` and `updated`.  
 
-[!SchemaEvolution_View_Results.png](./images/SchemaEvolution_View_Results.png)  
+![SchemaEvolution_View_Results.png](./images/SchemaEvolution_View_Results.png)  
 
 
 #### 2.2. Partition evolution  
