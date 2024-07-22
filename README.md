@@ -24,7 +24,7 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
     * [1.4. Generating the Iceberg tables](##14-generating-the-iceberg-tables)   
     * [1.5. Loading data](##15-loading-data)  
   * [2. Features of Iceberg](#2-Featured-of-Iceberg) 
-    * [2.1. Partition evolution](22-schema-evolution)     
+    * [2.1. Schema evolution](22-schema-evolution)     
     * [2.2. Partition evolution](22-partition-evolution)  
     * [2.3. Snapshots](##23-snapshots)  
 
@@ -201,7 +201,7 @@ You now have your own database you can run the below queries over:
 
 In this section, we will load data in Iceberg format and demonstrate a few key maintenance features of Iceberg.
 
-#### 2.1. Loading data
+#### 1.5. Loading data
 
 Under the 'maintenance' database, let's load the flight table partitioned by year.  
 
