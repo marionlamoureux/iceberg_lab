@@ -29,14 +29,13 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
     * [2.3. Snapshots](##23-snapshots)  
 
 ### 1. Introduction to the workshop  
-**Goal of the section:   
-Check the dataset made available in a database in a csv format and store it all as Iceberg.** 
+**Goal of the section**: Check the dataset made available in a database in a csv format and store it all as Iceberg.  
 
 #### 1.1. Logging in
 
 Access the url indicated by the presenter and indicate your credentials.
 
-_Make a note of your username, in a CDP Public Cloud workshop, it should be a account from user01 to user50, assigned by your workshop presenter. It will be useful during the lab._
+_Make a note of your username, in a CDP Public Cloud workshop, it should be a account from user01 to user50, assigned by your workshop presenter._
 
 #### 1.2. Data Set description
 
@@ -46,19 +45,19 @@ For additional information : [Data Set Description](./documentation/IcebergLab-D
 #### 1.3. Access the data set in Cloudera Data Warehouse
 In this section, we will check that the airlines data was ingested for you: you should be able to query the master database: `airlines_csv`.   
 
-Each participant will then create their own Iceberg databases out of the shared master database.
-
+Each participant will then create their own Hive/Iceberg databases out of the shared master database.
 
 Navigate to Data Warehouse service:
   
 ![Home_CDW](./images/home_cdw.png)
 
-Then choose an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW, here we'll be using the type that leverages **Impala** as an engine:  
+Then choose an **Impala** Virtual Warehouse and open the SQL Authoring tool HUE. There are two types of virtual warehouses you can create in CDW,
+here we'll be using the type that leverages **Impala** as an engine:  
 
 ![Typesofvirtualwarehouses.png](./images/ImpalaVW.png)  
 
 
-Execute the following in **HUE** Impala Editor to test that data has loaded correctly and that you have the appropriate access.   
+Execute the following in **HUE** Impala Editor to test that data has loaded correctly in the mastwr database in a csv format and that you have the appropriate access.   
   
 ```SQL
 SELECT COUNT(*) FROM airlines_csv.flights_csv; 
@@ -67,13 +66,12 @@ SELECT COUNT(*) FROM airlines_csv.flights_csv;
 **Expected output**  
 ![Hue Editor](./images/Hue_editor.png)
 
-
   
 #### 1.4. Generating the Iceberg tables
 
 In this section, we will generate the Iceberg database from the pre-ingested csv tables.   
 
-**Run the below queries to create your own databases and ingest data from the master database**  
+**Run the below queries to create your own databases to then ingest data from the master database,**  
   
 
 ```SQL
@@ -95,10 +93,8 @@ To run several queries in a row in Hue, make sure you select all the queries:*
 ![Hue_runqueries.png](./images/Hue_runqueries.png)  
 
 
-
   
-**Once the database is created, create the Hive tables first**  
-
+**Once the database is created, create the Hive tables first and insert the data with a CTAS command.**  
 
 
 ```SQL
@@ -144,7 +140,7 @@ Copy & paste the SQL below into HUE
 DESCRIBE FORMATTED ${user_id}_airlines.planes;
 ```  
 
-Pay attention to the following properties: 
+Pay attention to the following properties of your Hive table: 
 - Table Type: `EXTERNAL`
 - SerDe Library: `org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe`
 - Location: `warehouse/tablespace/external/hive/`
@@ -184,7 +180,6 @@ PARTITIONED BY (year int)
 STORED AS ICEBERG 
 ;
 ```
-
 
 Copy & paste the SQL below into HUE
 
