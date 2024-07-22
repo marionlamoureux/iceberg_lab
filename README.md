@@ -290,7 +290,7 @@ In this Demo, we'll be exploring in-place schema evolution.
 
 In-place Schema Evolution feature - Add columns to table
 
-Execute the folling in HUE for the Hive VW
+
 
 
 #### 2.2. Partition evolution  

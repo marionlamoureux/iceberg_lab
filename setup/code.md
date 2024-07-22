@@ -69,3 +69,4 @@ SELECT 'unique_tickets_csv', COUNT(*) FROM airlines_csv.unique_tickets_csv
 
 ```
 
+[!setup](./images/setup.png)
