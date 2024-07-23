@@ -1,4 +1,4 @@
-# Iceberg and SQL Stream Builder Lab
+# Iceberg
 
 ## Summary
 This workshop will take you through the new capabilities that have been added to CDP Public Cloud Lakehouse and into the various features of the Sql stream builder.
@@ -30,6 +30,7 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
   * [3. Table Maintenance and Performance Optimization in Iceberg](#3-snapshots)
     * [3.1. Expiring Snapshots](#31-expiring-snapshots) 
     * [3.2. Materialized Views](#32-materialized-views) 
+    
 
 ### 1. Introduction to the workshop  
 **Goal of the section**: Check the dataset made available in a database in a csv format and store it all as Iceberg.  
