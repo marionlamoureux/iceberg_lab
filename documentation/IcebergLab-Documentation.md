@@ -77,15 +77,15 @@ Impala uses only the MOR method. Impala does not support copy-on-write and will 
 
 **When to use COW or MOR**
 Set either COW or MOR based on your use case and rate of data change. Consider the following advantages and disadvantages of the modes:  
-
-* **MOR**
+  
+**MOR**
 - Writes are efficient.
 - Reads are inefficient due to read amplification, but regularly scheduled compaction can reduce inefficiency.
 - A good choice when streaming.
 - A good choice when frequently writing or updating, such as running hourly batch jobs.
 - A good choice when the percentage of data change is low.
-
-* **COW**
+  
+**COW**
 - Reads are efficient.
 - A good choice for bulk updates and deletes, such as running a daily batch job.
 - Writes are inefficient due to write amplification, but the need for compaction is reduced.
