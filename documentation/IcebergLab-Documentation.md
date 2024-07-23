@@ -75,6 +75,20 @@ Depending on the COW or MOR setting, **Hive** performs updates and deletes to Ic
 - MOR (default): Updates/deletes are logged to delta files, which tends to be faster than creating new versions of the files. Later a compaction can eliminate the delete files and rewrite the affected data files.
 Impala uses only the MOR method. Impala does not support copy-on-write and will fail if configured for copy-on-write. Impala does support reading copy on write tables.
 
+**When to use COW or MOR**
+Set either COW or MOR based on your use case and rate of data change. Consider the following advantages and disadvantages of the modes:
+**MOR**
+- Writes are efficient.
+- Reads are inefficient due to read amplification, but regularly scheduled compaction can reduce inefficiency.
+- A good choice when streaming.
+- A good choice when frequently writing or updating, such as running hourly batch jobs.
+- A good choice when the percentage of data change is low.
+
+**COW**
+- Reads are efficient.
+- A good choice for bulk updates and deletes, such as running a daily batch job.
+- Writes are inefficient due to write amplification, but the need for compaction is reduced.
+- A good choice when the percentage of data change is high.
 
 # Data hubs
 
