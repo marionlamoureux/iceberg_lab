@@ -516,3 +516,23 @@ Hive supports the copy-on-write (COW) as well as merge-on-read (MOR) modes for h
 Impala supports only the MOR mode and will fail if configured for copy-on-write. Impala does support reading copy-on-write tables.
 
 [More info on Row Level Operations](./documentation/IcebergLab-Documentation.md#row-level-operations)
+
+
+**Note on table maintenance**
+
+You can expire snapshots of an Iceberg table using an ALTER TABLE query.
+Enter a query to expire snapshots older than the following timestamp: `2021-12-09 05:39:18.689000000`
+
+```SQL
+ALTER TABLE test_table EXECUTE EXPIRE_SNAPSHOTS('2021-12-09 05:39:18.689000000');
+---Enter a query to expire snapshots having between December 10, 2022 and November 8, 2023.
+ALTER TABLE test_table EXECUTE EXPIRE_SNAPSHOTS BETWEEN ('2022-12-10 00:00:00.000000000') AND ('2023-11-08 00:00:00.000000000');
+```
+
+You can also expire snapshots using a single snapshot ID or a list of IDs. For more information, see the "Expiring Snapshots Feature" topic.
+[About Expiring Snapshots](./documentation/IcebergLab-Documentation.md#expiring-snapshots)
+
+
+
+
+

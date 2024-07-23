@@ -90,6 +90,17 @@ Set either COW or MOR based on your use case and rate of data change. Consider t
 - Writes are inefficient due to write amplification, but the need for compaction is reduced.
 - A good choice when the percentage of data change is high.
 
+
+
+# Expiring Snapshots
+
+You should periodically expire snapshots to delete data files that are no longer needed, and reduce the size of table metadata.
+
+Each write to an Iceberg table creates a new snapshot, or version, of a table. 
+You can use snapshots for time-travel queries, or to roll back a table to a valid snapshot. 
+Snapshots accumulate until they are expired by the expire_snapshots operation.
+
+
 # Data hubs
 
 ata Hub is a service for launching and managing workload clusters powered by Cloudera Runtime 
