@@ -511,8 +511,8 @@ WHERE year = ${year}
   AND tailnum = '${tailnum}'
   AND deptime = ${deptime};
 ```
-** Note on Row Level Operations**: 
+**Note on Row Level Operations**
 Hive supports the copy-on-write (COW) as well as merge-on-read (MOR) modes for handling Iceberg row-level updates and deletes. 
 Impala supports only the MOR mode and will fail if configured for copy-on-write. Impala does support reading copy-on-write tables.
 
-![More info on Row Level Operations](./documentation/IcebergLab-Documentation.md#row-level-operations)
+[More info on Row Level Operations](./documentation/IcebergLab-Documentation.md#row-level-operations)
