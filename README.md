@@ -532,6 +532,25 @@ ALTER TABLE test_table EXECUTE EXPIRE_SNAPSHOTS BETWEEN ('2022-12-10 00:00:00.00
 You can also expire snapshots using a single snapshot ID or a list of IDs. For more information, see the "Expiring Snapshots Feature" topic.
 [About Expiring Snapshots](./documentation/IcebergLab-Documentation.md#expiring-snapshots)
 
+** Note on Materialized Views**
 
+**Only supported in Hive Virtual Warehouses**
+Using a materialized view can accelerate query execution. The materialized view is stored in Hive ACID or Iceberg format. Materialized view source tables either must be native ACID tables or must support table snapshots. Automatic rewriting of a materialized view occurs under the following conditions:
+The view definition contains the following operators only:
+- TableScan
+- Project
+- Filter
+- Join(inner)
+- Aggregate
+- Source tables are native ACID or Iceberg v1 or v2
+
+The view is not based on time travel queries because those views do not have up-to-date data by definition.
+
+```SQL
+CREATE materialized view flight1 as
+SELECT DISTINCT(month) from ${user_id}_airlines_maint.flights;
+
+SELECT * FROM flight1;
+```
 
 
