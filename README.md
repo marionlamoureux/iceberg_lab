@@ -26,7 +26,10 @@ Take advantage of Iceberg - **CDP Open Data Lakehouse**, to experience:
   * [2. Features of Iceberg](#2-features-of-iceberg)  
     * [2.1. Schema evolution](#21-schema-evolution)     
     * [2.2. Partition evolution](#22-partition-evolution)  
-    * [2.3. Snapshots](#23-snapshots)  
+    * [2.3. Snapshots](#23-snapshots) 
+  * [3. Table Maintenance and Performance Optimization in Iceberg](#3-snapshots)
+    * [3.1. Expiring Snapshots](#31-expiring-snapshots) 
+    * [3.2. Materialized Views](#32-materialized-views) 
 
 ### 1. Introduction to the workshop  
 **Goal of the section**: Check the dataset made available in a database in a csv format and store it all as Iceberg.  
@@ -518,7 +521,8 @@ Impala supports only the MOR mode and will fail if configured for copy-on-write.
 [More info on Row Level Operations](./documentation/IcebergLab-Documentation.md#row-level-operations)
 
 
-**Note on table maintenance**
+### 3. Table Maintenance and Performance Optimization in Iceberg  
+#### 3.1. Expiring Snapshots  
 
 You can expire snapshots of an Iceberg table using an ALTER TABLE query.
 Enter a query to expire snapshots older than the following timestamp: `2021-12-09 05:39:18.689000000`
@@ -532,7 +536,8 @@ ALTER TABLE test_table EXECUTE EXPIRE_SNAPSHOTS BETWEEN ('2022-12-10 00:00:00.00
 You can also expire snapshots using a single snapshot ID or a list of IDs. For more information, see the "Expiring Snapshots Feature" topic.
 [About Expiring Snapshots](./documentation/IcebergLab-Documentation.md#expiring-snapshots)
 
-** Note on Materialized Views**
+
+#### 3.2. Materialized Views
 
 **Only supported in Hive Virtual Warehouses**
 Using a materialized view can accelerate query execution. The materialized view is stored in Hive ACID or Iceberg format. Materialized view source tables either must be native ACID tables or must support table snapshots. Automatic rewriting of a materialized view occurs under the following conditions:
