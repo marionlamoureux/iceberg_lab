@@ -67,6 +67,15 @@ When you first start using CDP.
 When your password expires. This may or may not happen depending on your company's policies. If your password does expire, you will see a banner notification on the CDP web interface 10 days before the expiry date.
 You can also see on your user’s profile page the state of your workload password (if it expires soon or cannot yet be changed).
 
+
+# Row Level Operations
+
+Depending on the COW or MOR setting, **Hive** performs updates and deletes to Iceberg tables as follows:
+- COW: Hive creates a new version of files for each update/delete. Use COW when updating/deleting a large number of rows, or when reading data frequently.
+- MOR (default): Updates/deletes are logged to delta files, which tends to be faster than creating new versions of the files. Later a compaction can eliminate the delete files and rewrite the affected data files.
+Impala uses only the MOR method. Impala does not support copy-on-write and will fail if configured for copy-on-write. Impala does support reading copy on write tables.
+
+
 # Data hubs
 
 ata Hub is a service for launching and managing workload clusters powered by Cloudera Runtime 
@@ -172,4 +181,3 @@ configurations that you do not want to expose to the Git repository.
 When you select Data Format as AVRO, you must provide the correct Schema Definition when creating the table for SSB to be able to successfully process the topic data. For JSON tables, though, SSB can look at the data flowing through the topic and try to infer the schema automatically, which is quite handy at times. Obviously, there must be data in the topic already for this feature to work correctly.
 
 Note: SSB tries its best to infer the schema correctly, but this is not always possible and sometimes data types are inferred incorrectly. You should always review the inferred schemas to check if it’s correctly inferred and make the necessary adjustments.
-

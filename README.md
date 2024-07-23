@@ -461,7 +461,7 @@ SELECT * FROM ${user_id}_airlines_maint.flights FOR SYSTEM_VERSION AS OF ${snaps
 Snapshot id format looks like:
 `3916175409400584430` **with no quotes**
 
-#### 3. ACID V2
+#### 2.4. ACID
 
 Here we'll show the commands that could be run concomitantly thanks to [ACID](./documentation/IcebergLab-Documentation.md#acid) in Iceberg
 Let's update a row.  
@@ -487,7 +487,6 @@ WHERE year = ${year}
   AND deptime = ${deptime};
 ```
 
-
 As Iceberg table are created as V1 by default, 
 you will be able to migrate the table from Iceberg V1 to V2 using the below query:
 ```SQL
@@ -512,10 +511,8 @@ WHERE year = ${year}
   AND tailnum = '${tailnum}'
   AND deptime = ${deptime};
 ```
+** Note on Row Level Operations**: 
+Hive supports the copy-on-write (COW) as well as merge-on-read (MOR) modes for handling Iceberg row-level updates and deletes. 
+Impala supports only the MOR mode and will fail if configured for copy-on-write. Impala does support reading copy-on-write tables.
 
-The following labs will take you through various aspects of CDP Public Cloud to enable you on what will be available to support Data Lakehouse use cases. 
-CDP Public Cloud now includes support for Apache Iceberg in the following services: Impala, Hive, Flink, Sql Stream Builder (SSB), Spark 3, NiFi, and Replication Manager (BDR).
-  
-This makes Cloudera the only vendor to support Iceberg in a multi-hybrid cloud environment. 
-Users can develop an Iceberg application once and deploy anywhere.  
-
+![More info on Row Level Operations](./documentation/IcebergLab-Documentation.md#row-level-operations)
